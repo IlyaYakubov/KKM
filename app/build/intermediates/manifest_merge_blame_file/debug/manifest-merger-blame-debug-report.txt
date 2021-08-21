@@ -1,0 +1,355 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="kg.printer.kkm"
+4    android:versionCode="5"
+5    android:versionName="1.1.6" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.BLUETOOTH" />
+11-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:6:5-68
+11-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:6:22-65
+12    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+12-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:7:5-74
+12-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:7:22-71
+13    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+13-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:8:5-79
+13-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:8:22-76
+14    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+14-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:9:5-76
+14-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:9:22-73
+15    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+15-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:10:5-76
+15-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:10:22-73
+16    <uses-permission android:name="android.permission.WAKE_LOCK" />
+16-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:11:5-68
+16-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:11:22-65
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:12:5-79
+17-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:12:22-76
+18    <uses-permission android:name="android.permission.INTERNET" />
+18-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:13:5-67
+18-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:13:22-64
+19    <uses-permission android:name="android.permission.CAMERA" />
+19-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:14:5-65
+19-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:14:22-62
+20    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+20-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:15:5-81
+20-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:15:22-78
+21    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+21-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:16:5-18:47
+21-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:17:9-68
+22    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+22-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:19:5-81
+22-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:19:22-78
+23    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+23-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:20:5-75
+23-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:20:22-72
+24    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+24-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:21:5-80
+24-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:21:22-77
+25
+26    <application
+26-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:23:5-197:19
+27        android:name="kg.printer.kkm.app.BaseApplication"
+27-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:24:9-58
+28        android:allowBackup="true"
+28-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:25:9-35
+29        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+29-->[com.android.support:support-compat:28.0.0] C:\Users\Ilya\.gradle\caches\transforms-2\files-2.1\f14724208b5bfeeef0d6bdefe649bca7\support-compat-28.0.0\AndroidManifest.xml:22:18-91
+30        android:debuggable="true"
+31        android:icon="@mipmap/ic_launcher"
+31-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:26:9-43
+32        android:label="@string/app_name"
+32-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:27:9-41
+33        android:supportsRtl="true"
+33-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:28:9-35
+34        android:testOnly="true" >
+35        <activity
+35-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:30:9-39:20
+36            android:name="kg.printer.kkm.activity.MainActivity"
+36-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:31:13-50
+37            android:screenOrientation="portrait"
+37-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:32:13-49
+38            android:theme="@style/AppTheme"
+38-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:33:13-44
+39            android:windowSoftInputMode="stateHidden" >
+39-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:34:13-54
+40            <intent-filter>
+40-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:35:13-38:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:36:17-69
+41-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:36:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:37:17-77
+43-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:37:27-74
+44            </intent-filter>
+45        </activity>
+46        <activity
+46-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:41:9-45:57
+47            android:name="kg.printer.kkm.activity.MainWindowActivity"
+47-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:42:13-56
+48            android:screenOrientation="portrait"
+48-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:43:13-49
+49            android:theme="@style/AppTheme"
+49-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:44:13-44
+50            android:windowSoftInputMode="stateHidden" />
+50-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:45:13-54
+51        <activity
+51-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:47:9-51:57
+52            android:name="kg.printer.kkm.activity.retial.OperationsActivity"
+52-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:48:13-63
+53            android:screenOrientation="portrait"
+53-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:49:13-49
+54            android:theme="@style/AppTheme"
+54-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:50:13-44
+55            android:windowSoftInputMode="stateHidden" />
+55-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:51:13-54
+56        <activity
+56-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:53:9-57:57
+57            android:name="kg.printer.kkm.activity.retial.SelectionForSaleActivity"
+57-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:54:13-69
+58            android:screenOrientation="portrait"
+58-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:55:13-49
+59            android:theme="@style/AppTheme"
+59-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:56:13-44
+60            android:windowSoftInputMode="stateHidden" />
+60-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:57:13-54
+61        <activity
+61-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:59:9-63:57
+62            android:name="kg.printer.kkm.activity.retial.AddingGoodActivity"
+62-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:60:13-63
+63            android:screenOrientation="portrait"
+63-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:61:13-49
+64            android:theme="@style/AppTheme"
+64-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:62:13-44
+65            android:windowSoftInputMode="stateHidden" />
+65-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:63:13-54
+66        <activity
+66-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:65:9-69:57
+67            android:name="kg.printer.kkm.activity.money.CashActivity"
+67-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:66:13-56
+68            android:screenOrientation="portrait"
+68-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:67:13-49
+69            android:theme="@style/AppTheme"
+69-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:68:13-44
+70            android:windowSoftInputMode="stateHidden" />
+70-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:69:13-54
+71        <activity
+71-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:71:9-75:57
+72            android:name="kg.printer.kkm.activity.SettingsActivity"
+72-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:72:13-54
+73            android:screenOrientation="portrait"
+73-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:73:13-49
+74            android:theme="@style/AppTheme"
+74-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:74:13-44
+75            android:windowSoftInputMode="stateHidden" />
+75-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:75:13-54
+76        <activity
+76-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:77:9-81:57
+77            android:name="kg.printer.kkm.activity.print.PrinterActivity"
+77-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:78:13-59
+78            android:screenOrientation="portrait"
+78-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:79:13-49
+79            android:theme="@style/AppTheme"
+79-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:80:13-44
+80            android:windowSoftInputMode="stateHidden" />
+80-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:81:13-54
+81        <activity
+81-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:83:9-87:57
+82            android:name="kg.printer.kkm.activity.print.CmdTestActivity"
+82-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:84:13-59
+83            android:screenOrientation="portrait"
+83-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:85:13-49
+84            android:theme="@style/AppTheme"
+84-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:86:13-44
+85            android:windowSoftInputMode="stateHidden" />
+85-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:87:13-54
+86        <activity
+86-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:89:9-93:57
+87            android:name="kg.printer.kkm.activity.print.TextPrintActivity"
+87-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:90:13-61
+88            android:screenOrientation="portrait"
+88-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:91:13-49
+89            android:theme="@style/AppTheme"
+89-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:92:13-44
+90            android:windowSoftInputMode="stateHidden" />
+90-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:93:13-54
+91        <activity
+91-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:95:9-99:57
+92            android:name="kg.printer.kkm.kkm.activity.ImagePrintActivity"
+92-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:96:13-60
+93            android:screenOrientation="portrait"
+93-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:97:13-49
+94            android:theme="@style/AppTheme"
+94-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:98:13-44
+95            android:windowSoftInputMode="stateHidden" />
+95-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:99:13-54
+96        <activity
+96-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:101:9-105:57
+97            android:name="kg.printer.kkm.activity.print.BarcodeActivity"
+97-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:102:13-59
+98            android:screenOrientation="portrait"
+98-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:103:13-49
+99            android:theme="@style/AppTheme"
+99-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:104:13-44
+100            android:windowSoftInputMode="stateHidden" />
+100-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:105:13-54
+101        <activity
+101-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:107:9-111:57
+102            android:name="kg.printer.kkm.activity.print.BarcodePrintActivity"
+102-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:108:13-64
+103            android:screenOrientation="portrait"
+103-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:109:13-49
+104            android:theme="@style/AppTheme"
+104-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:110:13-44
+105            android:windowSoftInputMode="stateHidden" />
+105-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:111:13-54
+106        <activity
+106-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:113:9-117:57
+107            android:name="kg.printer.kkm.activity.print.TempletPrintActivity"
+107-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:114:13-64
+108            android:screenOrientation="portrait"
+108-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:115:13-49
+109            android:theme="@style/AppTheme"
+109-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:116:13-44
+110            android:windowSoftInputMode="stateHidden" />
+110-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:117:13-54
+111        <activity
+111-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:119:9-123:57
+112            android:name="kg.printer.kkm.activity.print.WifiSettingActivity"
+112-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:120:13-63
+113            android:screenOrientation="portrait"
+113-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:121:13-49
+114            android:theme="@style/AppTheme"
+114-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:122:13-44
+115            android:windowSoftInputMode="stateHidden" />
+115-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:123:13-54
+116        <activity
+116-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:125:9-129:57
+117            android:name="kg.printer.kkm.activity.print.WifiIpDhcpSettingActivity"
+117-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:126:13-69
+118            android:screenOrientation="portrait"
+118-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:127:13-49
+119            android:theme="@style/AppTheme"
+119-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:128:13-44
+120            android:windowSoftInputMode="stateHidden" />
+120-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:129:13-54
+121        <activity
+121-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:131:9-135:57
+122            android:name="kg.printer.kkm.activity.ListUsersActivity"
+122-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:132:13-55
+123            android:screenOrientation="portrait"
+123-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:133:13-49
+124            android:theme="@style/AppTheme"
+124-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:134:13-44
+125            android:windowSoftInputMode="stateHidden" />
+125-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:135:13-54
+126        <activity
+126-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:137:9-141:57
+127            android:name="kg.printer.kkm.activity.ListGoodsActivity"
+127-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:138:13-55
+128            android:screenOrientation="portrait"
+128-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:139:13-49
+129            android:theme="@style/AppTheme"
+129-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:140:13-44
+130            android:windowSoftInputMode="stateHidden" />
+130-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:141:13-54
+131        <activity
+131-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:143:9-147:57
+132            android:name="kg.printer.kkm.activity.ListUnitsActivity"
+132-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:144:13-55
+133            android:screenOrientation="portrait"
+133-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:145:13-49
+134            android:theme="@style/AppTheme"
+134-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:146:13-44
+135            android:windowSoftInputMode="stateHidden" />
+135-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:147:13-54
+136        <activity
+136-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:149:9-153:57
+137            android:name="kg.printer.kkm.activity.ListPackagesActivity"
+137-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:150:13-58
+138            android:screenOrientation="portrait"
+138-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:151:13-49
+139            android:theme="@style/AppTheme"
+139-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:152:13-44
+140            android:windowSoftInputMode="stateHidden" />
+140-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:153:13-54
+141        <activity
+141-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:155:9-159:57
+142            android:name="kg.printer.kkm.activity.subjects.AdministratorActivity"
+142-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:156:13-68
+143            android:screenOrientation="portrait"
+143-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:157:13-49
+144            android:theme="@style/AppTheme"
+144-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:158:13-44
+145            android:windowSoftInputMode="stateHidden" />
+145-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:159:13-54
+146        <activity
+146-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:161:9-165:57
+147            android:name="kg.printer.kkm.activity.subjects.UserActivity"
+147-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:162:13-59
+148            android:screenOrientation="portrait"
+148-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:163:13-49
+149            android:theme="@style/AppTheme"
+149-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:164:13-44
+150            android:windowSoftInputMode="stateHidden" />
+150-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:165:13-54
+151        <activity
+151-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:167:9-171:57
+152            android:name="kg.printer.kkm.activity.subjects.GoodActivity"
+152-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:168:13-59
+153            android:screenOrientation="portrait"
+153-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:169:13-49
+154            android:theme="@style/AppTheme"
+154-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:170:13-44
+155            android:windowSoftInputMode="stateHidden" />
+155-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:171:13-54
+156        <activity
+156-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:173:9-177:57
+157            android:name="kg.printer.kkm.activity.subjects.UnitActivity"
+157-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:174:13-59
+158            android:screenOrientation="portrait"
+158-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:175:13-49
+159            android:theme="@style/AppTheme"
+159-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:176:13-44
+160            android:windowSoftInputMode="stateHidden" />
+160-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:177:13-54
+161        <activity
+161-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:179:9-183:57
+162            android:name="kg.printer.kkm.activity.subjects.SetPackageActivity"
+162-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:180:13-65
+163            android:screenOrientation="portrait"
+163-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:181:13-49
+164            android:theme="@style/AppTheme"
+164-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:182:13-44
+165            android:windowSoftInputMode="stateHidden" />
+165-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:183:13-54
+166        <activity
+166-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:185:9-189:57
+167            android:name="kg.printer.kkm.activity.subjects.OrganizationActivity"
+167-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:186:13-67
+168            android:screenOrientation="portrait"
+168-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:187:13-49
+169            android:theme="@style/AppTheme"
+169-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:188:13-44
+170            android:windowSoftInputMode="stateHidden" />
+170-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:189:13-54
+171        <activity
+171-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:191:9-195:57
+172            android:name="kg.printer.kkm.activity.print.TestActivity"
+172-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:192:13-56
+173            android:screenOrientation="portrait"
+173-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:193:13-49
+174            android:theme="@style/AppTheme"
+174-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:194:13-44
+175            android:windowSoftInputMode="stateHidden" />
+175-->C:\Users\Ilya\Android\KKM\app\src\main\AndroidManifest.xml:195:13-54
+176    </application>
+177
+178</manifest>

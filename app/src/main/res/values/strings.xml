@@ -1,0 +1,214 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="app_name">KKM</string>
+
+    <string name="UPC_A">UPC-A</string>
+    <string name="UPC_E">UPC-E</string>
+    <string name="EAN13">EAN13</string>
+    <string name="EAN14">EAN14</string>
+    <string name="GS1">GS1</string>
+    <string name="EAN8">EAN8</string>
+    <string name="CODE39">CODE39</string>
+    <string name="ITF">ITF</string>
+    <string name="CODABAR">CODABAR</string>
+    <string name="CODE93">CODE93</string>
+    <string name="CODE128">CODE128</string>
+    <string name="QR_CODE">QRcode</string>
+
+    <string name="command_type">Тип команды:</string>
+    <string name="cmdtype_esc">Двоичный код в принтер</string>
+    <string name="cmdtype_tsc">TSC</string>
+    <string name="cmdtype_cpcl">CPCL</string>
+    <string name="cmdtype_zpl">ZPL</string>
+    <string name="cmdtype_pin">PIN</string>
+
+    <string name="disconnect">Отключиться</string>
+    <string name="connect">Подключиться</string>
+    <string name="text_print">Печать текста</string>
+    <string name="image_print">Печать картинки</string>
+    <string name="self_test_print">Тестовая страница</string>
+    <string name="upload_image">Загрузить картинку</string>
+    <string name="print">Печать</string>
+    <string name="picture">Картинка</string>
+    <string name="album">Альбом</string>
+    <string name="choose_picture_position">Позиция картинки</string>
+    <string name="tip_upload_image">Нет картинки, загрузите</string>
+    <string name="insert_sdcard_tip">Вставьте SD карту</string>
+    <string name="please_connect">Подключитесь</string>
+    <string name="connect_type">Тип подключения:</string>
+    <string name="template_1">Шаблон</string>
+    <string name="template_print">Печать шаблона</string>
+    <string name="choose_bluetooth_device">Выберите Bluetooth устройство</string>
+    <string name="paired_devices">Соединенный</string>
+    <string name="tip_have_no_paired_device">Нет соединенных устройств</string>
+    <string name="tip_have_no_found_bluetooth_device">Нет устройств</string>
+    <string name="search_device">Поиск</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_ok">Ok</string>
+    <string name="dialog_tip">Сообщение:</string>
+    <string name="main_pls_choose_device">Выберите устройство</string>
+    <string name="dialog_back">Назад</string>
+    <string name="main_discon_click_repeatedly">Устройство отключено, не требуется перенажимать</string>
+    <string name="barcode_print">Печать штрихкода</string>
+    <string name="headbar_back">Назад</string>
+    <string name="title_barcode">Barcode</string>
+    <string name="title_activity_barcode_print">BarcodePrintActivity</string>
+    <string name="_main_connected">Подключение успешно</string>
+    <string name="_main_connected_fail">Не удачное подключение</string>
+    <string name="_main_disconnect">Отключено</string>
+
+    <string name="tip_barcode_text_UPC_A">Character number：11,Range:0~9,Automatic Check</string>
+    <string name="tip_barcode_text_UPC_E">Character Number: 6,Range:0~9, Automatic Check</string>
+    <string name="tip_barcode_text_EAN13">Character Number: 12,Range:0~9, Automatic Check</string>
+    <string name="tip_barcode_text_EAN8">Character Number: 7, Range: 0~9, Automatic Check</string>
+    <string name="tip_barcode_text_CODE39">Character number: 1~30, range: 0-9, A~Z, space,\"$\",\"%\",\"+\",\"-\",\".\",\"/\"</string>
+    <string name="tip_barcode_text_ITF">The Number Of Characters: Less Than 30 (Even), range: 0-9</string>
+    <string name="tip_barcode_text_CODABAR">The number of characters: 1-30, range: 0-9, A-D, "$\", "\ + \", \ "-\", \ ". \", \ "/ \", \ ": \", A-D only start to coincide and terminator</string>
+    <string name="tip_barcode_text_CODE93">The number of characters：1-30，range：0-9、A-D、\"$\"、\"+\"、\"-\"、\".\"、\"/\"、\":\"</string>
+    <string name="tip_barcode_text_CODE128">The number of characters：1-42，range：Arbitrary character</string>
+    <string name="tip_barcode_text_QR_CODE">range：Arbitrary character</string>
+    <string name="tip_barcode_text_ITF14">The Number Of Characters: 14</string>
+
+    <string name="bmp_limit_width">Лимит width\n [In mm]:</string>
+
+    <string name="tip_pls_connect_device">Подключите принтер</string>
+    <string name="show_conncected_devices">Показать подключенные устройства</string>
+    <string name="dialog_title_connected_devlist">Список подключенных устройств</string>
+    <string name="pls_connect_printer_first">Подключите принтер сначала</string>
+    <string name="adapter_usbdevice">USB устройство:</string>
+    <string name="choose_usb_device">Выберите USB устройство</string>
+    <string name="tip_insert_usb_device">Вставьте USB устройство</string>
+
+    <string name="temp1_title1_printer_tech">Однажды, в студёную зимнюю пору я из лесу вышел; был сильный мороз.
+        Гляжу, поднимается медленно в гору лошадка, везущая хворосту воз.</string>
+
+    <string name="temp1_content2_email">Email:support@arkad.pro</string>
+
+    <string name="wifi_settings">Настройки WiFi</string>
+    <string name="refresh_wifi">Обновить WIFI</string>
+    <string name="wifi_mode">WIFI режим</string>
+    <string name="ssid">Точка доступа:</string>
+    <string name="pwd">Пароль:</string>
+    <string name="confirm_set_this_wifi">Подтвердите настройки данного WIFI</string>
+    <string name="wifi_net_settings_ip_dhcp">WiFi Net настройки (IP, DHCP)</string>
+    <string name="wifi_ip">IP</string>
+    <string name="wifi_dhcp">DHCP</string>
+    <string name="wifi_edit_ip">IP:</string>
+    <string name="wifi_edit_sub_mask">Sub Mask:</string>
+    <string name="wifi_edit_gateway">Gateway:</string>
+    <string name="wifi_edit_dhcp">DHCP:</string>
+    <string name="wifi_dhcp_disable">Отключить</string>
+    <string name="wifi_dhcp_enable">Включить</string>
+    <string name="wifi_savechange">Сохранить изменения</string>
+
+    <string name="info">Справка, о приложении</string>
+
+    <!-- main window -->
+    <string name="reg_operations">Продажа</string>
+    <string name="x_otchet">X отчет (не функционирует)</string>
+    <string name="z_otchet">Z отчет (не функционирует)</string>
+    <string name="check_goods">Учет товаров</string>
+    <string name="set_kassa">Настройки</string>
+    <string name="registration">Регистрация</string>
+    <string name="erase">C</string>
+    <string name="inter">Войти</string>
+    <string name="cto">Обращение в ЦТО</string>
+    <string name="cto_mode">Режим ЦТО</string>
+
+    <!-- organization -->
+    <string name="org_setting">Настройка организации</string>
+    <string name="org_name">Название организации</string>
+    <string name="inn">ИНН</string>
+    <string name="magazine_name">Наименование торговой точки</string>
+    <string name="magazine_adres">Адрес торговой точки</string>
+    <string name="phone">Контактный телефон</string>
+
+    <!-- menu -->
+    <string name="settings">Настройки приложения</string>
+    <string name="org">Организация</string>
+    <string name="goods">Товары</string>
+    <string name="units">Единицы измерения</string>
+    <string name="apparate">Оборудование</string>
+    <string name="sync">Синхронизация</string>
+    <string name="set_user">Настройка пользователя</string>
+
+    <!-- user -->
+    <string name="add_user">Добавить пользователя</string>
+    <string name="forward">---></string>
+    <string name="set_of_admin">Настройка администратора</string>
+    <string name="position">Должность</string>
+    <string name="administrator">Администратор</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="second_name">Отчество</string>
+    <string name="users">Пользователи</string>
+
+    <!-- users -->
+    <string name="kassir">Кассир</string>
+    <string name="forwards">Возвраты</string>
+    <string name="sales">Скидки</string>
+    <string name="non_bigge">не более</string>
+    <string name="change_costs">Изменять цены</string>
+    <string name="orders">Заказы</string>
+    <string name="pass">Пароль</string>
+    <string name="del_pass">Удалить пароль</string>
+    <string name="delete">Удалить</string>
+
+    <!-- goods -->
+    <string name="add_good">Создать товар</string>
+    <string name="set_good">Редактирование товара</string>
+    <string name="name_good">Наименование товара</string>
+    <string name="tnved">ТН ВЭД</string>
+    <string name="coast">Цена</string>
+
+    <!-- units -->
+    <string name="add_unit">Создать единицу измерения</string>
+    <string name="set_unit">Редактирование единицы измерения</string>
+    <string name="name_unit">Краткое наименование</string>
+    <string name="full_name_unit">Полное наименование</string>
+    <string name="basic_unit">Базовая единица измерения</string>
+    <string name="code_name_unit">Международный код</string>
+
+    <!-- packages -->
+    <string name="add_package">Создать упаковку</string>
+    <string name="set_package">Редактирование упаковки</string>
+    <string name="name_package">Наименование</string>
+    <string name="good">Товар</string>
+    <string name="set_of_packages">Набор упаковок</string>
+    <string name="coefficient">Коэффициент пересчёта</string>
+    <string name="packages">Упаковки</string>
+    <string name="unit">Единица измерения</string>
+    <string name="tests">Тест пересчёта ед. изм.</string>
+
+    <!-- numbers -->
+    <string name="procent">%</string>
+    <string name="zero">0</string>
+
+    <!-- trade -->
+    <string name="operations">Продажа</string>
+    <string name="choose_good">Подобрать товар</string>
+    <string name="cash">Наличные</string>
+    <string name="adding_good">Добавление товара</string>
+    <string name="quantity">Количество</string>
+    <string name="quantity_kratko">Кол-во</string>
+    <string name="summa">Сумма</string>
+    <string name="add_in_retial">Добавить в чек</string>
+    <string name="retial_cash">Внесение наличных</string>
+    <string name="itog">Итог</string>
+    <string name="contributed">Внесено</string>
+    <string name="surrender">Сдача</string>
+    <string name="break_a_check">Пробить чек</string>
+
+    <!-- messages -->
+    <string name="non_reg_user">Вы вошли в систему под незарегистрированным пользователем</string>
+    <string name="must_inter">Необходимо войти в систему</string>
+    <string name="first_rocket">Укажите данные об организации. Добавьте пользователя</string>
+
+</resources>
+
+
+
+
+
+
+

@@ -1,0 +1,154 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+
+    </style>
+
+    <style name="VioletTheme" parent="AppBaseTheme">
+        <item name="button_number_background">@drawable/button_number_violet_shape</item>
+        <item name="main_title_color">#6871ac</item>
+        <item name="main_welcome_title_color">#fff5a8</item>
+        <item name="main_frame_color">#f8f8f8</item>
+        <item name="main_bottom_color">#2f2f2f</item>
+        <item name="main_welcome_title_text_color">#000000</item>
+        <item name="main_welcome_title_content_color">#6871ac</item>
+        <item name="main_shoufeimingxi_listtv_style">@style/tvSfmxListStyle</item>
+        <item name="main_list_padding">1px</item>
+        <item name="main_table_title_color">#f7f7f7</item>
+        <item name="login_text_style">@style/violetCheckStyle</item>
+        <item name="shoufei_table_border_color">#CCCCCC</item>
+        <item name="listview_divide_color">#cccccc</item>
+        <item name="listview_divide_height">1dip</item>
+    </style>
+
+    <style name="OrangeTheme" parent="AppBaseTheme">
+        <item name="main_title_color">#001525</item>
+        <item name="main_welcome_title_color">#fff5a8</item>
+        <item name="main_frame_color">#f8f8f8</item>
+        <item name="main_bottom_color">#2f2f2f</item>
+        <item name="main_welcome_title_text_color">#000000</item>
+        <item name="main_welcome_title_content_color">#e16300</item>
+        <item name="main_shoufeimingxi_listtv_style">@style/tvSfmxListStyle</item>
+        <item name="main_list_padding">2px</item>
+        <item name="main_table_title_color">#f0f0f0</item>
+        <item name="login_text_style">@style/orangeCheckStyle</item>
+        <item name="shoufei_table_border_color">#111111</item>
+        <item name="listview_divide_color">#000000</item>
+        <item name="listview_divide_height">2dip</item>
+    </style>
+
+    <style name="buttonNumberStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="buttonNumberStyle2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="buttonClearBackStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">53dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">25px</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="buttonFunctionStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">53dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">25px</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="buttonDialogFunctionStyle">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">25px</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="buttonFunctionDetailStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">84dp</item>
+        <item name="android:textColor">#737cb1</item>
+        <item name="android:textSize">25px</item>
+    </style>
+
+    <style name="buttonFunctionDetailStyle1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">#737cb1</item>
+    </style>
+
+    <style name="buttonFunctionDetailStyle2">
+        <item name="android:textColor">#737cb1</item>
+    </style>
+
+    <style name="tvSfmxListStyle">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">16px</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="tvSfmxListStyle1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">16px</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="tvTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="orangeCheckStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="violetCheckStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="FullHeightDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/lily_white</item>
+    </style>
+
+    <style name="Vertical_Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/lily_white</item>
+    </style>
+
+</resources>
