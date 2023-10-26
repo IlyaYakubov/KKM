@@ -48,7 +48,6 @@ public class OperationsActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void init() {
-
         Intent intent = getIntent();
         try {
             data = intent.getExtras().getStringArrayList("list");
@@ -59,7 +58,6 @@ public class OperationsActivity extends BaseActivity implements View.OnClickList
 
             summa = intent.getStringExtra("summa");
         } catch (Exception e) {}
-
     }
 
     @Override
@@ -73,6 +71,10 @@ public class OperationsActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btn_cash:
+                if (data.isEmpty()) {
+                    return;
+                }
+
                 Intent intentCash = new Intent(getApplicationContext(), CashActivity.class);
                 intentCash.putStringArrayListExtra("itog", itog);
                 startActivity(intentCash);

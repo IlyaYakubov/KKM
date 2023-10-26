@@ -93,12 +93,6 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".kkm.activity.ImagePrintActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
             android:name=".activity.print.BarcodeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -147,12 +141,6 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activity.ListPackagesActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
             android:name=".activity.subjects.AdministratorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -177,19 +165,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activity.subjects.SetPackageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
             android:name=".activity.subjects.OrganizationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
-            android:name=".activity.print.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />

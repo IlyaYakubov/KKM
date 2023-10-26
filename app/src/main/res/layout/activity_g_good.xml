@@ -54,15 +54,6 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/et_tnved"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/tnved"
-                android:inputType="number"
-                android:maxLength="15" />
-
-            <EditText
                 android:id="@+id/et_coast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

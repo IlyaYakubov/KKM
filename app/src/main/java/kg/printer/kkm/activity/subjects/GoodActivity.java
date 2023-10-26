@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 public class GoodActivity extends BaseActivity implements View.OnClickListener, LocalDataBase {
 
     private Spinner spr_basic_unit;
-    private EditText et_name, et_tnved, et_coast;
+    private EditText et_name, et_coast;
     private Button btn_ok;
 
     private int newElement; // 1 true - 0 false
@@ -75,7 +75,6 @@ public class GoodActivity extends BaseActivity implements View.OnClickListener, 
         });
 
         et_name = findViewById(R.id.et_name);
-        et_tnved = findViewById(R.id.et_tnved);
         et_coast = findViewById(R.id.et_coast);
         et_coast.setFilters(new InputFilter[] {new GoodActivity.DecimalDigitsInputFilter(2)});
 
@@ -135,7 +134,6 @@ public class GoodActivity extends BaseActivity implements View.OnClickListener, 
 
             et_name.setText(cursor.getString(nameColIndex));
             spr_basic_unit.setSelection(adapterBasicUnit.getPosition(cursor.getString(basicUnitColIndex)));
-            et_tnved.setText(cursor.getString(tnvedColIndex));
             et_coast.setText(cursor.getString(coastColIndex));
         }
 
@@ -153,12 +151,10 @@ public class GoodActivity extends BaseActivity implements View.OnClickListener, 
         ContentValues cv = new ContentValues();
 
         String name = et_name.getText().toString();
-        String tnved = et_tnved.getText().toString();
         String coast = et_coast.getText().toString();
 
         cv.put("name", name);
         cv.put("basic_unit", basicUnit);
-        cv.put("tnved", tnved);
         cv.put("coast", coast);
 
         if (newElement == 1) {

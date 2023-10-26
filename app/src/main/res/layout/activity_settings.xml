@@ -28,18 +28,11 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_add_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/users" />
-
                 <Button
                     android:id="@+id/btn_add_user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/forward" />
+                    android:text="@string/users" />
 
             </LinearLayout>
 
@@ -50,18 +43,11 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_set_org"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/org" />
-
                 <Button
                     android:id="@+id/btn_set_org"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/forward" />
+                    android:text="@string/org" />
 
             </LinearLayout>
 
@@ -70,61 +56,12 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_units"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/units" />
-
-                <Button
-                    android:id="@+id/btn_units"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/forward" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_packages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/packages" />
-
-                <Button
-                    android:id="@+id/btn_packages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/forward" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_goods"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/goods" />
 
                 <Button
                     android:id="@+id/btn_goods"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/forward" />
+                    android:text="@string/goods" />
 
             </LinearLayout>
 
@@ -134,51 +71,16 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_tests"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/tests" />
-
                 <Button
-                    android:id="@+id/btn_tests"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_units"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/forward" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_device"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/apparate" />
-
-                <Button
-                    android:id="@+id/btn_device"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:text="@string/forward" />
+                    android:text="@string/units" />
 
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
-    <TextView
-        android:id="@+id/tv_messages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/first_rocket" />
 
 </LinearLayout>

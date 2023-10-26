@@ -44,7 +44,7 @@ public class MainWindowActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        String message = tv_messages.getText().toString();
+        /*String message = tv_messages.getText().toString();
 
         if (!message.equals(getString(R.string.non_reg_user))) {
             final BasicListDialog exitDialog = new BasicListDialog();
@@ -70,12 +70,12 @@ public class MainWindowActivity extends BaseActivity implements View.OnClickList
 
             exitDialog.show(getFragmentManager(), null);
         } else {
-            /*if (rtPrinter != null && rtPrinter.getPrinterInterface() != null) {
+            *//*if (rtPrinter != null && rtPrinter.getPrinterInterface() != null) {
                 rtPrinter.disConnect();
             }
-            printerPowerUtil.setPrinterPower(false);*/
+            printerPowerUtil.setPrinterPower(false);*//*
             finish();
-        }
+        }*/
     }
 
     @Override

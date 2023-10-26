@@ -82,7 +82,7 @@
     <string name="temp1_title1_printer_tech">Однажды, в студёную зимнюю пору я из лесу вышел; был сильный мороз.
         Гляжу, поднимается медленно в гору лошадка, везущая хворосту воз.</string>
 
-    <string name="temp1_content2_email">Email:support@arkad.pro</string>
+    <string name="temp1_content2_email">Email:i.yakubov.pro@gmail.com</string>
 
     <string name="wifi_settings">Настройки WiFi</string>
     <string name="refresh_wifi">Обновить WIFI</string>
@@ -126,9 +126,8 @@
     <!-- menu -->
     <string name="settings">Настройки приложения</string>
     <string name="org">Организация</string>
-    <string name="goods">Товары</string>
+    <string name="goods">Номенклатура</string>
     <string name="units">Единицы измерения</string>
-    <string name="apparate">Оборудование</string>
     <string name="sync">Синхронизация</string>
     <string name="set_user">Настройка пользователя</string>
 
@@ -155,10 +154,10 @@
     <string name="delete">Удалить</string>
 
     <!-- goods -->
-    <string name="add_good">Создать товар</string>
-    <string name="set_good">Редактирование товара</string>
-    <string name="name_good">Наименование товара</string>
-    <string name="tnved">ТН ВЭД</string>
+    <string name="good">Номенклатура</string>
+    <string name="add_good">Создать номенклатуру</string>
+    <string name="set_good">Редактирование номенклатуры</string>
+    <string name="name_good">Наименование номенклатуры</string>
     <string name="coast">Цена</string>
 
     <!-- units -->
@@ -166,19 +165,8 @@
     <string name="set_unit">Редактирование единицы измерения</string>
     <string name="name_unit">Краткое наименование</string>
     <string name="full_name_unit">Полное наименование</string>
-    <string name="basic_unit">Базовая единица измерения</string>
+    <string name="basic_unit">Единица измерения</string>
     <string name="code_name_unit">Международный код</string>
-
-    <!-- packages -->
-    <string name="add_package">Создать упаковку</string>
-    <string name="set_package">Редактирование упаковки</string>
-    <string name="name_package">Наименование</string>
-    <string name="good">Товар</string>
-    <string name="set_of_packages">Набор упаковок</string>
-    <string name="coefficient">Коэффициент пересчёта</string>
-    <string name="packages">Упаковки</string>
-    <string name="unit">Единица измерения</string>
-    <string name="tests">Тест пересчёта ед. изм.</string>
 
     <!-- numbers -->
     <string name="procent">%</string>
@@ -186,9 +174,9 @@
 
     <!-- trade -->
     <string name="operations">Продажа</string>
-    <string name="choose_good">Подобрать товар</string>
+    <string name="choose_good">Подобрать номенклатуру</string>
     <string name="cash">Наличные</string>
-    <string name="adding_good">Добавление товара</string>
+    <string name="adding_good">Добавление номенклатуры</string>
     <string name="quantity">Количество</string>
     <string name="quantity_kratko">Кол-во</string>
     <string name="summa">Сумма</string>
@@ -198,11 +186,6 @@
     <string name="contributed">Внесено</string>
     <string name="surrender">Сдача</string>
     <string name="break_a_check">Пробить чек</string>
-
-    <!-- messages -->
-    <string name="non_reg_user">Вы вошли в систему под незарегистрированным пользователем</string>
-    <string name="must_inter">Необходимо войти в систему</string>
-    <string name="first_rocket">Укажите данные об организации. Добавьте пользователя</string>
 
 </resources>
 

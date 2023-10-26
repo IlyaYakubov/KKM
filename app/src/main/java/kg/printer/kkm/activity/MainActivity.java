@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     };
 
     private Spinner spr_login;
-    private TextView btn_messages;
     private EditText et_num_data;
     private Button btn_incommin;
     private ImageButton btn_clear_num;
@@ -67,7 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
-        btn_messages = findViewById(R.id.btn_messages);
         et_num_data = findViewById(R.id.et_num_data);
         btn_incommin = findViewById(R.id.btn_incommin);
         btn_clear_num = findViewById(R.id.btn_clear_num);
@@ -140,7 +138,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 et_num_data.setText("");
-                btn_messages.setText("");
                 turnToActivityWithUser(MainWindowActivity.class, position, surname, name, secondName);
                 break;
             case R.id.btn_zero:
