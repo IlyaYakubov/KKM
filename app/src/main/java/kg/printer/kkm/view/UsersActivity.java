@@ -21,7 +21,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
 
     private ListView lv_data;
     private Button btn_add;
-    private ArrayList<String> data = new ArrayList<>();
+    private final ArrayList<String> data = new ArrayList<>();
 
     private DatabaseDAO dbHelper;
     private SQLiteDatabase db;
@@ -73,12 +73,8 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_add:
-                turnToActivityWithPosition(UserActivity.class, -1, 1);
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_add) {
+            turnToActivityWithPosition(UserActivity.class, -1, 1);
         }
     }
 

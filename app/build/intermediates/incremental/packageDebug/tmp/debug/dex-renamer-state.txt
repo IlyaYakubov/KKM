@@ -1,4 +1,4 @@
-#Fri Oct 27 19:25:05 MSK 2023
+#Fri Oct 27 20:45:34 MSK 2023
 base.1=D\:\\Android\\Projects\\KKM\\KKM\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex
 path.1=classes.dex
 base.0=D\:\\Android\\Projects\\KKM\\KKM\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex

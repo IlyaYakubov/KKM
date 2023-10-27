@@ -1,5 +1,6 @@
 package kg.printer.kkm.controllers;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.domains.User;
@@ -41,11 +43,11 @@ public class UIViewController {
 
         private ProgressDialog progressDialog;
 
-        public abstract void init();
-
         public abstract void initView();
 
         public abstract void addListener();
+
+        public abstract void init();
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,31 +110,32 @@ public class UIViewController {
 
     }
 
+    @SuppressWarnings("rawtypes")
     public static class BarcodeAdapter extends ArrayAdapter {
 
-        private Context mContext;
-        private List<String> mItemList;
-        private List<String> mTagList;
-        private LayoutInflater mInflater;
-        private int[] mColors;
+        private final List<String> mTagList;
+        private final LayoutInflater mInflater;
+        private final int[] mColors;
 
+        @SuppressWarnings("unchecked")
         public BarcodeAdapter(Context context, List<String> itemList, List<String> tagList) {
             super(context,0,itemList);
-            mContext = context;
-            mItemList = itemList;
             mTagList = tagList;
-            mInflater = LayoutInflater.from(mContext);
-            mColors = mContext.getResources().getIntArray(R.array.indicator_color);
+            mInflater = LayoutInflater.from(context);
+            mColors = context.getResources().getIntArray(R.array.indicator_color);
         }
 
         @Override
         public boolean isEnabled(int position) {
+            //noinspection SuspiciousMethodCalls
             if(mTagList.contains(getItem(position))){
                 return false;
             }
             return super.isEnabled(position);
         }
 
+        @SuppressWarnings({"SuspiciousMethodCalls", "NullableProblems"})
+        @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(mTagList.contains(getItem(position))){
@@ -144,7 +147,7 @@ public class UIViewController {
                 convertView = mInflater.inflate(R.layout.old_barcode_child_item,null);
             }
             TextView textView = convertView.findViewById(R.id.tv_barcode_text);
-            textView.setText(getItem(position).toString());
+            textView.setText(Objects.requireNonNull(getItem(position)).toString());
             return convertView;
         }
 
@@ -152,14 +155,12 @@ public class UIViewController {
 
     public static class BasicDialogAdapter extends android.widget.BaseAdapter {
 
-        private Context mContext;
-        private List<String> mList;
-        private LayoutInflater mInflater;
+        private final List<String> mList;
+        private final LayoutInflater mInflater;
 
         public BasicDialogAdapter(Context context, List<String> list) {
-            this.mContext = context;
             this.mList = list;
-            mInflater = LayoutInflater.from(mContext);
+            mInflater = LayoutInflater.from(context);
         }
 
         @Override
@@ -177,10 +178,11 @@ public class UIViewController {
             return position;
         }
 
-        private class ViewHolder{
+        private static class ViewHolder {
             TextView tvText;
         }
 
+        @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
@@ -207,10 +209,8 @@ public class UIViewController {
         private Context mContext;
         private String mTitle;
         private List<String> mList;
-        private TextView tvTitle;
         private ListView lvContent;
         private AdapterView.OnItemClickListener mListener;
-        private BasicDialogAdapter mAdapter;
 
         @Override
         public void onAttach(Activity activity) {
@@ -240,7 +240,7 @@ public class UIViewController {
         }
 
         private void initView(View view) {
-            tvTitle = view.findViewById(R.id.tv_dialog_list_basic_title);
+            TextView tvTitle = view.findViewById(R.id.tv_dialog_list_basic_title);
             lvContent = view.findViewById(R.id.lv_dialog_list_basic_content);
             tvTitle.setText(mTitle);
         }
@@ -250,7 +250,7 @@ public class UIViewController {
         }
 
         private void setAdapter() {
-            mAdapter = new BasicDialogAdapter(mContext,mList);
+            BasicDialogAdapter mAdapter = new BasicDialogAdapter(mContext, mList);
             lvContent.setAdapter(mAdapter);
         }
 
@@ -287,6 +287,7 @@ public class UIViewController {
             return position;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = convertView;
@@ -352,7 +353,7 @@ public class UIViewController {
             final int childCount = getChildCount();
             int maxWidth = r - l;
             int x = 0;
-            int y = 0;
+            int y;
             int row = 0;
             for (int i = 0; i < childCount; i++) {
                 final View child = this.getChildAt(i);
@@ -375,7 +376,7 @@ public class UIViewController {
 
     public static class ScrollEditTextAdapter extends android.support.v7.widget.AppCompatEditText {
 
-        private GestureDetector detector;
+        private final GestureDetector detector;
 
         public ScrollEditTextAdapter(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -384,11 +385,8 @@ public class UIViewController {
                 @Override
                 public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
                     super.onScroll(e1, e2, distanceX, distanceY);
-                    boolean clampedY = false;
-                    if (computeVerticalScrollOffset() == 0
-                            && distanceY < 0) {
-                        clampedY = true;
-                    }
+                    boolean clampedY = computeVerticalScrollOffset() == 0
+                            && distanceY < 0;
 
                     int deltaY = computeVerticalScrollRange() - computeVerticalScrollExtent();
                     if ((computeVerticalScrollOffset() == deltaY || deltaY < 0)
@@ -409,6 +407,7 @@ public class UIViewController {
             return super.dispatchTouchEvent(event);
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             return super.onTouchEvent(event) | detector.onTouchEvent(event);
@@ -457,8 +456,8 @@ public class UIViewController {
 
     public static class WIFIListAdapter extends android.widget.BaseAdapter {
 
-        private Context mContext;
-        private List<ScanResult> mScanResults;
+        private final Context mContext;
+        private final List<ScanResult> mScanResults;
 
         public WIFIListAdapter(Context context, List<ScanResult> scanResults) {
             this.mContext = context;
@@ -480,6 +479,7 @@ public class UIViewController {
             return 0;
         }
 
+        @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {

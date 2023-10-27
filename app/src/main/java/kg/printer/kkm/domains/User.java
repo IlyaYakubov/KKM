@@ -4,7 +4,6 @@ public class User {
 
     private String position, surname, name, secondName, password;
 
-
     public String getPosition() {
         return position;
     }

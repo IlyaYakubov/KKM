@@ -20,14 +20,15 @@ import java.util.List;
 
 public class AuthenticationActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private ArrayList<User> listUsers;
-    private User user = new User();
-    private AuthenticationService authenticationService;
-
     private Spinner spr_login;
     private EditText et_num_data;
     private ImageButton btn_clear_num;
     private Button btn_login, btn_zero, btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine;
+
+    private AuthenticationService authenticationService;
+
+    private ArrayList<User> listUsers;
+    private User user = new User();
 
     public void setListUsers(ArrayList<User> listUsers) {
         this.listUsers = listUsers;
@@ -38,15 +39,17 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
-        init();
         initView();
         addListener();
+        init();
     }
 
     @Override
     public void init() {
         authenticationService = new AuthenticationService(this);
         authenticationService.getAllUserFromDatabase();
+
+        spinnerOfUsers();
     }
 
     @Override
@@ -64,8 +67,6 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         btn_seven = findViewById(R.id.btn_seven);
         btn_eight = findViewById(R.id.btn_eight);
         btn_nine = findViewById(R.id.btn_nine);
-
-        spinnerOfUsers();
     }
 
     @Override
@@ -95,9 +96,9 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
                 user.setPassword(text);
 
                 if (authenticationService.userExistsInDatabase(user)) {
-                    et_num_data.setText("");
                     user = authenticationService.findUserInDatabase(user.getName(), user.getPassword());
                     turnToActivityWithUser(MenuActivity.class, user);
+                    et_num_data.setText("");
                 } else {
                     UIViewController.ToastAdapter.show(this, "Неправльный пароль");
                 }

@@ -1,6 +1,7 @@
 package kg.printer.kkm.services;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,13 +10,17 @@ import android.os.Build;
 import java.util.ArrayList;
 import java.util.List;
 
+import kg.printer.kkm.domains.Administrator;
 import kg.printer.kkm.domains.User;
 import kg.printer.kkm.repositories.DatabaseDAO;
+import kg.printer.kkm.view.AdministratorActivity;
 import kg.printer.kkm.view.AuthenticationActivity;
+import kg.printer.kkm.view.old.BasicPassFragment;
 
 public class AuthenticationService {
 
-    private final AuthenticationActivity authenticationActivity;
+    private AuthenticationActivity authenticationActivity;
+
     private final ArrayList<User> listUsers = new ArrayList<>();
     private final List<String> emptyPermissions = new ArrayList<>();
 
@@ -32,6 +37,10 @@ public class AuthenticationService {
         this.dbHelper = new DatabaseDAO(authenticationActivity.getApplicationContext());
 
         CheckAllPermission();
+    }
+
+    public AuthenticationService(AdministratorActivity administratorActivity) {
+        this.dbHelper = new DatabaseDAO(administratorActivity.getApplicationContext());
     }
 
     private void CheckAllPermission() {
@@ -105,6 +114,50 @@ public class AuthenticationService {
         user.setName(cursor.getString(nameColIndex));
         user.setSecondName(cursor.getString(secondNameColIndex));
         return user;
+    }
+
+    public Administrator findAdminInDatabase(BasicPassFragment settingPasswordDialog) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // select just administrator
+        Cursor cursor = db.query("users", null, "is_admin = 1", null, null, null, null);
+
+        Administrator administrator = new Administrator();
+        if (cursor.moveToFirst()) {
+            int passColIndex = cursor.getColumnIndex("password");
+            int positionColIndex = cursor.getColumnIndex("position");
+            int surnameColIndex = cursor.getColumnIndex("surname");
+            int nameColIndex = cursor.getColumnIndex("name");
+            int secondNameColIndex = cursor.getColumnIndex("second_name");
+
+            administrator.setPosition(cursor.getString(positionColIndex));
+            administrator.setSurname(cursor.getString(surnameColIndex));
+            administrator.setName(cursor.getString(nameColIndex));
+            administrator.setSecondName(cursor.getString(secondNameColIndex));
+
+            settingPasswordDialog.setPassword(cursor.getString(passColIndex));
+        }
+
+        cursor.close();
+
+        return administrator;
+    }
+
+    public void updateAdminInDatabase(Administrator administrator) {
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        cv.put("is_admin", 1);
+        cv.put("position_on_list", 0);
+        cv.put("password", administrator.getPassword());
+        cv.put("position", administrator.getPosition());
+        cv.put("surname", administrator.getSurname());
+        cv.put("name", administrator.getName());
+        cv.put("second_name", administrator.getSecondName());
+
+        db.update("users", cv, "position_on_list = ?", new String[] { "0" });
+
+        dbHelper.close();
     }
 
 }

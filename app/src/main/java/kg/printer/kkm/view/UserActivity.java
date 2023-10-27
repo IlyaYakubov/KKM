@@ -1,5 +1,6 @@
 package kg.printer.kkm.view;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -85,6 +86,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -92,7 +94,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 settingPasswordDialog.show(getFragmentManager(), null);
                 break;
             case R.id.btn_del_pass:
-                settingPasswordDialog.password = "";
+                settingPasswordDialog.setPassword("");
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_del_user:
@@ -138,19 +140,19 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             int nameColIndex = cursor.getColumnIndex("name");
             int secondNameColIndex = cursor.getColumnIndex("second_name");
             int innColIndex = cursor.getColumnIndex("inn");
-            int procentOfDiscountColIndex = cursor.getColumnIndex("procent_of_discount");
+            int percentOfDiscountColIndex = cursor.getColumnIndex("procent_of_discount");
             int isBackingsColIndex = cursor.getColumnIndex("is_backings");
             int isDiscountsColIndex = cursor.getColumnIndex("is_discounts");
             int isChangeCostColIndex = cursor.getColumnIndex("is_change_cost");
             int isOrdersColIndex = cursor.getColumnIndex("is_orders");
 
-            settingPasswordDialog.password = cursor.getString(passColIndex); // getter / setter
+            settingPasswordDialog.setPassword(cursor.getString(passColIndex));
             et_position.setText(cursor.getString(positionColIndex));
             et_surname.setText(cursor.getString(surnameColIndex));
             et_name.setText(cursor.getString(nameColIndex));
             et_second_name.setText(cursor.getString(secondNameColIndex));
             et_inn.setText(cursor.getString(innColIndex));
-            et_procent_discount.setText(cursor.getString(procentOfDiscountColIndex));
+            et_procent_discount.setText(cursor.getString(percentOfDiscountColIndex));
 
             if (cursor.getInt(isBackingsColIndex) == 1) sw_backings.setChecked(true);
             if (cursor.getInt(isDiscountsColIndex) == 1) sw_discounts.setChecked(true);
@@ -184,8 +186,8 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         int isOrders = (sw_orders.isChecked())? 1 : 0;
 
         String pass = "";
-        if (settingPasswordDialog.etPassword != null) {
-            pass = settingPasswordDialog.password;
+        if (settingPasswordDialog.getEtPassword() != null) {
+            pass = settingPasswordDialog.getPassword();
         }
 
         cv.put("is_admin", 0);
@@ -216,7 +218,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         db.delete("users", "position_on_list = " + position_on_list, null);
 
         // select users
-        Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
 
         while (cursor.moveToNext()) {
             //update t1 set id = (select count(*) + 1 from t1 t where t.id < t1.id) where id > (select min(t1.id) from t1 left join t1 next on t1.id+1 = next.id where next.id is null)
