@@ -94,6 +94,13 @@
                 android:text="направо" />
         </RadioGroup>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/btn_print"
             android:layout_width="match_parent"
@@ -102,10 +109,9 @@
             android:clickable="true"
             android:onClick="onClick"
             android:background="@drawable/button_number_violet_shape"
-
+            android:layout_height="wrap_content"
             android:text="@string/print" />
 
     </LinearLayout>
 
 </LinearLayout>
-

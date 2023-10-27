@@ -38,9 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/upload_image"
-
-                         />
+                        android:text="@string/upload_image" />
 
                 </LinearLayout>
 
@@ -92,10 +90,18 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <Button
                 android:id="@+id/print"
                 android:background="@drawable/button_number_violet_shape"
-
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_marginBottom="14dp"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
