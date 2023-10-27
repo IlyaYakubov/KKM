@@ -14,16 +14,31 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     private TextView tv_messages;
     private Button btn_reg_operations, btn_set_kassa;
 
-    private String position = "", surname = "", name = "", secondName = "";
+    private String position, surname, name, secondName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        init();
         initView();
         addListener();
-        init();
+    }
+
+    @Override
+    public void init() {
+        Intent intent = getIntent();
+        position = intent.getStringExtra("position");
+        surname = intent.getStringExtra("surname");
+        name = intent.getStringExtra("name");
+        secondName = intent.getStringExtra("secondName");
+
+        if (name != null && !name.isEmpty()) {
+            UIViewController.ToastAdapter.show(this, "Вы вошли как "
+                    + position.trim() + ", " + surname.trim() + " "
+                    + name.trim() + " " + secondName.trim());
+        }
     }
 
     @Override
@@ -38,18 +53,6 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     public void addListener() {
         btn_reg_operations.setOnClickListener(this);
         btn_set_kassa.setOnClickListener(this);
-    }
-
-    @Override
-    public void init() {
-        Intent intent = getIntent();
-        position = intent.getStringExtra("position");
-        surname = intent.getStringExtra("surname");
-        name = intent.getStringExtra("name");
-        secondName = intent.getStringExtra("secondName");
-
-        if (name != null && !name.isEmpty())
-            tv_messages.setText("Вы вошли как " + position.trim() + ", " + surname.trim() + " " + name.trim() + " " + secondName.trim());
     }
 
     @Override

@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kg.printer.kkm.R;
+import kg.printer.kkm.domains.User;
 import kg.printer.kkm.view.ProductActivity;
 
 public class UIViewController {
@@ -40,11 +41,11 @@ public class UIViewController {
 
         private ProgressDialog progressDialog;
 
+        public abstract void init();
+
         public abstract void initView();
 
         public abstract void addListener();
-
-        public abstract void init();
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +64,12 @@ public class UIViewController {
             startActivity(intent);
         }
 
-        public void turnToActivityWithUser(Class<?> cls, String position, String surname, String name, String secondName) {
+        public void turnToActivityWithUser(Class<?> cls, User user) {
             Intent intent = new Intent(this, cls);
-            intent.putExtra("position", position);
-            intent.putExtra("surname", surname);
-            intent.putExtra("name", name);
-            intent.putExtra("secondName", secondName);
+            intent.putExtra("position", user.getPosition());
+            intent.putExtra("surname", user.getSurname());
+            intent.putExtra("name", user.getName());
+            intent.putExtra("secondName", user.getSecondName());
             startActivity(intent);
         }
 
