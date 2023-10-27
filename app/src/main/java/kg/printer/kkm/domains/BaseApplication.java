@@ -2,7 +2,8 @@ package kg.printer.kkm.domains;
 
 import android.app.Application;
 
-import kg.printer.kkm.repositories.BaseEnumsDAO;
+import kg.printer.kkm.repositories.DatabaseDAO;
+
 import com.rt.printerlibrary.printer.RTPrinter;
 
 public class BaseApplication extends Application {
@@ -10,8 +11,8 @@ public class BaseApplication extends Application {
     public static BaseApplication instance = null;
     private RTPrinter rtPrinter;
 
-    @BaseEnumsDAO.CmdType
-    private int currentCmdType = BaseEnumsDAO.CMD_ESC;
+    @DatabaseDAO.BaseEnums.CmdType
+    private int currentCmdType = DatabaseDAO.BaseEnums.CMD_ESC;
 
     @Override
     public void onCreate() {
@@ -31,12 +32,12 @@ public class BaseApplication extends Application {
         this.rtPrinter = rtPrinter;
     }
 
-    @BaseEnumsDAO.CmdType
+    @DatabaseDAO.BaseEnums.CmdType
     public int getCurrentCmdType() {
         return currentCmdType;
     }
 
-    public void setCurrentCmdType(@BaseEnumsDAO.CmdType int currentCmdType) {
+    public void setCurrentCmdType(@DatabaseDAO.BaseEnums.CmdType int currentCmdType) {
         this.currentCmdType = currentCmdType;
     }
 

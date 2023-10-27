@@ -34,7 +34,7 @@
         android:supportsRtl="true"
         android:testOnly="true" >
         <activity
-            android:name="kg.printer.kkm.controllers.MainController"
+            android:name="kg.printer.kkm.view.AuthenticationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" >
@@ -45,87 +45,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="kg.printer.kkm.controllers.MainWindowController"
+            android:name="kg.printer.kkm.view.MenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.controllers.OperationsController"
+            android:name="kg.printer.kkm.view.OperationsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.services.SaleService"
+            android:name="kg.printer.kkm.view.CashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.services.GoodService"
+            android:name="kg.printer.kkm.view.SettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.controllers.CashController"
+            android:name="kg.printer.kkm.view.UsersActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.controllers.SettingsController"
+            android:name="kg.printer.kkm.view.GoodsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.controllers.PrinterController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.CmdTestController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.TextPrintController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.BarcodeController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.BarcodePrintController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.TemplatePrintController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.WIFISettingController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.WIFIIpDhcpSettingController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.ListUsersController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.ListGoodsController"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="kg.printer.kkm.controllers.ListUnitsController"
+            android:name="kg.printer.kkm.view.UnitsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
@@ -151,6 +101,57 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="kg.printer.kkm.domains.Organization"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.services.SaleService"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.services.GoodService"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="kg.printer.kkm.view.old.CmdTestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.TextPrintActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.BarcodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.BarcodePrintActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.TemplatePrintActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.WIFISettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="kg.printer.kkm.view.old.WIFIIpDhcpSettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
