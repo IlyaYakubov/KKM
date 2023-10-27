@@ -1,4 +1,4 @@
-package kg.printer.kkm.services;
+package kg.printer.kkm.view;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,12 +11,11 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.view.ProductActivity;
 import kg.printer.kkm.repositories.DatabaseDAO;
 
 import java.util.ArrayList;
 
-public class ProductSelectionService extends UIViewController.BaseAdapter {
+public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
     private ListView lvData;
     private ArrayList<String> list;
@@ -58,7 +57,7 @@ public class ProductSelectionService extends UIViewController.BaseAdapter {
 
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), SaleService.class);
+                Intent intent = new Intent(getApplicationContext(), SaleActivity.class);
                 intent.putExtra("position", String.valueOf(position));
                 intent.putStringArrayListExtra("list", list);
                 intent.putStringArrayListExtra("itog", itog);

@@ -1,4 +1,4 @@
-package kg.printer.kkm.services;
+package kg.printer.kkm.view;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,12 +14,11 @@ import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.view.CartActivity;
 import kg.printer.kkm.repositories.DatabaseDAO;
 
 import java.util.ArrayList;
 
-public class SaleService extends UIViewController.BaseAdapter implements View.OnClickListener {
+public class SaleActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
     private int positionOnList;
 

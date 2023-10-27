@@ -1,5 +1,6 @@
 package kg.printer.kkm.services;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
@@ -90,7 +91,7 @@ public class FunctionsService {
             }
 
             // Create a media file name
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+            @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
                     .format(new Date());
             File mediaFile;
             if (type == MEDIA_TYPE_IMAGE) {

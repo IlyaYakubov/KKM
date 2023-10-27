@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.services.ProductSelectionService;
 
 import java.util.ArrayList;
 
@@ -63,7 +62,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_choose_good:
-                Intent intentGoodsList = new Intent(getApplicationContext(), ProductSelectionService.class);
+                Intent intentGoodsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
                 intentGoodsList.putStringArrayListExtra("list", data);
                 intentGoodsList.putStringArrayListExtra("itog", itog);
                 startActivity(intentGoodsList);

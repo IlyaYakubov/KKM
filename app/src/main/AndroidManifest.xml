@@ -112,13 +112,13 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".services.ProductSelectionService"
+            android:name=".view.ProductSelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".services.SaleService"
+            android:name=".view.SaleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />

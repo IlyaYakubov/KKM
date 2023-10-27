@@ -187,7 +187,7 @@ public class UIViewController {
                 convertView = mInflater.inflate(R.layout.old_basic_dialog_item,null);
 
                 holder = new ViewHolder();
-                holder.tvText = (TextView) convertView.findViewById(R.id.tv_basic_dialog_item_text);
+                holder.tvText = convertView.findViewById(R.id.tv_basic_dialog_item_text);
                 convertView.setTag(holder);
             }else {
                 holder = (ViewHolder) convertView.getTag();
