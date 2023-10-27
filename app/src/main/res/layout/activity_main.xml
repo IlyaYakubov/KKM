@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".activity.print.PrinterActivity">
+    tools:context=".controllers.PrinterController">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:text="@string/command_type"
                 android:visibility="gone" />
 
-            <kg.printer.kkm.view.FlowRadioGroup
+            <kg.printer.kkm.controllers.FlowRadioGroupController
                 android:id="@+id/rg_cmdtype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                     android:checked="true"
                     android:visibility="gone" />
 
-            </kg.printer.kkm.view.FlowRadioGroup>
+            </kg.printer.kkm.controllers.FlowRadioGroupController>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                 android:text="@string/connect_type"
                 android:visibility="gone" />
 
-            <kg.printer.kkm.view.FlowRadioGroup
+            <kg.printer.kkm.controllers.FlowRadioGroupController
                 android:id="@+id/rg_connect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:visibility="gone"
                     android:checked="true" />
 
-            </kg.printer.kkm.view.FlowRadioGroup>
+            </kg.printer.kkm.controllers.FlowRadioGroupController>
 
             <TextView
                 android:id="@+id/tv_device_selected"
