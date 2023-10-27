@@ -11,7 +11,6 @@ import android.widget.TextView;
 import kg.printer.kkm.R;
 import kg.printer.kkm.domains.BaseApplication;
 import kg.printer.kkm.services.FunctionsService;
-import com.rt.printerlibrary.cmd.EscCmd;
 import com.rt.printerlibrary.connect.PrinterInterface;
 import com.rt.printerlibrary.observer.PrinterObserver;
 import com.rt.printerlibrary.observer.PrinterObserverManager;
@@ -116,17 +115,6 @@ public class CmdTestController extends Activity implements View.OnClickListener,
             default:
                 break;
         }
-    }
-
-    public byte[] getHeadCmd() {
-        byte[] btStart = {
-                0x03, (byte) 0xff, 0x2f, 0x00,
-                0x00, 0x00, 0x00, 0x00,
-                0x00, (byte) 0xd3, 0x00, 0x00};
-        rtPrinter.writeMsg(btStart);
-        EscCmd cmd = new EscCmd();
-        rtPrinter.writeMsg(cmd.getLFCRCmd());
-        return btStart;
     }
 
     @Override

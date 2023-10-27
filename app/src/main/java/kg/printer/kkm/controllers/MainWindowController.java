@@ -26,42 +26,6 @@ public class MainWindowController extends BaseController implements View.OnClick
     }
 
     @Override
-    public void onBackPressed() {
-        /*String message = tv_messages.getText().toString();
-
-        if (!message.equals(getString(R.string.non_reg_user))) {
-            final BasicListDialog exitDialog = new BasicListDialog();
-
-            ArrayList<String> contentList = new ArrayList<>();
-            contentList.add("Выйти из системы");
-
-            Bundle args = new Bundle();
-            args.putString(BasicListDialog.BUNDLE_KEY_TITLE, "Желаете выйти из системы?");
-            args.putStringArrayList(BasicListDialog.BUNDLE_KEY_CONTENT_LIST, contentList);
-
-            exitDialog.setArguments(args);
-            exitDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (parent.getAdapter().getItem(position).toString().equals("Выйти из системы")) {
-                        tv_messages.setText(getString(R.string.non_reg_user));
-                    }
-                    exitDialog.dismiss();
-                    finish();
-                }
-            });
-
-            exitDialog.show(getFragmentManager(), null);
-        } else {
-            *//*if (rtPrinter != null && rtPrinter.getPrinterInterface() != null) {
-                rtPrinter.disConnect();
-            }
-            printerPowerUtil.setPrinterPower(false);*//*
-            finish();
-        }*/
-    }
-
-    @Override
     public void initView() {
         tv_messages = findViewById(R.id.tv_messages);
 
@@ -85,16 +49,6 @@ public class MainWindowController extends BaseController implements View.OnClick
 
         if (name != null && !name.isEmpty())
             tv_messages.setText("Вы вошли как " + position.trim() + ", " + surname.trim() + " " + name.trim() + " " + secondName.trim());
-
-        /*BaseApplication.instance.setCurrentCmdType(BaseEnum.CMD_ESC);
-        printerFactory = new ThermalPrinterFactory();
-        rtPrinter = printerFactory.create();
-        PrinterObserverManager.getInstance().add(this);
-        configObj = new SerialPortConfigBean().getDefaultConfig();
-        printerPowerUtil = new PrinterPowerUtil(this);
-
-        connectSerialPort((SerialPortConfigBean) configObj);
-        printerPowerUtil.setPrinterPower(true);*/
     }
 
     @Override

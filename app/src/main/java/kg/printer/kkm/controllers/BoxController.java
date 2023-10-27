@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import kg.printer.kkm.R;
-import kg.printer.kkm.domains.Product;
+import kg.printer.kkm.domains.Good;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,9 @@ public class BoxController extends BaseAdapter {
 
     public Context ctx;
     public LayoutInflater lInflater;
-    public ArrayList<Product> objects;
+    public ArrayList<Good.Product> objects;
 
-    public BoxController(Context context, ArrayList<Product> products) {
+    public BoxController(Context context, ArrayList<Good.Product> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,7 +46,7 @@ public class BoxController extends BaseAdapter {
             view = lInflater.inflate(R.layout.activity_g_item_good, parent, false);
         }
 
-        Product p = getProduct(position);
+        Good.Product p = getProduct(position);
 
         ((TextView) view.findViewById(R.id.tv_good)).setText(p.name);
         ((TextView) view.findViewById(R.id.tv_coast)).setText("цена: " + p.price);
@@ -55,8 +55,8 @@ public class BoxController extends BaseAdapter {
         return view;
     }
 
-    Product getProduct(int position) {
-        return ((Product) getItem(position));
+    Good.Product getProduct(int position) {
+        return ((Good.Product) getItem(position));
     }
 
 }

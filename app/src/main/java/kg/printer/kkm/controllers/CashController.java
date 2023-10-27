@@ -36,10 +36,6 @@ public class CashController extends BaseController implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        /*if (rtPrinter != null && rtPrinter.getPrinterInterface() != null) {
-            rtPrinter.disConnect();
-        }
-        printerPowerUtil.setPrinterPower(false);*/
     }
 
     @Override
@@ -76,18 +72,6 @@ public class CashController extends BaseController implements View.OnClickListen
 
     @Override
     public void init() {
-        /*BaseApplication.instance.setCurrentCmdType(BaseEnum.CMD_ESC);
-        printerFactory = new ThermalPrinterFactory();
-        rtPrinter = printerFactory.create();
-        PrinterObserverManager.getInstance().add(this);
-        configObj = new SerialPortConfigBean().getDefaultConfig();
-        printerPowerUtil = new PrinterPowerUtil(this);
-
-        connectSerialPort((SerialPortConfigBean) configObj);
-        printerPowerUtil.setPrinterPower(true);
-
-        textSetting = new TextSetting();*/
-
         Intent intent = getIntent();
         itog = intent.getExtras().getStringArrayList("itog");
         for (String sum : itog) {

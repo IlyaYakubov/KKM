@@ -138,9 +138,9 @@ public class WIFISettingController extends BaseController {
 
         LayoutInflater inflater = getLayoutInflater();
         View inflate = inflater.inflate(R.layout.wifi_confirm_dialog, null);
-        TextView tx_wifi_name = (TextView) inflate.findViewById(R.id.tx_wifi_name);
-        final LinearLayout ll_wifi_pd = (LinearLayout) inflate.findViewById(R.id.ll_wifi_pd);
-        final EditText et_wifi_pd = (EditText) inflate.findViewById(R.id.et_wifi_pd);
+        TextView tx_wifi_name = inflate.findViewById(R.id.tx_wifi_name);
+        final LinearLayout ll_wifi_pd = inflate.findViewById(R.id.ll_wifi_pd);
+        final EditText et_wifi_pd = inflate.findViewById(R.id.et_wifi_pd);
         tx_wifi_name.setText(scanResult.SSID);
         if (WIFIType == 0) {
             ll_wifi_pd.setVisibility(View.GONE);

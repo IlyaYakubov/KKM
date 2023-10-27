@@ -4,8 +4,8 @@ import android.util.SparseArray;
 import android.view.View;
 
 public class ViewHolderController {
-	@SuppressWarnings("unchecked")
 
+	@SuppressWarnings("unchecked")
 	public static <T extends View> T get(View view, int id) {
 		SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
 		if (viewHolder == null) {

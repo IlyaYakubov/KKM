@@ -2,7 +2,6 @@ package kg.printer.kkm.controllers;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -48,7 +47,7 @@ public class ImagePrintController extends BaseController implements View.OnClick
 
     private RTPrinter rtPrinter;
     private Uri imageUri;
-    private Bitmap mBitmap, mTempBmp;
+    private Bitmap mBitmap;
     private final static String TAG = "ImagePrint";
     private int bmpPrintWidth = 40;
 
@@ -103,22 +102,6 @@ public class ImagePrintController extends BaseController implements View.OnClick
         }
     }
 
-    private void printForInd() throws SdkException {
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bill_bmptest);
-        if (mBitmap == null) {
-            ToastController.show(this, R.string.tip_upload_image);
-            return;
-        }
-
-        switch (BaseApplication.getInstance().getCurrentCmdType()) {
-            case BaseEnumsDAO.CMD_ESC:
-                escPrint();
-                break;
-            default:
-                break;
-        }
-    }
-
     private void print() throws SdkException {
 
         if (mBitmap == null) {
@@ -141,7 +124,7 @@ public class ImagePrintController extends BaseController implements View.OnClick
         }
     }
 
-    private void escPrint() throws SdkException {
+    private void escPrint() {
 
         new Thread(new Runnable() {
             @Override

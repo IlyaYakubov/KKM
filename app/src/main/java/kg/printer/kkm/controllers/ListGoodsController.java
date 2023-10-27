@@ -12,7 +12,6 @@ import kg.printer.kkm.R;
 import kg.printer.kkm.domains.Good;
 import kg.printer.kkm.repositories.BaseDataDAO;
 import kg.printer.kkm.repositories.LocalDataBaseDAO;
-import kg.printer.kkm.domains.Product;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ public class ListGoodsController extends BaseController implements View.OnClickL
 
     private ListView lv_data;
     private Button btn_add;
-    private ArrayList<Product> data = new ArrayList<>();
+    private ArrayList<Good.Product> data = new ArrayList<>();
     private BoxController boxAdapter;
 
     private BaseDataDAO dbHelper;
@@ -82,7 +81,7 @@ public class ListGoodsController extends BaseController implements View.OnClickL
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
             int unitColIndex = cursor.getColumnIndex("basic_unit");
-            data.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            data.add(new Good.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 
         boxAdapter = new BoxController(this, data);

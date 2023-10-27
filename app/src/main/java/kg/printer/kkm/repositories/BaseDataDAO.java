@@ -54,15 +54,6 @@ public class BaseDataDAO extends SQLiteOpenHelper {
                 + "full_name text,"
                 + "code text"
                 + ");");
-        db.execSQL("create table packages ("
-                + "id integer primary key autoincrement,"
-                + "position_on_list text,"
-                + "name text,"
-                + "good text,"
-                + "unit text," // единица измерения упаковки
-                + "set_of_packages text," // набор упаковок
-                + "coefficient text" // коэффициент пересчёта
-                + ");");
     }
 
     @Override

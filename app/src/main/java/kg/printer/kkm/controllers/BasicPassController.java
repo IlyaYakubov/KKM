@@ -54,4 +54,5 @@ public class BasicPassController extends DialogFragment implements View.OnClickL
                 break;
         }
     }
+
 }

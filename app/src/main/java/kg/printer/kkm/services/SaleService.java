@@ -11,9 +11,9 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.BaseController;
+import kg.printer.kkm.domains.Good;
 import kg.printer.kkm.repositories.BaseDataDAO;
 import kg.printer.kkm.controllers.BoxController;
-import kg.printer.kkm.domains.Product;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class SaleService extends BaseController {
     private ListView lvData;
     private ArrayList<String> list;
     private ArrayList<String> itog;
-    private ArrayList<Product> data = new ArrayList<>();
+    private ArrayList<Good.Product> data = new ArrayList<>();
     private BoxController boxAdapter;
 
     @Override
@@ -82,7 +82,7 @@ public class SaleService extends BaseController {
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
             int unitColIndex = cursor.getColumnIndex("basic_unit");
-            data.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            data.add(new Good.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 
         cursor.close();

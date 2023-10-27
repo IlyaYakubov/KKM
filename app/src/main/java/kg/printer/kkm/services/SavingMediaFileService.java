@@ -10,13 +10,10 @@ import java.util.Date;
 
 public class SavingMediaFileService {
 
-    private static final String TAG = "SaveMediaFileUtil";
-
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
     public static final String DIR_CAPTURE = "Capture";
-    public static final String DIR_SAVED = "Saved";
 
     private SavingMediaFileService() {
         throw new UnsupportedOperationException("cannot be instantiated");
@@ -25,15 +22,6 @@ public class SavingMediaFileService {
     public static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    public static boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)
-                || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            return true;
-        }
-        return false;
     }
 
     public static Uri getOutputMediaFileUri(Context context, String dirName, int type) {

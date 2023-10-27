@@ -13,9 +13,6 @@ public class BaseApplication extends Application {
     @BaseEnumsDAO.CmdType
     private int currentCmdType = BaseEnumsDAO.CMD_ESC;
 
-    @BaseEnumsDAO.ConnectType
-    private int currentConnectType = BaseEnumsDAO.NONE;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,15 +38,6 @@ public class BaseApplication extends Application {
 
     public void setCurrentCmdType(@BaseEnumsDAO.CmdType int currentCmdType) {
         this.currentCmdType = currentCmdType;
-    }
-
-    @BaseEnumsDAO.ConnectType
-    public int getCurrentConnectType() {
-        return currentConnectType;
-    }
-
-    public void setCurrentConnectType(@BaseEnumsDAO.ConnectType int currentConnectType) {
-        this.currentConnectType = currentConnectType;
     }
 
 }
