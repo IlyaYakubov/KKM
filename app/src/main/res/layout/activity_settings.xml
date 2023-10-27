@@ -61,7 +61,7 @@
                     android:id="@+id/btn_goods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/goods" />
+                    android:text="@string/products" />
 
             </LinearLayout>
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/set_good" />
+        android:text="@string/edit_product" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/name_good"
+                android:hint="@string/name_product"
                 android:inputType="textPersonName" />
 
             <LinearLayout
@@ -41,7 +41,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|left"
-                    android:text="@string/basic_unit" />
+                    android:text="@string/unit" />
 
                 <Spinner
                     android:id="@+id/spr_basic_unit"

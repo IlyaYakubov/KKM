@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/operations" />
+        android:text="@string/sale" />
 
     <Button
         android:id="@+id/btn_choose_good"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="@string/choose_good" />
+        android:text="@string/select_product" />
 
     <ListView
         android:id="@+id/lv_data"

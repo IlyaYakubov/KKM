@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/adding_good" />
+        android:text="@string/adding_product" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/summa" />
+                    android:text="@string/sum" />
 
                 <TextView
                     android:id="@+id/tv_summa"
@@ -249,16 +249,6 @@
                 android:text="@string/erase" />
 
             <Button
-                android:id="@+id/btn_quantity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="15"
-                android:text="@string/quantity_kratko" />
-
-            <Button
                 android:id="@+id/btn_coast"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -267,6 +257,16 @@
                 android:layout_marginBottom="2dp"
                 android:layout_weight="15"
                 android:text="@string/coast" />
+
+            <Button
+                android:id="@+id/btn_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="15"
+                android:text="@string/quantity_briefly" />
 
         </LinearLayout>
 

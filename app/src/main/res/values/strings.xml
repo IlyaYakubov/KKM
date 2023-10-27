@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="app_name">KKM</string>
+    <string name="app_name">Онлайн касса</string>
 
     <string name="UPC_A">UPC-A</string>
     <string name="UPC_E">UPC-E</string>
@@ -48,9 +48,9 @@
     <string name="dialog_tip">Сообщение:</string>
     <string name="main_pls_choose_device">Выберите устройство</string>
     <string name="dialog_back">Назад</string>
-    <string name="main_discon_click_repeatedly">Устройство отключено, не требуется перенажимать</string>
+    <string name="main_disconnect_click_repeatedly">Устройство отключено, не требуется перенажимать</string>
     <string name="barcode_print">Печать штрихкода</string>
-    <string name="headbar_back">Назад</string>
+    <string name="head_bar_back">Назад</string>
     <string name="title_barcode">Barcode</string>
     <string name="title_activity_barcode_print">BarcodePrintActivity</string>
     <string name="_main_connected">Подключение успешно</string>
@@ -72,10 +72,10 @@
     <string name="bmp_limit_width">Лимит width\n [In mm]:</string>
 
     <string name="tip_pls_connect_device">Подключите принтер</string>
-    <string name="show_conncected_devices">Показать подключенные устройства</string>
-    <string name="dialog_title_connected_devlist">Список подключенных устройств</string>
+    <string name="show_connected_devices">Показать подключенные устройства</string>
+    <string name="dialog_title_connected_dev_list">Список подключенных устройств</string>
     <string name="pls_connect_printer_first">Подключите принтер сначала</string>
-    <string name="adapter_usbdevice">USB устройство:</string>
+    <string name="adapter_usb_device">USB устройство:</string>
     <string name="choose_usb_device">Выберите USB устройство</string>
     <string name="tip_insert_usb_device">Вставьте USB устройство</string>
 
@@ -99,19 +99,19 @@
     <string name="wifi_edit_dhcp">DHCP:</string>
     <string name="wifi_dhcp_disable">Отключить</string>
     <string name="wifi_dhcp_enable">Включить</string>
-    <string name="wifi_savechange">Сохранить изменения</string>
+    <string name="wifi_save_change">Сохранить изменения</string>
 
     <string name="info">Справка, о приложении</string>
 
     <!-- main window -->
-    <string name="reg_operations">Продажа</string>
-    <string name="x_otchet">X отчет (не функционирует)</string>
-    <string name="z_otchet">Z отчет (не функционирует)</string>
-    <string name="check_goods">Учет товаров</string>
-    <string name="set_kassa">Настройки</string>
+    <string name="main_sale">Продажа</string>
+    <string name="x_report">X отчет (не доступен)</string>
+    <string name="z_report">Z отчет (не доступен)</string>
+    <string name="check_products">Учет товаров</string>
+    <string name="all_settings">Настройки</string>
     <string name="registration">Регистрация</string>
     <string name="erase">C</string>
-    <string name="inter">Войти</string>
+    <string name="enter">Войти</string>
     <string name="cto">Обращение в ЦТО</string>
     <string name="cto_mode">Режим ЦТО</string>
 
@@ -120,20 +120,19 @@
     <string name="org_name">Название организации</string>
     <string name="inn">ИНН</string>
     <string name="magazine_name">Наименование торговой точки</string>
-    <string name="magazine_adres">Адрес торговой точки</string>
+    <string name="magazine_address">Адрес торговой точки</string>
     <string name="phone">Контактный телефон</string>
 
     <!-- menu -->
     <string name="settings">Настройки приложения</string>
     <string name="org">Организация</string>
-    <string name="goods">Номенклатура</string>
+    <string name="products">Номенклатура</string>
     <string name="units">Единицы измерения</string>
     <string name="sync">Синхронизация</string>
     <string name="set_user">Настройка пользователя</string>
 
     <!-- user -->
     <string name="add_user">Добавить пользователя</string>
-    <string name="forward">---></string>
     <string name="set_of_admin">Настройка администратора</string>
     <string name="position">Должность</string>
     <string name="administrator">Администратор</string>
@@ -143,49 +142,49 @@
     <string name="users">Пользователи</string>
 
     <!-- users -->
-    <string name="kassir">Кассир</string>
+    <string name="cashier">Кассир</string>
     <string name="forwards">Возвраты</string>
-    <string name="sales">Скидки</string>
-    <string name="non_bigge">не более</string>
+    <string name="discounts">Скидки</string>
+    <string name="non_bigger">Скидка не более</string>
     <string name="change_costs">Изменять цены</string>
     <string name="orders">Заказы</string>
     <string name="pass">Пароль</string>
     <string name="del_pass">Удалить пароль</string>
     <string name="delete">Удалить</string>
 
-    <!-- goods -->
-    <string name="good">Номенклатура</string>
-    <string name="add_good">Создать номенклатуру</string>
-    <string name="set_good">Редактирование номенклатуры</string>
-    <string name="name_good">Наименование номенклатуры</string>
+    <!-- products -->
+    <string name="product">Номенклатура</string>
+    <string name="add_product">Создать номенклатуру</string>
+    <string name="edit_product">Редактирование номенклатуры</string>
+    <string name="name_product">Наименование номенклатуры</string>
     <string name="coast">Цена</string>
 
     <!-- units -->
-    <string name="add_unit">Создать единицу измерения</string>
+    <string name="add_unit">Добавить единицу измерения</string>
     <string name="set_unit">Редактирование единицы измерения</string>
     <string name="name_unit">Краткое наименование</string>
     <string name="full_name_unit">Полное наименование</string>
-    <string name="basic_unit">Единица измерения</string>
+    <string name="unit">Единица измерения</string>
     <string name="code_name_unit">Международный код</string>
 
     <!-- numbers -->
-    <string name="procent">%</string>
+    <string name="percent">%</string>
     <string name="zero">0</string>
 
     <!-- trade -->
-    <string name="operations">Продажа</string>
-    <string name="choose_good">Подобрать номенклатуру</string>
+    <string name="sale">Продажа</string>
+    <string name="select_product">Подобрать номенклатуру</string>
     <string name="cash">Наличные</string>
-    <string name="adding_good">Добавление номенклатуры</string>
+    <string name="adding_product">Добавление номенклатуры</string>
     <string name="quantity">Количество</string>
-    <string name="quantity_kratko">Кол-во</string>
-    <string name="summa">Сумма</string>
-    <string name="add_in_retial">Добавить в чек</string>
-    <string name="retial_cash">Внесение наличных</string>
-    <string name="itog">Итог</string>
+    <string name="quantity_briefly">Кол-во</string>
+    <string name="sum">Сумма</string>
+    <string name="add_in_receipt">Добавить в чек</string>
+    <string name="sale_cash">Внесение наличных</string>
+    <string name="result">Итог</string>
     <string name="contributed">Внесено</string>
     <string name="surrender">Сдача</string>
-    <string name="break_a_check">Пробить чек</string>
+    <string name="receipt">Пробить чек</string>
 
 </resources>
 

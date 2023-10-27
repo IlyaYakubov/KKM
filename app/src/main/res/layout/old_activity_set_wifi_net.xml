@@ -159,7 +159,7 @@
                 android:clickable="true"
                 android:onClick="onClick"
                 android:padding="15dp"
-                android:text="@string/wifi_savechange" />
+                android:text="@string/wifi_save_change" />
 
         </LinearLayout>
 

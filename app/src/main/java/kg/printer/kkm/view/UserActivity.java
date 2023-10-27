@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
@@ -21,7 +22,8 @@ import kg.printer.kkm.view.old.BasicPassFragment;
 
 public class UserActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
 
-    private EditText et_position, et_surname, et_name, et_second_name, et_inn, et_procent_discount;
+    private TextView tv_not_bigger, tv_percent;
+    private EditText et_position, et_surname, et_name, et_second_name, et_inn, et_percent_discount;
     private Switch sw_backings, sw_discounts, sw_change_cost, sw_orders;
     private Button btn_set_pass, btn_del_pass, btn_del_user, btn_ok;
 
@@ -43,13 +45,22 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibleValueOfPercent();
+    }
+
+    @Override
     public void initView() {
         et_position = findViewById(R.id.et_position);
         et_surname = findViewById(R.id.et_surname);
         et_name = findViewById(R.id.et_name);
         et_second_name = findViewById(R.id.et_second_name);
         et_inn = findViewById(R.id.et_inn);
-        et_procent_discount = findViewById(R.id.et_procent_discount);
+
+        tv_not_bigger = findViewById(R.id.tv_not_bigger);
+        et_percent_discount = findViewById(R.id.et_percent_discount);
+        tv_percent = findViewById(R.id.tv_percent);
 
         sw_backings = findViewById(R.id.sw_backings);
         sw_discounts = findViewById(R.id.sw_discounts);
@@ -64,6 +75,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void addListener() {
+        sw_discounts.setOnClickListener(this);
         btn_set_pass.setOnClickListener(this);
         btn_del_pass.setOnClickListener(this);
         btn_del_user.setOnClickListener(this);
@@ -90,6 +102,9 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.sw_discounts:
+                setVisibleValueOfPercent();
+                break;
             case R.id.btn_set_pass:
                 settingPasswordDialog.show(getFragmentManager(), null);
                 break;
@@ -125,6 +140,18 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         }
     }
 
+    private void setVisibleValueOfPercent() {
+        if (sw_discounts.isChecked()) {
+            tv_not_bigger.setVisibility(View.VISIBLE);
+            et_percent_discount.setVisibility(View.VISIBLE);
+            tv_percent.setVisibility(View.VISIBLE);
+        } else {
+            tv_not_bigger.setVisibility(View.INVISIBLE);
+            et_percent_discount.setVisibility(View.INVISIBLE);
+            tv_percent.setVisibility(View.INVISIBLE);
+        }
+    }
+
     @Override
     public void readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -152,7 +179,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             et_name.setText(cursor.getString(nameColIndex));
             et_second_name.setText(cursor.getString(secondNameColIndex));
             et_inn.setText(cursor.getString(innColIndex));
-            et_procent_discount.setText(cursor.getString(percentOfDiscountColIndex));
+            et_percent_discount.setText(cursor.getString(percentOfDiscountColIndex));
 
             if (cursor.getInt(isBackingsColIndex) == 1) sw_backings.setChecked(true);
             if (cursor.getInt(isDiscountsColIndex) == 1) sw_discounts.setChecked(true);
@@ -178,7 +205,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         String name = et_name.getText().toString();
         String secondName = et_second_name.getText().toString();
         String inn = et_inn.getText().toString();
-        String procentOfDiscount = et_procent_discount.getText().toString();
+        String procentOfDiscount = et_percent_discount.getText().toString();
 
         int isBackings = (sw_backings.isChecked())? 1 : 0;
         int isDiscounts = (sw_discounts.isChecked())? 1 : 0;

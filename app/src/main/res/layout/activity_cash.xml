@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/retial_cash" />
+        android:text="@string/sale_cash" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/itog" />
+                    android:text="@string/result" />
 
                 <TextView
                     android:id="@+id/tv_itog"
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="@string/break_a_check" />
+            android:text="@string/receipt" />
 
     </LinearLayout>
 

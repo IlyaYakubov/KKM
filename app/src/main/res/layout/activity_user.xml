@@ -29,7 +29,7 @@
                 android:layout_marginTop="15dp"
                 android:hint="@string/position"
                 android:inputType="textPersonName"
-                android:text="@string/kassir" />
+                android:text="@string/cashier" />
 
             <EditText
                 android:id="@+id/et_surname"
@@ -64,67 +64,66 @@
                 android:inputType="number"
                 android:maxLength="14" />
 
-            <Switch
-                android:id="@+id/sw_backings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/forwards" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <Switch
-                    android:id="@+id/sw_discounts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/sales" />
-
                 <TextView
-                    android:id="@+id/tv_not_biger"
+                    android:id="@+id/tv_not_bigger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/non_bigge"
+                    android:text="@string/non_bigger"
                     android:textAlignment="textEnd"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/et_procent_discount"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/et_percent_discount"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
                     android:hint="@string/zero"
                     android:inputType="number"
-                    android:maxLength="2" />
+                    android:maxLength="2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp" />
 
                 <TextView
-                    android:id="@+id/tv_procent"
+                    android:id="@+id/tv_percent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/procent"
+                    android:text="@string/percent"
                     android:textStyle="bold" />
-
             </LinearLayout>
+
+            <Switch
+                android:id="@+id/sw_discounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/discounts" />
+
+            <Switch
+                android:id="@+id/sw_backings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/forwards" />
 
             <Switch
                 android:id="@+id/sw_change_cost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/change_costs" />
 
             <Switch
                 android:id="@+id/sw_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/orders" />
 
         </LinearLayout>

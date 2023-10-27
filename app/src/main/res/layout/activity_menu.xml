@@ -20,10 +20,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_reg_operations"
+                android:id="@+id/btn_reg_sale"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/reg_operations" />
+                android:text="@string/main_sale" />
 
         </LinearLayout>
 
@@ -35,20 +35,20 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_x_otchet"
+                android:id="@+id/btn_x_report"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:text="@string/x_otchet" />
+                android:text="@string/x_report" />
 
             <Button
-                android:id="@+id/btn_z_otchet"
+                android:id="@+id/btn_z_report"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="@string/z_otchet" />
+                android:text="@string/z_report" />
 
         </LinearLayout>
 
@@ -62,11 +62,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_set_kassa"
+            android:id="@+id/btn_settings"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/set_kassa" />
+            android:text="@string/all_settings" />
 
     </LinearLayout>
 
