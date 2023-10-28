@@ -1,6 +1,7 @@
 package kg.printer.kkm.services;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -147,8 +148,7 @@ public class AuthenticationService {
     }
 
     // controller
-    public void createOrUpdateUserData(BasicPassFragment settingPasswordDialog,
-                                       int position_on_list,
+    public void createUserData(BasicPassFragment settingPasswordDialog,
                                        EditText et_position,
                                        EditText et_surname,
                                        EditText et_name,
@@ -158,8 +158,7 @@ public class AuthenticationService {
                                        Switch sw_backings,
                                        Switch sw_discounts,
                                        Switch sw_change_cost,
-                                       Switch sw_orders,
-                                       int newElement) {
+                                       Switch sw_orders) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -193,13 +192,60 @@ public class AuthenticationService {
         cv.put("is_change_costs", isChangeCost);
         cv.put("is_orders", isOrders);
 
-        if (newElement == 1) {
-            cv.put("position_on_list", position_on_list + 1);
-            db.insert("users", null, cv);
-        } else {
-            cv.put("position_on_list", position_on_list);
-            db.update("users", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
+        cv.put("position_on_list", lastUserIdInDatabase() + 1);
+
+        db.insert("users", null, cv);
+    }
+
+    // controller
+    public void updateUserData(BasicPassFragment settingPasswordDialog,
+                                       int positionOfList,
+                                       EditText et_position,
+                                       EditText et_surname,
+                                       EditText et_name,
+                                       EditText et_second_name,
+                                       EditText et_inn,
+                                       EditText et_percent_discount,
+                                       Switch sw_backings,
+                                       Switch sw_discounts,
+                                       Switch sw_change_cost,
+                                       Switch sw_orders) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        String position = et_position.getText().toString();
+        String surname = et_surname.getText().toString();
+        String name = et_name.getText().toString();
+        String secondName = et_second_name.getText().toString();
+        String inn = et_inn.getText().toString();
+        String percentOfDiscount = et_percent_discount.getText().toString();
+
+        int isBackings = (sw_backings.isChecked())? 1 : 0;
+        int isDiscounts = (sw_discounts.isChecked())? 1 : 0;
+        int isChangeCost = (sw_change_cost.isChecked())? 1 : 0;
+        int isOrders = (sw_orders.isChecked())? 1 : 0;
+
+        String pass = "";
+        if (settingPasswordDialog.getEtPassword() != null) {
+            pass = settingPasswordDialog.getPassword();
         }
+
+        cv.put("is_admin", 0);
+        cv.put("password", pass);
+        cv.put("position", position);
+        cv.put("surname", surname);
+        cv.put("name", name);
+        cv.put("second_name", secondName);
+        cv.put("inn", inn);
+        cv.put("percent_of_discount", percentOfDiscount);
+        cv.put("is_backings", isBackings);
+        cv.put("is_discounts", isDiscounts);
+        cv.put("is_change_costs", isChangeCost);
+        cv.put("is_orders", isOrders);
+
+        cv.put("position_on_list", positionOfList);
+
+        db.update("users", cv, "position_on_list = ?", new String[] { String.valueOf(positionOfList) });
     }
 
     public int lastUserIdInDatabase() {
@@ -269,7 +315,7 @@ public class AuthenticationService {
         db.delete("users", "position_on_list = " + position_on_list, null);
 
         // select users
-        Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
 
         while (cursor.moveToNext()) {
             //update t1 set id = (select count(*) + 1 from t1 t where t.id < t1.id) where id > (select min(t1.id) from t1 left join t1 next on t1.id+1 = next.id where next.id is null)

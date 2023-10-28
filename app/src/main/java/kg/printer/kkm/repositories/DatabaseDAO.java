@@ -101,7 +101,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + ");");
         db.execSQL("create table users ("
                 + "id integer primary key autoincrement,"
-                + "position_on_list integer,"
+                + "position_on_list text,"
                 + "is_admin integer,"
                 + "password text,"
                 + "position text,"

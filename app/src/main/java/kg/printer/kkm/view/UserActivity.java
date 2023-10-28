@@ -134,19 +134,33 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 } else if (et_inn.getText().toString().isEmpty() || et_inn.getText().toString().length() < 14) {
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
-                    authenticationService.createOrUpdateUserData(settingPasswordDialog,
-                            position_on_list,
-                            et_position,
-                            et_surname,
-                            et_name,
-                            et_second_name,
-                            et_inn,
-                            et_percent_discount,
-                            sw_backings,
-                            sw_discounts,
-                            sw_change_cost,
-                            sw_orders,
-                            newElement);
+                    if (newElement == 1) {
+                        authenticationService.createUserData(settingPasswordDialog,
+                                et_position,
+                                et_surname,
+                                et_name,
+                                et_second_name,
+                                et_inn,
+                                et_percent_discount,
+                                sw_backings,
+                                sw_discounts,
+                                sw_change_cost,
+                                sw_orders);
+                    } else {
+                        authenticationService.updateUserData(settingPasswordDialog,
+                                position_on_list,
+                                et_position,
+                                et_surname,
+                                et_name,
+                                et_second_name,
+                                et_inn,
+                                et_percent_discount,
+                                sw_backings,
+                                sw_discounts,
+                                sw_change_cost,
+                                sw_orders);
+                    }
+
                     hideKeyboard(view);
                     finish();
                 }
