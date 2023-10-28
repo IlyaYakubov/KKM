@@ -60,7 +60,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
         spr_basic_unit = findViewById(R.id.spr_basic_unit);
         spr_basic_unit.setAdapter(adapterBasicUnit);
-        spr_basic_unit.setPrompt("Базовая единица измерения");
+        spr_basic_unit.setPrompt("Единица измерения");
         spr_basic_unit.setSelection(0);
         spr_basic_unit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -122,13 +122,13 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select good
-        Cursor cursor = db.rawQuery("select * from goods where position_on_list = ?"
+        Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
                 , new String[] { String.valueOf(position_on_list) });
 
         if (cursor.moveToNext()) {
             int nameColIndex = cursor.getColumnIndex("name");
-            int basicUnitColIndex = cursor.getColumnIndex("basic_unit");
-            int tnvedColIndex = cursor.getColumnIndex("tnved");
+            int basicUnitColIndex = cursor.getColumnIndex("unit");
+            //int tnvedColIndex = cursor.getColumnIndex("tnved");
             int coastColIndex = cursor.getColumnIndex("coast");
 
             et_name.setText(cursor.getString(nameColIndex));
@@ -153,15 +153,15 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         String coast = et_coast.getText().toString();
 
         cv.put("name", name);
-        cv.put("basic_unit", basicUnit);
+        cv.put("unit", basicUnit);
         cv.put("coast", coast);
 
         if (newElement == 1) {
             cv.put("position_on_list", lastPosition() + 1);
-            db.insert("goods", null, cv);
+            db.insert("products", null, cv);
         } else {
             cv.put("position_on_list", position_on_list);
-            db.update("goods", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
+            db.update("products", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
         }
     }
 
@@ -175,8 +175,8 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         dbHelper = new DatabaseDAO(getApplicationContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // select all goods
-        Cursor cursor = db.query("goods", null, null, null, null, null, null);
+        // select all products
+        Cursor cursor = db.query("products", null, null, null, null, null, null);
 
         int lastPosition = -1;
         while (cursor.moveToNext()) {

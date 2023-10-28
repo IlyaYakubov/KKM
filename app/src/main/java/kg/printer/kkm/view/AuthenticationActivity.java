@@ -45,15 +45,8 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
     }
 
     @Override
-    public void init() {
-        authenticationService = new AuthenticationService(this);
-        authenticationService.getAllUserFromDatabase();
-
-        spinnerOfUsers();
-    }
-
-    @Override
     public void initView() {
+        spr_login = findViewById(R.id.spr_login);
         et_num_data = findViewById(R.id.et_num_data);
         btn_login = findViewById(R.id.btn_login);
         btn_clear_num = findViewById(R.id.btn_clear_num);
@@ -85,6 +78,14 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         btn_nine.setOnClickListener(this);
     }
 
+    @Override
+    public void init() {
+        authenticationService = new AuthenticationService(this);
+        authenticationService.getAllUserFromDatabase();
+
+        spinnerOfUsers();
+    }
+
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View view) {
@@ -96,7 +97,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
                 user.setPassword(text);
 
                 if (authenticationService.userExistsInDatabase(user)) {
-                    user = authenticationService.findUserInDatabase(user.getName(), user.getPassword());
+                    user = authenticationService.findUserByIdInDatabase(user.getId());
                     turnToActivityWithUser(MenuActivity.class, user);
                     et_num_data.setText("");
                 } else {
@@ -150,13 +151,13 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         ArrayAdapter<String> userNames = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
         userNames.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spr_login = findViewById(R.id.spr_login);
         spr_login.setAdapter(userNames);
         spr_login.setSelection(0);
 
         spr_login.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                user.setId(position);
                 user.setName(spr_login.getSelectedItem().toString());
             }
             @Override

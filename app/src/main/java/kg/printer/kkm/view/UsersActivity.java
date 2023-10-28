@@ -1,8 +1,5 @@
 package kg.printer.kkm.view;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,19 +9,19 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.repositories.Database;
+import kg.printer.kkm.domains.User;
+import kg.printer.kkm.services.AuthenticationService;
 
 import java.util.ArrayList;
 
-public class UsersActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
+public class UsersActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private ListView lv_data;
+    private ListView lv_names;
     private Button btn_add;
-    private final ArrayList<String> data = new ArrayList<>();
+    private final ArrayList<User> users = new ArrayList<>();
+    private final ArrayList<String> names = new ArrayList<>();
 
-    private DatabaseDAO dbHelper;
-    private SQLiteDatabase db;
+    private AuthenticationService authenticationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +37,14 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
     protected void onResume() {
         super.onResume();
 
-        readData();
+        names.clear();
+        authenticationService.fillUsers(users);
+        fillAdapter(users);
     }
 
     @Override
     public void initView() {
-        lv_data = findViewById(R.id.lv_data);
+        lv_names = findViewById(R.id.lv_data);
         btn_add = findViewById(R.id.btn_add);
     }
 
@@ -56,18 +55,10 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
 
     @Override
     public void init() {
-        dbHelper = new DatabaseDAO(getApplicationContext());
+        authenticationService = new AuthenticationService(this);
 
-        if (data.isEmpty()) {
-            db = dbHelper.getWritableDatabase();
-
-            // select administrator
-            Cursor cursor = db.query("users", null, "is_admin = 1", null, null, null, null);
-
-            if (!cursor.moveToFirst())
-                addData();
-
-            cursor.close();
+        if (users.isEmpty()) {
+            authenticationService.selectAdministrator();
         }
     }
 
@@ -78,24 +69,14 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
         }
     }
 
-    @Override
-    public void readData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all users
-        Cursor cursor = db.query("users", null, null, null, null, null, null);
-
-        data.clear();
-
-        while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("position");
-            data.add(cursor.getString(positionColIndex));
+    private void fillAdapter(ArrayList<User> users) {
+        for (User user : users) {
+            names.add(user.getName());
         }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+        lv_names.setAdapter(adapter);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        lv_data.setAdapter(adapter);
-
-        lv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_names.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     turnToActivity(AdministratorActivity.class);
@@ -104,37 +85,6 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
                 }
             }
         });
-
-        cursor.close();
-    }
-
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
-    public void addData() {
-        ContentValues cv = new ContentValues();
-
-        cv.put("is_admin", 1);
-        cv.put("position_on_list", 0);
-        cv.put("position", "Администратор");
-        cv.put("surname", "");
-        cv.put("name", "");
-        cv.put("second_name", "");
-
-        db.insert("users", null, cv);
-    }
-
-    @Override
-    public void deleteData() {
-
-    }
-
-    @Override
-    public int lastPosition() {
-        return 0;
     }
 
 }

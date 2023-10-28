@@ -1,6 +1,8 @@
 package kg.printer.kkm.repositories;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.IntDef;
@@ -12,17 +14,51 @@ public class DatabaseDAO extends SQLiteOpenHelper {
 
     public DatabaseDAO(Context context) {
         super(context, "MainDataBase", null, 1);
+
+        if (!administratorIsExists()) {
+            createAdministrator();
+        }
+    }
+
+    private boolean administratorIsExists() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where is_admin = 1", new String[] { });
+
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    private void createAdministrator() {
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+
+        cv.put("is_admin", 1);
+        cv.put("position_on_list", 0);
+        cv.put("password", "");
+        cv.put("position", "Администратор");
+        cv.put("surname", "");
+        cv.put("name", "Администратор");
+        cv.put("second_name", "");
+
+        db.insert("users", null, cv);
+
+        close();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table organizations ("
                 + "id integer primary key autoincrement,"
-                + "form_of_sobstvennosti text,"
-                + "system_nalog text,"
+                + "type_of_ownership text," // форма собственности
+                + "taxation text," // система налогооблажения
                 + "name text,"
-                + "inn text,"
-                + "magazine_name text,"
+                + "inn text," // ИНН
+                + "magazine_name text," // торговая точка
                 + "adress_magazine text,"
                 + "telephone_magazine text"
                 + ");");
@@ -36,18 +72,17 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "name text,"
                 + "second_name text,"
                 + "inn text,"
-                + "procent_of_discount text,"
-                + "is_backings integer,"
-                + "is_discounts integer,"
-                + "is_change_cost integer,"
-                + "is_orders integer"
+                + "percent_of_discount text," // максимальный процент скидки
+                + "is_backings integer," // возвраты
+                + "is_discounts integer," // скидки
+                + "is_change_costs integer," // изменять цену
+                + "is_orders integer" // заказы клиента
                 + ");");
-        db.execSQL("create table goods ("
+        db.execSQL("create table products ("
                 + "id integer primary key autoincrement,"
                 + "position_on_list text,"
                 + "name text,"
-                + "basic_unit text,"
-                + "packages text,"
+                + "unit text,"
                 + "tnved text,"
                 + "coast text"
                 + ");");

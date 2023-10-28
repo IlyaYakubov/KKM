@@ -1,10 +1,7 @@
 package kg.printer.kkm.view;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,11 +13,10 @@ import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.repositories.Database;
+import kg.printer.kkm.services.AuthenticationService;
 import kg.printer.kkm.view.old.BasicPassFragment;
 
-public class UserActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
+public class UserActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
     private TextView tv_not_bigger, tv_percent;
     private EditText et_position, et_surname, et_name, et_second_name, et_inn, et_percent_discount;
@@ -30,9 +26,9 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     private int newElement; // 1 true - 0 false
     private int position_on_list;
 
-    public DatabaseDAO dbHelper;
-
     public BasicPassFragment settingPasswordDialog;
+
+    private AuthenticationService authenticationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +80,27 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void init() {
-        dbHelper = new DatabaseDAO(getApplicationContext());
+        authenticationService = new AuthenticationService(this);
         settingPasswordDialog = new BasicPassFragment();
 
         Intent intent = getIntent();
         position_on_list = intent.getIntExtra("position_on_list", -1);
         newElement = intent.getIntExtra("new_element", 1);
 
+        // редактирование существующего пользователя
         if (newElement == 0) {
-            readData();
+            authenticationService.editUserData(settingPasswordDialog,
+                    position_on_list,
+                    et_position,
+                    et_surname,
+                    et_name,
+                    et_second_name,
+                    et_inn,
+                    et_percent_discount,
+                    sw_backings,
+                    sw_discounts,
+                    sw_change_cost,
+                    sw_orders);
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
@@ -113,7 +121,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_del_user:
-                deleteData();
+                authenticationService.deleteData(position_on_list);
                 UIViewController.ToastAdapter.show(this, "Пользователь удалён");
                 hideKeyboard(view);
                 finish();
@@ -121,16 +129,24 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_ok:
                 if (et_position.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните должность");
-                } else if (et_surname.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните фамилию");
                 } else if (et_name.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните имя");
-                } else if (et_second_name.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните отчество");
                 } else if (et_inn.getText().toString().isEmpty() || et_inn.getText().toString().length() < 14) {
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
-                    addData();
+                    authenticationService.saveUserData(settingPasswordDialog,
+                            authenticationService.lastPosition(),
+                            et_position,
+                            et_surname,
+                            et_name,
+                            et_second_name,
+                            et_inn,
+                            et_percent_discount,
+                            sw_backings,
+                            sw_discounts,
+                            sw_change_cost,
+                            sw_orders,
+                            newElement);
                     hideKeyboard(view);
                     finish();
                 }
@@ -150,126 +166,6 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             et_percent_discount.setVisibility(View.INVISIBLE);
             tv_percent.setVisibility(View.INVISIBLE);
         }
-    }
-
-    @Override
-    public void readData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ?"
-                , new String[] { String.valueOf(position_on_list) });
-
-        if (cursor.moveToFirst()) {
-            int passColIndex = cursor.getColumnIndex("password");
-            int positionColIndex = cursor.getColumnIndex("position");
-            int surnameColIndex = cursor.getColumnIndex("surname");
-            int nameColIndex = cursor.getColumnIndex("name");
-            int secondNameColIndex = cursor.getColumnIndex("second_name");
-            int innColIndex = cursor.getColumnIndex("inn");
-            int percentOfDiscountColIndex = cursor.getColumnIndex("procent_of_discount");
-            int isBackingsColIndex = cursor.getColumnIndex("is_backings");
-            int isDiscountsColIndex = cursor.getColumnIndex("is_discounts");
-            int isChangeCostColIndex = cursor.getColumnIndex("is_change_cost");
-            int isOrdersColIndex = cursor.getColumnIndex("is_orders");
-
-            settingPasswordDialog.setPassword(cursor.getString(passColIndex));
-            et_position.setText(cursor.getString(positionColIndex));
-            et_surname.setText(cursor.getString(surnameColIndex));
-            et_name.setText(cursor.getString(nameColIndex));
-            et_second_name.setText(cursor.getString(secondNameColIndex));
-            et_inn.setText(cursor.getString(innColIndex));
-            et_percent_discount.setText(cursor.getString(percentOfDiscountColIndex));
-
-            if (cursor.getInt(isBackingsColIndex) == 1) sw_backings.setChecked(true);
-            if (cursor.getInt(isDiscountsColIndex) == 1) sw_discounts.setChecked(true);
-            if (cursor.getInt(isChangeCostColIndex) == 1) sw_change_cost.setChecked(true);
-            if (cursor.getInt(isOrdersColIndex) == 1) sw_orders.setChecked(true);
-        }
-
-        cursor.close();
-    }
-
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
-    public void addData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        String position = et_position.getText().toString();
-        String surname = et_surname.getText().toString();
-        String name = et_name.getText().toString();
-        String secondName = et_second_name.getText().toString();
-        String inn = et_inn.getText().toString();
-        String procentOfDiscount = et_percent_discount.getText().toString();
-
-        int isBackings = (sw_backings.isChecked())? 1 : 0;
-        int isDiscounts = (sw_discounts.isChecked())? 1 : 0;
-        int isChangeCost = (sw_change_cost.isChecked())? 1 : 0;
-        int isOrders = (sw_orders.isChecked())? 1 : 0;
-
-        String pass = "";
-        if (settingPasswordDialog.getEtPassword() != null) {
-            pass = settingPasswordDialog.getPassword();
-        }
-
-        cv.put("is_admin", 0);
-        cv.put("password", pass);
-        cv.put("position", position);
-        cv.put("surname", surname);
-        cv.put("name", name);
-        cv.put("second_name", secondName);
-        cv.put("inn", inn);
-        cv.put("procent_of_discount", procentOfDiscount);
-        cv.put("is_backings", isBackings);
-        cv.put("is_discounts", isDiscounts);
-        cv.put("is_change_cost", isChangeCost);
-        cv.put("is_orders", isOrders);
-
-        if (newElement == 1) {
-            cv.put("position_on_list", lastPosition() + 1);
-            db.insert("users", null, cv);
-        } else {
-            cv.put("position_on_list", position_on_list);
-            db.update("users", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
-        }
-    }
-
-    @Override
-    public void deleteData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete("users", "position_on_list = " + position_on_list, null);
-
-        // select users
-        @SuppressLint("Recycle") Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            //update t1 set id = (select count(*) + 1 from t1 t where t.id < t1.id) where id > (select min(t1.id) from t1 left join t1 next on t1.id+1 = next.id where next.id is null)
-            String sql = "update users set position_on_list = (select count(*) + 1 from users t where t.position_on_list < users.position_on_list and users.is_admin = 0) - 1";
-            db.execSQL(sql);
-        }
-    }
-
-    @Override
-    public int lastPosition() {
-        dbHelper = new DatabaseDAO(getApplicationContext());
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all users
-        Cursor cursor = db.query("users", null, null, null, null, null, null);
-
-        int lastPosition = -1;
-        while (cursor.moveToNext()) {
-            lastPosition++;
-        }
-
-        cursor.close();
-
-        return lastPosition;
     }
 
     private void hideKeyboard(View view) {

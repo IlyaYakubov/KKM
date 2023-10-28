@@ -978,6 +978,7 @@ id tv_dialog_list_basic_title
 id tv_error_tip
 id tv_good
 id tv_itog
+id tv_message
 id tv_messages
 id tv_not_bigger
 id tv_percent

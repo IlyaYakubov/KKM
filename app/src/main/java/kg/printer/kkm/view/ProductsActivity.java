@@ -72,15 +72,15 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
     public void readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // select all goods
-        Cursor cursor = db.query("goods", null, null, null, null, null, null);
+        // select all products
+        Cursor cursor = db.query("products", null, null, null, null, null, null);
 
         data.clear();
 
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
-            int unitColIndex = cursor.getColumnIndex("basic_unit");
+            int unitColIndex = cursor.getColumnIndex("unit");
             data.add(new ProductActivity.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 

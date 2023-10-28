@@ -15,7 +15,7 @@ import kg.printer.kkm.controllers.UIViewController;
 
 public class MenuActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private TextView tv_messages;
+    private TextView tv_message;
     private Button btn_sale, btn_x_report, btn_z_report, btn_settings;
 
     private String position, surname, name, secondName;
@@ -25,9 +25,9 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        init();
         initView();
         addListener();
+        init();
     }
 
     @Override
@@ -44,23 +44,8 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     @Override
-    public void init() {
-        Intent intent = getIntent();
-        position = intent.getStringExtra("position");
-        surname = intent.getStringExtra("surname");
-        name = intent.getStringExtra("name");
-        secondName = intent.getStringExtra("secondName");
-
-        if (name != null && !name.isEmpty()) {
-            UIViewController.ToastAdapter.show(this, "Вы вошли как "
-                    + position.trim() + ", " + surname.trim() + " "
-                    + name.trim() + " " + secondName.trim());
-        }
-    }
-
-    @Override
     public void initView() {
-        tv_messages = findViewById(R.id.tv_messages);
+        tv_message = findViewById(R.id.tv_message);
 
         btn_sale = findViewById(R.id.btn_reg_sale);
 
@@ -83,6 +68,22 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
         btn_x_report.setOnClickListener(this);
         btn_z_report.setOnClickListener(this);
         btn_settings.setOnClickListener(this);
+    }
+
+    @Override
+    public void init() {
+        Intent intent = getIntent();
+        position = intent.getStringExtra("position");
+        surname = intent.getStringExtra("surname");
+        name = intent.getStringExtra("name");
+        secondName = intent.getStringExtra("secondName");
+
+        if (name != null && !name.isEmpty()) {
+            tv_message.setText(name.trim());
+            /*UIViewController.ToastAdapter.show(this, "Вы вошли как "
+                    + position.trim() + ", " + surname.trim() + " "
+                    + name.trim() + " " + secondName.trim());*/
+        }
     }
 
     @SuppressLint("NonConstantResourceId")

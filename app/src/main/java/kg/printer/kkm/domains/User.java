@@ -2,7 +2,16 @@ package kg.printer.kkm.domains;
 
 public class User {
 
+    private int id;
     private String position, surname, name, secondName, password;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPosition() {
         return position;
