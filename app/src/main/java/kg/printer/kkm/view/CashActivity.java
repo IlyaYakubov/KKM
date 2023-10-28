@@ -14,15 +14,15 @@ import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CashActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private ArrayList<String> itog = new ArrayList<>();
-    private double sumDoub = 0;
+    private double sum = 0;
 
-    private TextView tvItog, tvSurrender;
-    private EditText etContributed;
-    private Button btnOk;
+    private TextView tv_result, tv_change;
+    private EditText et_contributed;
+    private Button btn_ok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +35,19 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void initView() {
-        tvItog = findViewById(R.id.tv_itog);
-        tvSurrender = findViewById(R.id.tv_surrender);
+        tv_result = findViewById(R.id.tv_itog);
+        tv_change = findViewById(R.id.tv_surrender);
 
-        etContributed = findViewById(R.id.et_contributed);
+        et_contributed = findViewById(R.id.et_contributed);
 
-        btnOk = findViewById(R.id.btn_ok);
+        btn_ok = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
 
-        etContributed.addTextChangedListener(new TextWatcher() {
+        et_contributed.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 toCount();
@@ -67,43 +62,45 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
             }
         });
 
-        btnOk.setOnClickListener(this);
+        btn_ok.setOnClickListener(this);
 
     }
 
     @Override
     public void init() {
         Intent intent = getIntent();
-        itog = intent.getExtras().getStringArrayList("itog");
-        for (String sum : itog) {
+        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("itog");
+        assert result != null;
+        for (String sum : result) {
             sum = sum.replace(',','.');
-            sumDoub = sumDoub + Double.parseDouble(sum);
+            this.sum = this.sum + Double.parseDouble(sum);
         }
 
-        tvItog.setText(String.valueOf(sumDoub));
-        etContributed.setText(String.valueOf(sumDoub));
-        tvSurrender.setText("0");
+        tv_result.setText(String.valueOf(sum));
+        et_contributed.setText(String.valueOf(sum));
+        tv_change.setText("0");
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_ok:
-                if (etContributed.getText().equals("")) return;
+        if (v.getId() == R.id.btn_ok) {
+            //noinspection EqualsBetweenInconvertibleTypes
+            if (et_contributed.getText().equals("")) {
+                return;
+            }
 
-                hideKeyboard(v);
-                finish();
-                break;
+            hideKeyboard(v);
+            finish();
         }
     }
 
     private void toCount() {
-        if (!etContributed.getText().toString().equals("")) {
-            double contributed = Double.parseDouble(etContributed.getText().toString());
-            double surrender = contributed - sumDoub;
+        if (!et_contributed.getText().toString().equals("")) {
+            double contributed = Double.parseDouble(et_contributed.getText().toString());
+            double surrender = contributed - sum;
 
-            tvItog.setText(String.valueOf(contributed));
-            tvSurrender.setText(String.valueOf(surrender));
+            tv_result.setText(String.valueOf(contributed));
+            tv_change.setText(String.valueOf(surrender));
         }
     }
 

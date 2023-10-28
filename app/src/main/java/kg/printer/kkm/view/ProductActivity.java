@@ -75,7 +75,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
         et_name = findViewById(R.id.et_name);
         et_coast = findViewById(R.id.et_coast);
-        et_coast.setFilters(new InputFilter[] {new ProductActivity.DecimalDigitsInputFilter(2)});
+        et_coast.setFilters(new InputFilter[] {new UIViewController.DecimalDigitsInputFilter(2)});
 
         btn_ok = findViewById(R.id.btn_ok);
     }
@@ -102,18 +102,14 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_ok:
-                if (et_name.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните наименование товара");
-                } else {
-                    addData();
-                    hideKeyboard(view);
-                    finish();
-                }
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.btn_ok) {
+            if (et_name.getText().toString().isEmpty()) {
+                UIViewController.ToastAdapter.show(this, "Заполните наименование номенклатуры");
+            } else {
+                addData();
+                hideKeyboard(view);
+                finish();
+            }
         }
     }
 
@@ -121,7 +117,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     public void readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // select good
+        // select product
         Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
                 , new String[] { String.valueOf(position_on_list) });
 
@@ -213,34 +209,4 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         }
     }
 
-    public class DecimalDigitsInputFilter implements InputFilter {
-
-        Pattern mPattern;
-
-        public DecimalDigitsInputFilter(int digitsAfterZero) {
-            mPattern = Pattern.compile("[0-9]+((\\.[0-9]{0," + (digitsAfterZero-1) + "})?)|(\\.)?");
-        }
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-
-            Matcher matcher = mPattern.matcher(dest);
-            if(!matcher.matches())
-                return "";
-            return null;
-        }
-
-    }
-
-    public static class Product {
-
-        public String name, price, unit;
-
-        public Product(String _describe, String _price, String _unit) {
-            name = _describe;
-            price = _price;
-            unit = _unit;
-        }
-
-    }
 }

@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.repositories.DatabaseDAO;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
     private ListView lvProducts;
     private ArrayList<String> list;
     private ArrayList<String> result;
-    private ArrayList<ProductActivity.Product> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     private UIViewController.BoxAdapter boxAdapter;
 
     @Override
@@ -80,7 +81,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
             int unitColIndex = cursor.getColumnIndex("unit");
-            products.add(new ProductActivity.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 
         cursor.close();

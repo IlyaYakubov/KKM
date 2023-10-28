@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -32,8 +34,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import kg.printer.kkm.R;
+import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.domains.User;
 import kg.printer.kkm.view.ProductActivity;
 
@@ -264,9 +269,9 @@ public class UIViewController {
 
         public Context ctx;
         public LayoutInflater lInflater;
-        public ArrayList<ProductActivity.Product> objects;
+        public ArrayList<Product> objects;
 
-        public BoxAdapter(Context context, ArrayList<ProductActivity.Product> products) {
+        public BoxAdapter(Context context, ArrayList<Product> products) {
             ctx = context;
             objects = products;
             lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -295,17 +300,77 @@ public class UIViewController {
                 view = lInflater.inflate(R.layout.activity_product_box, parent, false);
             }
 
-            ProductActivity.Product p = getProduct(position);
+            Product p = getProduct(position);
 
-            ((TextView) view.findViewById(R.id.tv_product)).setText(p.name);
-            ((TextView) view.findViewById(R.id.tv_coast)).setText("цена: " + p.price);
-            ((TextView) view.findViewById(R.id.tv_unit)).setText("ед.изм: " + p.unit);
+            ((TextView) view.findViewById(R.id.tv_product)).setText(p.getName());
+            ((TextView) view.findViewById(R.id.tv_coast)).setText("цена: " + p.getPrice());
+            ((TextView) view.findViewById(R.id.tv_unit)).setText("ед.изм: " + p.getUnit());
 
             return view;
         }
 
-        ProductActivity.Product getProduct(int position) {
-            return ((ProductActivity.Product) getItem(position));
+        Product getProduct(int position) {
+            return ((Product) getItem(position));
+        }
+
+    }
+
+    public static class WIFIListAdapter extends android.widget.BaseAdapter {
+
+        private final Context mContext;
+        private final List<ScanResult> mScanResults;
+
+        public WIFIListAdapter(Context context, List<ScanResult> scanResults) {
+            this.mContext = context;
+            this.mScanResults = scanResults;
+        }
+
+        @Override
+        public int getCount() {
+            return mScanResults.size();
+        }
+
+        @Override
+        public ScanResult getItem(int position) {
+            return mScanResults.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @SuppressLint("InflateParams")
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext.getApplicationContext())
+                        .inflate(R.layout.old_wifi_listview_item, null);
+            }
+            TextView wifi_set_wifiName = ViewHolderAdapter.get(convertView,
+                    R.id.wifi_set_wifiName);
+            ImageView wifi_set_wifiLevel = ViewHolderAdapter.get(convertView,
+                    R.id.wifi_set_wifiLevel);
+            wifi_set_wifiName.setText(mScanResults.get(position).SSID);
+            if (Math.abs(mScanResults.get(position).level) > 100) {
+                wifi_set_wifiLevel.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.signal_wifi_1));
+            } else if (Math.abs(mScanResults.get(position).level) > 80) {
+                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
+                        .getDrawable(R.mipmap.signal_wifi_2));
+            } else if (Math.abs(mScanResults.get(position).level) > 70) {
+                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
+                        .getDrawable(R.mipmap.signal_wifi_3));
+            } else if (Math.abs(mScanResults.get(position).level) > 60) {
+                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
+                        .getDrawable(R.mipmap.signal_wifi_4));
+            } else if (Math.abs(mScanResults.get(position).level) > 50) {
+                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
+                        .getDrawable(R.mipmap.signal_wifi_5));
+            } else {
+                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
+                        .getDrawable(R.mipmap.signal_wifi_5));
+            }
+            return convertView;
         }
 
     }
@@ -415,6 +480,25 @@ public class UIViewController {
 
     }
 
+    public static class ViewHolderAdapter {
+
+        @SuppressWarnings("unchecked")
+        public static <T extends View> T get(View view, int id) {
+            SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
+            if (viewHolder == null) {
+                viewHolder = new SparseArray<>();
+                view.setTag(viewHolder);
+            }
+            View childView = viewHolder.get(id);
+            if (childView == null) {
+                childView = view.findViewById(id);
+                viewHolder.put(id, childView);
+            }
+            return (T) childView;
+        }
+
+    }
+
     public static class ToastAdapter {
 
         private ToastAdapter() {
@@ -435,81 +519,21 @@ public class UIViewController {
 
     }
 
-    public static class ViewHolderAdapter {
+    public static class DecimalDigitsInputFilter implements InputFilter {
 
-        @SuppressWarnings("unchecked")
-        public static <T extends View> T get(View view, int id) {
-            SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
-            if (viewHolder == null) {
-                viewHolder = new SparseArray<>();
-                view.setTag(viewHolder);
-            }
-            View childView = viewHolder.get(id);
-            if (childView == null) {
-                childView = view.findViewById(id);
-                viewHolder.put(id, childView);
-            }
-            return (T) childView;
-        }
+        private final Pattern pattern;
 
-    }
-
-    public static class WIFIListAdapter extends android.widget.BaseAdapter {
-
-        private final Context mContext;
-        private final List<ScanResult> mScanResults;
-
-        public WIFIListAdapter(Context context, List<ScanResult> scanResults) {
-            this.mContext = context;
-            this.mScanResults = scanResults;
+        public DecimalDigitsInputFilter(int digitsAfterZero) {
+            pattern = Pattern.compile("[0-9]+((\\.[0-9]{0," + (digitsAfterZero-1) + "})?)|(\\.)?");
         }
 
         @Override
-        public int getCount() {
-            return mScanResults.size();
-        }
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
-        @Override
-        public ScanResult getItem(int position) {
-            return mScanResults.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @SuppressLint("InflateParams")
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(mContext.getApplicationContext())
-                        .inflate(R.layout.old_wifi_listview_item, null);
-            }
-            TextView wifi_set_wifiName = ViewHolderAdapter.get(convertView,
-                    R.id.wifi_set_wifiName);
-            ImageView wifi_set_wifiLevel = ViewHolderAdapter.get(convertView,
-                    R.id.wifi_set_wifiLevel);
-            wifi_set_wifiName.setText(mScanResults.get(position).SSID);
-            if (Math.abs(mScanResults.get(position).level) > 100) {
-                wifi_set_wifiLevel.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.signal_wifi_1));
-            } else if (Math.abs(mScanResults.get(position).level) > 80) {
-                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
-                        .getDrawable(R.mipmap.signal_wifi_2));
-            } else if (Math.abs(mScanResults.get(position).level) > 70) {
-                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
-                        .getDrawable(R.mipmap.signal_wifi_3));
-            } else if (Math.abs(mScanResults.get(position).level) > 60) {
-                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
-                        .getDrawable(R.mipmap.signal_wifi_4));
-            } else if (Math.abs(mScanResults.get(position).level) > 50) {
-                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
-                        .getDrawable(R.mipmap.signal_wifi_5));
-            } else {
-                wifi_set_wifiLevel.setImageDrawable(mContext.getResources()
-                        .getDrawable(R.mipmap.signal_wifi_5));
-            }
-            return convertView;
+            Matcher matcher = pattern.matcher(dest);
+            if(!matcher.matches())
+                return "";
+            return null;
         }
 
     }

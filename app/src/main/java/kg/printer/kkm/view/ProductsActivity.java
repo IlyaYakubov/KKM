@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.repositories.Database;
 
@@ -19,7 +20,7 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
 
     private ListView lv_data;
     private Button btn_add;
-    private ArrayList<ProductActivity.Product> data = new ArrayList<>();
+    private ArrayList<Product> data = new ArrayList<>();
     private UIViewController.BoxAdapter boxAdapter;
 
     private DatabaseDAO dbHelper;
@@ -81,7 +82,7 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
             int unitColIndex = cursor.getColumnIndex("unit");
-            data.add(new ProductActivity.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            data.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 
         boxAdapter = new UIViewController.BoxAdapter(this, data);

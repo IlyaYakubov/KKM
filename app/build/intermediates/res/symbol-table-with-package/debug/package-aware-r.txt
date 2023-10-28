@@ -766,7 +766,6 @@ id bottom
 id btn_add
 id btn_add_user
 id btn_cash
-id btn_choose_good
 id btn_clear_num
 id btn_clear_send
 id btn_coast
@@ -778,14 +777,15 @@ id btn_dot
 id btn_eight
 id btn_five
 id btn_four
-id btn_goods
 id btn_login
 id btn_nine
 id btn_ok
 id btn_one
 id btn_print
+id btn_products
 id btn_quantity
 id btn_reg_sale
+id btn_select_product
 id btn_selftest_print
 id btn_send
 id btn_set_org

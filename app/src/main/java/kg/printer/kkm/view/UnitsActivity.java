@@ -11,16 +11,19 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.Unit;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.repositories.Database;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class UnitsActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
 
     private ListView lv_data;
     private Button btn_add;
-    private ArrayList<String> data = new ArrayList<>();
+
+    private final ArrayList<Unit> units = new ArrayList<>();
 
     private DatabaseDAO dbHelper;
 
@@ -59,12 +62,8 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_add:
-                turnToActivityWithPosition(UnitActivity.class, -1, 1);
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_add) {
+            turnToActivityWithPosition(UnitActivity.class, -1, 1);
         }
     }
 
@@ -75,14 +74,18 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
         // select all units
         Cursor cursor = db.query("units", null, null, null, null, null, null);
 
-        data.clear();
+        units.clear();
+
+        ArrayList<String> unitNames = new ArrayList<>();
 
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
-            data.add(cursor.getString(positionColIndex));
+            Unit unit = new Unit(cursor.getString(positionColIndex), "", "");
+            units.add(unit);
+            unitNames.add(unit.getName());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitNames);
         lv_data.setAdapter(adapter);
 
         lv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {

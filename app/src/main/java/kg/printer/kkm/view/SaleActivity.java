@@ -23,12 +23,12 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
     private int positionOnList;
 
-    private TextView tvProduct, tvQuantity, tvCoast, tvSum;
+    private TextView tv_product, tv_quantity, tv_coast, tv_sum;
     private EditText et_num_data;
     private Button btn_clear_num, btn_dot;
     private Button btn_zero, btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine;
     private Button btn_quantity, btn_coast;
-    private Button btnOk;
+    private Button btn_ok;
 
     private ArrayList<String> list;
     private ArrayList<String> result;
@@ -45,10 +45,10 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        tvProduct = findViewById(R.id.tv_product);
-        tvQuantity = findViewById(R.id.tv_quantity);
-        tvCoast = findViewById(R.id.tv_coast);
-        tvSum = findViewById(R.id.tv_sum);
+        tv_product = findViewById(R.id.tv_product);
+        tv_quantity = findViewById(R.id.tv_quantity);
+        tv_coast = findViewById(R.id.tv_coast);
+        tv_sum = findViewById(R.id.tv_sum);
 
         et_num_data = findViewById(R.id.et_num_data);
 
@@ -69,13 +69,13 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         btn_quantity = findViewById(R.id.btn_quantity);
         btn_coast = findViewById(R.id.btn_coast);
 
-        btnOk = findViewById(R.id.btn_ok);
+        btn_ok = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
 
-        tvQuantity.addTextChangedListener(new TextWatcher() {
+        tv_quantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 toCount();
@@ -90,7 +90,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
             }
         });
 
-        tvCoast.addTextChangedListener(new TextWatcher() {
+        tv_coast.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 toCount();
@@ -122,7 +122,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         btn_quantity.setOnClickListener(this);
         btn_coast.setOnClickListener(this);
 
-        btnOk.setOnClickListener(this);
+        btn_ok.setOnClickListener(this);
     }
 
     @Override
@@ -146,27 +146,27 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_quantity:
                 if (!et_num_data.getText().toString().isEmpty()) {
                     checkDot(4);
-                    tvQuantity.setText(et_num_data.getText().toString());
+                    tv_quantity.setText(et_num_data.getText().toString());
                     et_num_data.setText("");
                 }
                 break;
             case R.id.btn_coast:
                 if (!et_num_data.getText().toString().isEmpty()) {
                     checkDot(3);
-                    tvCoast.setText(et_num_data.getText().toString());
+                    tv_coast.setText(et_num_data.getText().toString());
                     et_num_data.setText("");
                 }
                 break;
             case R.id.btn_ok:
-                if (tvQuantity.getText().equals("")) return;
+                if (tv_quantity.getText().equals("")) return;
 
-                list.add(tvProduct.getText().toString());
-                result.add(tvSum.getText().toString());
+                list.add(tv_product.getText().toString());
+                result.add(tv_sum.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                 intent.putExtra("list", list);
                 intent.putExtra("itog", result);
-                intent.putExtra("summa", tvSum.getText().toString());
+                intent.putExtra("summa", tv_sum.getText().toString());
                 startActivity(intent);
                 finish();
                 break;
@@ -236,21 +236,21 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         if (cursor.moveToNext()) {
             int nameColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
-            tvProduct.setText(cursor.getString(nameColIndex));
-            tvCoast.setText(cursor.getString(coastColIndex));
+            tv_product.setText(cursor.getString(nameColIndex));
+            tv_coast.setText(cursor.getString(coastColIndex));
         }
 
         cursor.close();
     }
 
     private void toCount() {
-        if (!tvQuantity.getText().equals("")) {
-            double quantity = Double.parseDouble(tvQuantity.getText().toString());
-            double coast = Double.parseDouble(tvCoast.getText().toString());
+        if (!tv_quantity.getText().equals("")) {
+            double quantity = Double.parseDouble(tv_quantity.getText().toString());
+            double coast = Double.parseDouble(tv_coast.getText().toString());
             double sum = quantity * coast;
 
             @SuppressLint("DefaultLocale") String formattedDouble = String.format("%.2f", sum);
-            tvSum.setText(formattedDouble);
+            tv_sum.setText(formattedDouble);
         }
     }
 

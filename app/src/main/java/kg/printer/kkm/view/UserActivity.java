@@ -135,7 +135,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
                     authenticationService.createOrUpdateUserData(settingPasswordDialog,
-                            authenticationService.lastUserIdInDatabase(),
+                            position_on_list,
                             et_position,
                             et_surname,
                             et_name,
