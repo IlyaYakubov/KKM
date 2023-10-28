@@ -10,6 +10,9 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import kg.printer.kkm.domains.Organization;
+import kg.printer.kkm.services.OrganizationService;
+
 public class DatabaseDAO extends SQLiteOpenHelper {
 
     public DatabaseDAO(Context context) {
@@ -17,6 +20,10 @@ public class DatabaseDAO extends SQLiteOpenHelper {
 
         if (!administratorIsExists()) {
             createAdministrator();
+        }
+
+        if (!organizationIsExists()) {
+            createOrganization();
         }
     }
 
@@ -50,6 +57,36 @@ public class DatabaseDAO extends SQLiteOpenHelper {
         close();
     }
 
+    private boolean organizationIsExists() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from organizations", new String[] { });
+
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    private void createOrganization() {
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+
+        cv.put("type_of_ownership", "Юридическое лицо");
+        cv.put("taxation", "Общая система");
+        cv.put("name", "ООО Организация");
+        cv.put("inn", "12345678901234");
+        cv.put("magazine_name", "Магазин");
+        cv.put("address_magazine", "");
+        cv.put("telephone_magazine", "");
+
+        db.insert("organizations", null, cv);
+
+        close();
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table organizations ("
@@ -59,7 +96,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "name text,"
                 + "inn text," // ИНН
                 + "magazine_name text," // торговая точка
-                + "adress_magazine text,"
+                + "address_magazine text,"
                 + "telephone_magazine text"
                 + ");");
         db.execSQL("create table users ("

@@ -1,8 +1,10 @@
 package kg.printer.kkm.repositories;
 
+import kg.printer.kkm.domains.Organization;
+
 public interface Database {
 
-    void readData();
+    Organization readData();
 
     void updateData();
 

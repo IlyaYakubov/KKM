@@ -1,8 +1,5 @@
 package kg.printer.kkm.view;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,28 +11,25 @@ import android.widget.Spinner;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.repositories.Database;
+import kg.printer.kkm.domains.Organization;
+import kg.printer.kkm.services.OrganizationService;
 
-public class OrganizationActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
+public class OrganizationActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
     private Spinner spr_type_of_ownership, spr_taxation;
     private EditText et_org_name, et_inn, et_magazine_name, et_address_magazine, et_telephone_magazine;
     private Button btn_ok;
 
-    private final String[] typesOfOwnership = {"Частный предприниматель", "Юридическое лицо"};
-    private final String[] taxation = {"Общая система", "Патент", "Единый налог"};
-
-    private String typeOfOwnership = "Юридическое лицо", tax = "Общая система";
-
-    private DatabaseDAO dbHelper;
-
-    private boolean newOrg;
+    private OrganizationService organizationService;
+    private Organization organization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
+
+        organizationService = new OrganizationService(this);
+        organization = organizationService.readData();
 
         initView();
         addListener();
@@ -43,18 +37,8 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        newOrg = true;
-        if (et_inn.getText().toString().length() > 0) {
-            newOrg = false;
-        }
-    }
-
-    @Override
     public void initView() {
-        ArrayAdapter<String> adapterFormOfSobstvennosti = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, typesOfOwnership);
+        ArrayAdapter<String> adapterFormOfSobstvennosti = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, organization.getTypesOfOwnership());
         adapterFormOfSobstvennosti.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spr_type_of_ownership = findViewById(R.id.spr_form_of_sobstvennosti);
@@ -64,7 +48,7 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
         spr_type_of_ownership.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                typeOfOwnership = spr_type_of_ownership.getSelectedItem().toString();
+                organization.setTypeOfOwnership(spr_type_of_ownership.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -72,7 +56,7 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
             }
         });
 
-        ArrayAdapter<String> adapterSystemNalog = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, taxation);
+        ArrayAdapter<String> adapterSystemNalog = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, organization.getTaxation());
         adapterSystemNalog.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spr_taxation = findViewById(R.id.spr_system_nalog);
@@ -82,7 +66,7 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
         spr_taxation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tax = spr_taxation.getSelectedItem().toString();
+                organization.setTax(spr_taxation.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -106,111 +90,48 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
 
     @Override
     public void init() {
-        dbHelper = new DatabaseDAO(getApplicationContext());
-        readData();
+        if (organization.getTypeOfOwnership().equals("Индивидуальный предприниматель")) {
+            spr_type_of_ownership.setSelection(0);
+        } else {
+            spr_type_of_ownership.setSelection(1);
+        }
+
+        if (organization.getTax().equals("Общая система")) {
+            spr_taxation.setSelection(0);
+        } else if (organization.getTax().equals("Упрощенная система")) {
+            spr_taxation.setSelection(1);
+        }
+
+        et_org_name.setText(organization.getName());
+        et_magazine_name.setText(organization.getMagazine_name());
+        et_inn.setText(organization.getInn());
+        et_address_magazine.setText(organization.getAddress_magazine());
+        et_telephone_magazine.setText(organization.getTelephone_magazine());
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_ok:
-                if (et_org_name.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните название организации");
-                } else if (et_magazine_name.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните название торговой точки");
-                } else if (et_address_magazine.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните адрес торговой точки");
-                } else if (et_telephone_magazine.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните контактный телефон");
-                } else if (et_inn.getText().toString().isEmpty() || et_inn.getText().toString().length() < 14) {
-                    UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
-                } else {
-                    addData();
-                    hideKeyboard(view);
-                    finish();
-                }
-            default:
-                break;
-        }
-    }
+        if (view.getId() == R.id.btn_ok) {
+            if (et_org_name.getText().toString().isEmpty()) {
+                UIViewController.ToastAdapter.show(this, "Заполните название организации");
+            } else if (et_magazine_name.getText().toString().isEmpty()) {
+                UIViewController.ToastAdapter.show(this, "Заполните название торговой точки");
+            } else if (et_inn.getText().toString().isEmpty() || et_inn.getText().toString().length() < 14) {
+                UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
+            } else {
+                String typeOfOwnership = spr_type_of_ownership.getSelectedItem().toString();
+                String tax = spr_taxation.getSelectedItem().toString();
+                String org_name = et_org_name.getText().toString();
+                String inn = et_inn.getText().toString();
+                String magazine_name = et_magazine_name.getText().toString();
+                String address_magazine = et_address_magazine.getText().toString();
+                String telephone_magazine = et_telephone_magazine.getText().toString();
 
-    @Override
-    public void readData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select organization
-        Cursor cursor = db.rawQuery("select * from organizations where id = 1", null);
-
-        if (cursor.moveToFirst()) {
-            int formOfSobstvennostiColIndex = cursor.getColumnIndex("form_of_sobstvennosti");
-            int systemNalogColIndex = cursor.getColumnIndex("system_nalog");
-            int nameColIndex = cursor.getColumnIndex("name");
-            int innColIndex = cursor.getColumnIndex("inn");
-            int magazineNameColIndex = cursor.getColumnIndex("magazine_name");
-            int adressMagazineColIndex = cursor.getColumnIndex("adress_magazine");
-            int telephoneMagazineColIndex = cursor.getColumnIndex("telephone_magazine");
-
-            if (cursor.getString(formOfSobstvennostiColIndex).equals("Частный предприниматель")) {
-                spr_type_of_ownership.setSelection(0);
-            } else spr_type_of_ownership.setSelection(1);
-
-            if (cursor.getString(systemNalogColIndex).equals("Общая система")) {
-                spr_taxation.setSelection(0);
-            } else if (cursor.getString(systemNalogColIndex).equals("Патент")) {
-                spr_taxation.setSelection(1);
-            } else if (cursor.getString(systemNalogColIndex).equals("Единый налог")) {
-                spr_taxation.setSelection(2);
+                organizationService.addOrgData(typeOfOwnership, tax, org_name, inn, magazine_name, address_magazine, telephone_magazine);
+                hideKeyboard(view);
+                finish();
             }
-
-            et_org_name.setText(cursor.getString(nameColIndex));
-            et_magazine_name.setText(cursor.getString(magazineNameColIndex));
-            et_inn.setText(cursor.getString(innColIndex));
-            et_address_magazine.setText(cursor.getString(adressMagazineColIndex));
-            et_telephone_magazine.setText(cursor.getString(telephoneMagazineColIndex));
         }
-
-        cursor.close();
-    }
-
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
-    public void addData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        String org_name = et_org_name.getText().toString();
-        String magazine_name = et_magazine_name.getText().toString();
-        String adress_magazine = et_address_magazine.getText().toString();
-        String telephone_magazine = et_telephone_magazine.getText().toString();
-        String inn = et_inn.getText().toString();
-
-        cv.put("form_of_sobstvennosti", typeOfOwnership);
-        cv.put("system_nalog", tax);
-        cv.put("name", org_name);
-        cv.put("magazine_name", magazine_name);
-        cv.put("adress_magazine", adress_magazine);
-        cv.put("telephone_magazine", telephone_magazine);
-        cv.put("inn", inn);
-
-        if (newOrg) {
-            db.insert("organizations", null, cv);
-        } else {
-            db.update("organizations", cv, "id = 1", null);
-        }
-    }
-
-    @Override
-    public void deleteData() {
-
-    }
-
-    @Override
-    public int lastPosition() {
-        return 0;
     }
 
     private void hideKeyboard(View view) {

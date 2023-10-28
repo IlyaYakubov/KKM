@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -18,12 +17,11 @@ import android.widget.Spinner;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.Organization;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.repositories.Database;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ProductActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
 
@@ -114,7 +112,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     }
 
     @Override
-    public void readData() {
+    public Organization readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select product
@@ -133,6 +131,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         }
 
         cursor.close();
+        return null;
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.Organization;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.repositories.Database;
 
@@ -83,7 +84,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     @Override
-    public void readData() {
+    public Organization readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select unit
@@ -101,6 +102,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         }
 
         cursor.close();
+        return null;
     }
 
     @Override

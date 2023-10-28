@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.Organization;
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.repositories.Database;
@@ -70,7 +71,7 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
     }
 
     @Override
-    public void readData() {
+    public Organization readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select all products
@@ -96,6 +97,7 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
         });
 
         cursor.close();
+        return null;
     }
 
     @Override
