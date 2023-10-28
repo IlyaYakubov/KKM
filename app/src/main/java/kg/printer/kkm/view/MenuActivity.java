@@ -38,8 +38,15 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
             btn_sale.setBackgroundColor(Color.WHITE);
             btn_sale.setTextColor(Color.GRAY);
             btn_sale.setClickable(false);
+
+            btn_settings.setClickable(true);
         } else {
             btn_sale.setClickable(true);
+
+            btn_settings.setText("Настройки (не доступны)");
+            btn_settings.setBackgroundColor(Color.WHITE);
+            btn_settings.setTextColor(Color.GRAY);
+            btn_settings.setClickable(false);
         }
     }
 
