@@ -976,15 +976,15 @@ id tv_coast
 id tv_device_selected
 id tv_dialog_list_basic_title
 id tv_error_tip
-id tv_good
 id tv_itog
 id tv_message
 id tv_messages
 id tv_not_bigger
 id tv_percent
+id tv_product
 id tv_quantity
 id tv_rev
-id tv_summa
+id tv_sum
 id tv_surrender
 id tv_title
 id tv_unit

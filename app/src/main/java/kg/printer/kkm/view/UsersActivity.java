@@ -58,7 +58,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
         authenticationService = new AuthenticationService(this);
 
         if (users.isEmpty()) {
-            authenticationService.selectAdministrator();
+            authenticationService.createAdministratorInDatabase();
         }
     }
 

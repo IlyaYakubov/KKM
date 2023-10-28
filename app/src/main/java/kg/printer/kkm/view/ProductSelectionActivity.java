@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
-    private ListView lvData;
+    private ListView lvProducts;
     private ArrayList<String> list;
-    private ArrayList<String> itog;
-    private ArrayList<ProductActivity.Product> data = new ArrayList<>();
+    private ArrayList<String> result;
+    private ArrayList<ProductActivity.Product> products = new ArrayList<>();
     private UIViewController.BoxAdapter boxAdapter;
 
     @Override
@@ -35,32 +35,32 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
     @Override
     public void initView() {
-        lvData = findViewById(R.id.lv_data);
+        lvProducts = findViewById(R.id.lv_data);
     }
 
     @Override
     public void addListener() {
-
+        // do nothing
     }
 
     @Override
     public void init() {
         Intent intent = getIntent();
         list = intent.getExtras().getStringArrayList("list");
-        itog = intent.getExtras().getStringArrayList("itog");
+        result = intent.getExtras().getStringArrayList("itog");
 
         readDataFromBaseData();
 
-        boxAdapter = new UIViewController.BoxAdapter(this, data);
+        boxAdapter = new UIViewController.BoxAdapter(this, products);
         //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        lvData.setAdapter(boxAdapter);
+        lvProducts.setAdapter(boxAdapter);
 
-        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), SaleActivity.class);
                 intent.putExtra("position", String.valueOf(position));
                 intent.putStringArrayListExtra("list", list);
-                intent.putStringArrayListExtra("itog", itog);
+                intent.putStringArrayListExtra("itog", result);
                 startActivity(intent);
                 finish();
             }
@@ -71,16 +71,16 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
         DatabaseDAO dbHelper = new DatabaseDAO(getApplicationContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // select all goods
-        Cursor cursor = db.query("goods", null, null, null, null, null, null);
+        // select all products
+        Cursor cursor = db.query("products", null, null, null, null, null, null);
 
-        data.clear();
+        products.clear();
 
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
-            int unitColIndex = cursor.getColumnIndex("basic_unit");
-            data.add(new ProductActivity.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            int unitColIndex = cursor.getColumnIndex("unit");
+            products.add(new ProductActivity.Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 
         cursor.close();

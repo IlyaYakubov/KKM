@@ -89,7 +89,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
 
         // редактирование существующего пользователя
         if (newElement == 0) {
-            authenticationService.editUserData(settingPasswordDialog,
+            authenticationService.readUserFromDatabase(settingPasswordDialog,
                     position_on_list,
                     et_position,
                     et_surname,
@@ -121,7 +121,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_del_user:
-                authenticationService.deleteData(position_on_list);
+                authenticationService.deleteUserFromDatabase(position_on_list);
                 UIViewController.ToastAdapter.show(this, "Пользователь удалён");
                 hideKeyboard(view);
                 finish();
@@ -134,8 +134,8 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 } else if (et_inn.getText().toString().isEmpty() || et_inn.getText().toString().length() < 14) {
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
-                    authenticationService.saveUserData(settingPasswordDialog,
-                            authenticationService.lastPosition(),
+                    authenticationService.createOrUpdateUserData(settingPasswordDialog,
+                            authenticationService.lastUserIdInDatabase(),
                             et_position,
                             et_surname,
                             et_name,

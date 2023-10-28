@@ -27,12 +27,8 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
 
     private AuthenticationService authenticationService;
 
-    private ArrayList<User> listUsers;
+    private ArrayList<User> users;
     private User user = new User();
-
-    public void setListUsers(ArrayList<User> listUsers) {
-        this.listUsers = listUsers;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +77,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
     @Override
     public void init() {
         authenticationService = new AuthenticationService(this);
-        authenticationService.getAllUserFromDatabase();
+        authenticationService.checkAllPermission(this);
 
         spinnerOfUsers();
     }
@@ -144,14 +140,16 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
     }
 
     private void spinnerOfUsers() {
+        users = authenticationService.readUsersFromDatabase();
+
         List<String> names = new ArrayList<>();
-        for (User element : listUsers) {
+        for (User element : users) {
             names.add(element.getName());
         }
-        ArrayAdapter<String> userNames = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
-        userNames.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spr_login.setAdapter(userNames);
+        spr_login.setAdapter(arrayAdapter);
         spr_login.setSelection(0);
 
         spr_login.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

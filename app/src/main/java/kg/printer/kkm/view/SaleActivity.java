@@ -1,5 +1,6 @@
 package kg.printer.kkm.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,7 +23,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
     private int positionOnList;
 
-    private TextView tvGood, tvQuantity, tvCoast, tvSumma;
+    private TextView tvProduct, tvQuantity, tvCoast, tvSum;
     private EditText et_num_data;
     private Button btn_clear_num, btn_dot;
     private Button btn_zero, btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine;
@@ -30,7 +31,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
     private Button btnOk;
 
     private ArrayList<String> list;
-    private ArrayList<String> itog;
+    private ArrayList<String> result;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,10 +45,10 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        tvGood = findViewById(R.id.tv_good);
+        tvProduct = findViewById(R.id.tv_product);
         tvQuantity = findViewById(R.id.tv_quantity);
         tvCoast = findViewById(R.id.tv_coast);
-        tvSumma = findViewById(R.id.tv_summa);
+        tvSum = findViewById(R.id.tv_sum);
 
         et_num_data = findViewById(R.id.et_num_data);
 
@@ -122,7 +123,6 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         btn_coast.setOnClickListener(this);
 
         btnOk.setOnClickListener(this);
-
     }
 
     @Override
@@ -130,13 +130,14 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         Intent intent = getIntent();
         positionOnList = Integer.parseInt(intent.getStringExtra("position"));
         list = intent.getExtras().getStringArrayList("list");
-        itog = intent.getExtras().getStringArrayList("itog");
+        result = intent.getExtras().getStringArrayList("itog");
 
         readDataFromBaseData();
 
         toCount();
     }
 
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View v) {
         String text = et_num_data.getText().toString();
@@ -159,13 +160,13 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_ok:
                 if (tvQuantity.getText().equals("")) return;
 
-                list.add(tvGood.getText().toString());
-                itog.add(tvSumma.getText().toString());
+                list.add(tvProduct.getText().toString());
+                result.add(tvSum.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                 intent.putExtra("list", list);
-                intent.putExtra("itog", itog);
-                intent.putExtra("summa", tvSumma.getText().toString());
+                intent.putExtra("itog", result);
+                intent.putExtra("summa", tvSum.getText().toString());
                 startActivity(intent);
                 finish();
                 break;
@@ -228,14 +229,14 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         DatabaseDAO dbHelper = new DatabaseDAO(getApplicationContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // select good
-        Cursor cursor = db.rawQuery("select * from goods where position_on_list = ?"
+        // select product
+        Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
                 , new String[]{String.valueOf(positionOnList)});
 
         if (cursor.moveToNext()) {
             int nameColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("coast");
-            tvGood.setText(cursor.getString(nameColIndex));
+            tvProduct.setText(cursor.getString(nameColIndex));
             tvCoast.setText(cursor.getString(coastColIndex));
         }
 
@@ -248,23 +249,24 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
             double coast = Double.parseDouble(tvCoast.getText().toString());
             double sum = quantity * coast;
 
-            String formattedDouble = String.format("%.2f", sum);
-            tvSumma.setText(formattedDouble);
+            @SuppressLint("DefaultLocale") String formattedDouble = String.format("%.2f", sum);
+            tvSum.setText(formattedDouble);
         }
     }
 
-    private void checkDot(int lengh) {
+    private void checkDot(int length) {
         String text = et_num_data.getText().toString();
 
         int dotIndex = text.indexOf(".");
         int lastIndex = text.length();
 
+        String textResult = text.length() <= 0 ? null : text.substring(0, text.length() - 1);
         if (dotIndex == 0) {
-            text = (text == null || text.length() <= 0) ? null : text.substring(0, text.length() - 1);
+            text = textResult;
             et_num_data.setText(text);
         } else if (dotIndex > 0) {
-            if (lastIndex - dotIndex > lengh) {
-                text = (text == null || text.length() <= 0) ? null : text.substring(0, text.length() - 1);
+            if (lastIndex - dotIndex > length) {
+                text = textResult;
                 et_num_data.setText(text);
             }
         }

@@ -23,11 +23,7 @@ import kg.printer.kkm.view.old.BasicPassFragment;
 
 public class AuthenticationService {
 
-    private AuthenticationActivity authenticationActivity; // todo можно убрать потом
-    private UsersActivity usersActivity; // todo можно убрать потом
-
-    private final ArrayList<User> listUsers = new ArrayList<>();
-    private final List<String> emptyPermissions = new ArrayList<>();
+    private final List<String> listPermissions = new ArrayList<>();
 
     private final String[] permissions = {
             Manifest.permission.CAMERA,
@@ -35,13 +31,12 @@ public class AuthenticationService {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    private final ArrayList<User> users = new ArrayList<>();
+
     private final DatabaseDAO dbHelper;
 
     public AuthenticationService(AuthenticationActivity authenticationActivity) {
-        this.authenticationActivity = authenticationActivity;
         this.dbHelper = new DatabaseDAO(authenticationActivity.getApplicationContext());
-
-        checkAllPermission();
     }
 
     public AuthenticationService(AdministratorActivity administratorActivity) {
@@ -56,67 +51,21 @@ public class AuthenticationService {
         this.dbHelper = new DatabaseDAO(usersActivity.getApplicationContext());
     }
 
-    private void checkAllPermission() {
-        emptyPermissions.clear();
+    public void checkAllPermission(AuthenticationActivity authenticationActivity) {
+        listPermissions.clear();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (String permission : permissions) {
                 if (authenticationActivity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-                    emptyPermissions.add(permission);
+                    listPermissions.add(permission);
                 }
             }
-            if (emptyPermissions.size() != 0) {
-                authenticationActivity.requestPermissions(emptyPermissions.toArray(new String[0]), 0);
+            if (listPermissions.size() != 0) {
+                authenticationActivity.requestPermissions(listPermissions.toArray(new String[0]), 0);
             }
         }
     }
 
-    public void getAllUserFromDatabase() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all users
-        Cursor cursor = db.rawQuery("select * from users", new String[] { });
-
-        listUsers.clear();
-
-        while (cursor.moveToNext()) {
-            listUsers.add(createUser(cursor));
-        }
-
-        authenticationActivity.setListUsers(listUsers);
-
-        cursor.close();
-    }
-
-    public boolean userExistsInDatabase(User user) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ? and password = ?", new String[] {String.valueOf(user.getId()), user.getPassword()});
-
-        if (cursor.moveToFirst()) {
-            cursor.close();
-            return true;
-        } else {
-            cursor.close();
-            return false;
-        }
-    }
-
-    public User findUserByIdInDatabase(int id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ?", new String[] {String.valueOf(id)});
-
-        User user = new User();
-        if (cursor.moveToFirst()) {
-            user = createUser(cursor);
-        }
-        cursor.close();
-        return user;
-    }
-
-    private User createUser(Cursor cursor) {
+    private User newUser(Cursor cursor) {
         int idColIndex = cursor.getColumnIndex("position_on_list");
         int positionColIndex = cursor.getColumnIndex("position");
         int surnameColIndex = cursor.getColumnIndex("surname");
@@ -132,64 +81,35 @@ public class AuthenticationService {
         return user;
     }
 
-    public Administrator findAdminInDatabase(BasicPassFragment settingPasswordDialog) {
+    // controller
+    public void fillUsers(ArrayList<User> users) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // select just administrator
-        Cursor cursor = db.query("users", null, "is_admin = 1", null, null, null, null);
+        // select all users
+        Cursor cursor = db.query("users", null, null, null, null, null, null);
 
-        Administrator administrator = new Administrator();
-        if (cursor.moveToFirst()) {
-            int idColIndex = cursor.getColumnIndex("position_on_list");
-            int passColIndex = cursor.getColumnIndex("password");
-            int positionColIndex = cursor.getColumnIndex("position");
-            int surnameColIndex = cursor.getColumnIndex("surname");
-            int nameColIndex = cursor.getColumnIndex("name");
-            int secondNameColIndex = cursor.getColumnIndex("second_name");
+        users.clear();
 
-            administrator.setId(cursor.getInt(idColIndex));
-            administrator.setPosition(cursor.getString(positionColIndex));
-            administrator.setSurname(cursor.getString(surnameColIndex));
-            administrator.setName(cursor.getString(nameColIndex));
-            administrator.setSecondName(cursor.getString(secondNameColIndex));
-
-            settingPasswordDialog.setPassword(cursor.getString(passColIndex));
+        while (cursor.moveToNext()) {
+            users.add(newUser(cursor));
         }
 
         cursor.close();
-
-        return administrator;
     }
 
-    public void updateAdminInDatabase(Administrator administrator) {
-        ContentValues cv = new ContentValues();
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        cv.put("is_admin", 1);
-        cv.put("position_on_list", 0);
-        cv.put("password", administrator.getPassword());
-        cv.put("position", administrator.getPosition());
-        cv.put("surname", administrator.getSurname());
-        cv.put("name", administrator.getName());
-        cv.put("second_name", administrator.getSecondName());
-
-        db.update("users", cv, "position_on_list = ?", new String[] { "0" });
-
-        dbHelper.close();
-    }
-
-    public void editUserData(BasicPassFragment settingPasswordDialog,
-                             int position_on_list,
-                             EditText et_position,
-                             EditText et_surname,
-                             EditText et_name,
-                             EditText et_second_name,
-                             EditText et_inn,
-                             EditText et_percent_discount,
-                             Switch sw_backings,
-                             Switch sw_discounts,
-                             Switch sw_change_cost,
-                             Switch sw_orders) {
+    // controller
+    public void readUserFromDatabase(BasicPassFragment settingPasswordDialog,
+                                     int position_on_list,
+                                     EditText et_position,
+                                     EditText et_surname,
+                                     EditText et_name,
+                                     EditText et_second_name,
+                                     EditText et_inn,
+                                     EditText et_percent_discount,
+                                     Switch sw_backings,
+                                     Switch sw_discounts,
+                                     Switch sw_change_cost,
+                                     Switch sw_orders) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select user
@@ -226,19 +146,20 @@ public class AuthenticationService {
         cursor.close();
     }
 
-    public void saveUserData(BasicPassFragment settingPasswordDialog,
-                             int position_on_list,
-                             EditText et_position,
-                             EditText et_surname,
-                             EditText et_name,
-                             EditText et_second_name,
-                             EditText et_inn,
-                             EditText et_percent_discount,
-                             Switch sw_backings,
-                             Switch sw_discounts,
-                             Switch sw_change_cost,
-                             Switch sw_orders,
-                             int newElement) {
+    // controller
+    public void createOrUpdateUserData(BasicPassFragment settingPasswordDialog,
+                                       int position_on_list,
+                                       EditText et_position,
+                                       EditText et_surname,
+                                       EditText et_name,
+                                       EditText et_second_name,
+                                       EditText et_inn,
+                                       EditText et_percent_discount,
+                                       Switch sw_backings,
+                                       Switch sw_discounts,
+                                       Switch sw_change_cost,
+                                       Switch sw_orders,
+                                       int newElement) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -281,21 +202,7 @@ public class AuthenticationService {
         }
     }
 
-    public void deleteData(int position_on_list) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete("users", "position_on_list = " + position_on_list, null);
-
-        // select users
-        Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            //update t1 set id = (select count(*) + 1 from t1 t where t.id < t1.id) where id > (select min(t1.id) from t1 left join t1 next on t1.id+1 = next.id where next.id is null)
-            String sql = "update users set position_on_list = (select count(*) + 1 from users t where t.position_on_list < users.position_on_list and users.is_admin = 0) - 1";
-            db.execSQL(sql);
-        }
-    }
-
-    public int lastPosition() {
+    public int lastUserIdInDatabase() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select all users
@@ -311,49 +218,136 @@ public class AuthenticationService {
         return lastPosition;
     }
 
-    public void selectAdministrator() {
+    public boolean userExistsInDatabase(User user) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // select user
+        Cursor cursor = db.rawQuery("select * from users where position_on_list = ? and password = ?", new String[] {String.valueOf(user.getId()), user.getPassword()});
+
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    public User findUserByIdInDatabase(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // select user
+        Cursor cursor = db.rawQuery("select * from users where position_on_list = ?", new String[] {String.valueOf(id)});
+
+        User user = new User();
+        if (cursor.moveToFirst()) {
+            user = newUser(cursor);
+        }
+        cursor.close();
+        return user;
+    }
+
+    public ArrayList<User> readUsersFromDatabase() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // select all users
+        Cursor cursor = db.rawQuery("select * from users", new String[] { });
+
+        users.clear();
+
+        while (cursor.moveToNext()) {
+            users.add(newUser(cursor));
+        }
+
+        cursor.close();
+        return users;
+    }
+
+    // controller
+    public void deleteUserFromDatabase(int position_on_list) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("users", "position_on_list = " + position_on_list, null);
+
+        // select users
+        Cursor cursor = db.query("users", null, "is_admin = 0", null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            //update t1 set id = (select count(*) + 1 from t1 t where t.id < t1.id) where id > (select min(t1.id) from t1 left join t1 next on t1.id+1 = next.id where next.id is null)
+            String sql = "update users set position_on_list = (select count(*) + 1 from users t where t.position_on_list < users.position_on_list and users.is_admin = 0) - 1";
+            db.execSQL(sql);
+        }
+    }
+
+    public Administrator findAdministratorInDatabase(BasicPassFragment settingPasswordDialog) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // select just administrator
+        Cursor cursor = db.query("users", null, "is_admin = 1", null, null, null, null);
+
+        Administrator administrator = new Administrator();
+        if (cursor.moveToFirst()) {
+            int idColIndex = cursor.getColumnIndex("position_on_list");
+            int passColIndex = cursor.getColumnIndex("password");
+            int positionColIndex = cursor.getColumnIndex("position");
+            int surnameColIndex = cursor.getColumnIndex("surname");
+            int nameColIndex = cursor.getColumnIndex("name");
+            int secondNameColIndex = cursor.getColumnIndex("second_name");
+
+            administrator.setId(cursor.getInt(idColIndex));
+            administrator.setPosition(cursor.getString(positionColIndex));
+            administrator.setSurname(cursor.getString(surnameColIndex));
+            administrator.setName(cursor.getString(nameColIndex));
+            administrator.setSecondName(cursor.getString(secondNameColIndex));
+
+            settingPasswordDialog.setPassword(cursor.getString(passColIndex));
+        }
+
+        cursor.close();
+
+        return administrator;
+    }
+
+    // controller
+    public void createAdministratorInDatabase() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select administrator
         Cursor cursor = db.query("users", null, "is_admin = 1", null, null, null, null);
 
         if (!cursor.moveToFirst()) {
-            addAdministrator();
+            db = dbHelper.getWritableDatabase();
+
+            ContentValues cv = new ContentValues();
+
+            cv.put("is_admin", 1);
+            cv.put("position_on_list", 0);
+            cv.put("position", "Администратор");
+            cv.put("surname", "");
+            cv.put("name", "");
+            cv.put("second_name", "");
+
+            db.insert("users", null, cv);
         }
 
         cursor.close();
     }
 
-    public void fillUsers(ArrayList<User> users) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all users
-        Cursor cursor = db.query("users", null, null, null, null, null, null);
-
-        users.clear();
-
-        while (cursor.moveToNext()) {
-            //int positionColIndex = cursor.getColumnIndex("position");
-            //data.add(cursor.getString(positionColIndex));
-            users.add(createUser(cursor));
-        }
-
-        cursor.close();
-    }
-
-    public void addAdministrator() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
+    // controller
+    public void updateAdministratorInDatabase(Administrator administrator) {
         ContentValues cv = new ContentValues();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         cv.put("is_admin", 1);
         cv.put("position_on_list", 0);
-        cv.put("position", "Администратор");
-        cv.put("surname", "");
-        cv.put("name", "");
-        cv.put("second_name", "");
+        cv.put("password", administrator.getPassword());
+        cv.put("position", administrator.getPosition());
+        cv.put("surname", administrator.getSurname());
+        cv.put("name", administrator.getName());
+        cv.put("second_name", administrator.getSecondName());
 
-        db.insert("users", null, cv);
+        db.update("users", cv, "position_on_list = ?", new String[] { "0" });
+
+        dbHelper.close();
     }
 
 }
