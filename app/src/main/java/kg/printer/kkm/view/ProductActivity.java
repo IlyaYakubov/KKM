@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class ProductActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private Spinner spr_Unit;
+    private Spinner sprUnit;
     private EditText etName, etPrice;
     private Button btnOk;
 
@@ -61,6 +61,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         if (newItem == 0) {
             product = productService.findProductByListIndex(listIndex);
         } else {
+            product = new Product();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
 
@@ -72,14 +73,14 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         adapterBasicUnit = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listUnits);
         adapterBasicUnit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spr_Unit = findViewById(R.id.spr_unit);
-        spr_Unit.setAdapter(adapterBasicUnit);
-        spr_Unit.setPrompt("Единица измерения");
-        spr_Unit.setSelection(0);
-        spr_Unit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sprUnit = findViewById(R.id.spr_unit);
+        sprUnit.setAdapter(adapterBasicUnit);
+        sprUnit.setPrompt("Единица измерения");
+        sprUnit.setSelection(0);
+        sprUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                unitName = spr_Unit.getSelectedItem().toString();
+                unitName = sprUnit.getSelectedItem().toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -122,7 +123,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
     private void updateView() {
         etName.setText(product.getName());
-        spr_Unit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
+        sprUnit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
         etPrice.setText(product.getPrice());
     }
 

@@ -42,8 +42,6 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         init();
         initView();
         addListener();
-
-        updateView();
     }
 
     @Override
@@ -92,11 +90,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         tvQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (!tvQuantity.getText().equals("")) {
-                    String quantity = tvQuantity.getText().toString();
-                    String price = tvPrice.getText().toString();
-                    tvSum.setText(saleService.toMultiply(quantity, price));
-                }
+                tvSum.setText(saleService.toMultiply(tvQuantity.getText().toString(), tvPrice.getText().toString()));
             }
 
             @Override
@@ -111,11 +105,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         tvPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (!tvQuantity.getText().equals("")) {
-                    String quantity = tvQuantity.getText().toString();
-                    String price = tvPrice.getText().toString();
-                    tvSum.setText(saleService.toMultiply(quantity, price));
-                }
+                tvSum.setText(saleService.toMultiply(tvQuantity.getText().toString(), tvPrice.getText().toString()));
             }
 
             @Override
@@ -165,7 +155,10 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
                 }
                 break;
             case R.id.btn_ok:
-                if (tvQuantity.getText().equals("")) return;
+                if (tvQuantity.getText().toString().equals("")
+                        || tvPrice.getText().toString().equals("")) {
+                    return;
+                }
 
                 list.add(tvProduct.getText().toString());
                 result.add(tvSum.getText().toString());
@@ -238,9 +231,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         tvProduct.setText(String.valueOf(map.get("name")));
         tvPrice.setText(String.valueOf(map.get("price")));
 
-        if (!tvQuantity.getText().equals("")) {
-            tvSum.setText(saleService.toMultiply(tvQuantity.getText().toString(), tvPrice.getText().toString()));
-        }
+        tvSum.setText(saleService.toMultiply(tvQuantity.getText().toString(), tvPrice.getText().toString()));
     }
 
     private void checkDot(int length) {

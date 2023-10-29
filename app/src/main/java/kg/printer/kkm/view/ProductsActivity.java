@@ -26,8 +26,6 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
         init();
         initView();
         addListener();
-
-        updateView();
     }
 
     @Override

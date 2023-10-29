@@ -49,6 +49,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         if (newItem == 0) {
             unit = unitService.findUnitByListIndex(listIndex);
         } else {
+            unit = new Unit();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
     }
@@ -89,11 +90,9 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void updateView() {
-        if (unit != null) {
-            etName.setText(unit.getName());
-            etFullName.setText(unit.getFullName());
-            etCodeName.setText(unit.getCode());
-        }
+        etName.setText(unit.getName());
+        etFullName.setText(unit.getFullName());
+        etCodeName.setText(unit.getCode());
     }
 
     private void hideKeyboard(View view) {

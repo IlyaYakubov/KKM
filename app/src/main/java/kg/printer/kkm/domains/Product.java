@@ -4,6 +4,9 @@ public class Product {
 
     private String name, unit, price;
 
+    public Product() {
+    }
+
     public Product(String name, String unit, String price) {
         this.name = name;
         this.unit = unit;

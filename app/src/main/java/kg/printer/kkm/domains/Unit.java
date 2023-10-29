@@ -4,6 +4,9 @@ public class Unit {
 
     private String name, fullName, code;
 
+    public Unit() {
+    }
+
     public Unit(String name, String fullName, String code) {
         this.name = name;
         this.fullName = fullName;

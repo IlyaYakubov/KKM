@@ -44,6 +44,10 @@ public class SaleService {
     }
 
     public String toMultiply(String quantityText, String priceText) {
+        if (quantityText.equals("") || priceText.equals("")) {
+            return "";
+        }
+
         double quantity = Double.parseDouble(quantityText);
         double coast = Double.parseDouble(priceText);
         double sum = quantity * coast;
