@@ -12,6 +12,7 @@ import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CartActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
@@ -48,14 +49,16 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     public void init() {
         Intent intent = getIntent();
         try {
-            products = intent.getExtras().getStringArrayList("list");
-            results = intent.getExtras().getStringArrayList("itog");
+            products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
+            results = intent.getExtras().getStringArrayList("result");
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
             lvData.setAdapter(adapter);
 
-            String sum = intent.getStringExtra("summa");
-        } catch (Exception e) {}
+            String sum = intent.getStringExtra("sum");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -65,7 +68,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_select_product:
                 Intent intentGoodsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
                 intentGoodsList.putStringArrayListExtra("list", products);
-                intentGoodsList.putStringArrayListExtra("itog", results);
+                intentGoodsList.putStringArrayListExtra("result", results);
                 startActivity(intentGoodsList);
                 finish();
                 break;
@@ -75,7 +78,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
                 }
 
                 Intent intentCash = new Intent(getApplicationContext(), CashActivity.class);
-                intentCash.putStringArrayListExtra("itog", results);
+                intentCash.putStringArrayListExtra("result", results);
                 startActivity(intentCash);
                 finish();
                 break;

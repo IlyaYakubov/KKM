@@ -69,7 +69,7 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void init() {
         Intent intent = getIntent();
-        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("itog");
+        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
         assert result != null;
         for (String sum : result) {
             sum = sum.replace(',','.');
