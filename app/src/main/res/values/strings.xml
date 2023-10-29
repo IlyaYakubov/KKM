@@ -172,15 +172,15 @@
     <string name="zero">0</string>
 
     <!-- trade -->
-    <string name="sale">Продажа</string>
+    <string name="sale">Чек</string>
     <string name="select_product">Подобрать номенклатуру</string>
     <string name="cash">Наличные</string>
-    <string name="adding_product">Добавление номенклатуры</string>
+    <string name="adding_product">Расчёт номенклатуры для чека</string>
     <string name="quantity">Количество</string>
     <string name="quantity_briefly">Кол-во</string>
     <string name="sum">Сумма</string>
     <string name="add_in_receipt">Добавить в чек</string>
-    <string name="sale_cash">Внесение наличных</string>
+    <string name="sale_cash">Оплата наличными</string>
     <string name="result">Итог</string>
     <string name="contributed">Внесено</string>
     <string name="change">Сдача</string>

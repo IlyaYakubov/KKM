@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 import kg.printer.kkm.domains.User;
@@ -49,7 +51,10 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     protected void onResume() {
         super.onResume();
+
         setVisibleValueOfPercent();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @Override
@@ -118,6 +123,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 settingPasswordDialog.setPassword("");
                 user.setPassword("");
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
+                hideKeyboard(view);
                 break;
             case R.id.btn_del_user:
                 /*authenticationService.deleteUser(listIndex);

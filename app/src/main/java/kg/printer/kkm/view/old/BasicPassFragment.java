@@ -3,15 +3,19 @@ package kg.printer.kkm.view.old;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.view.UserActivity;
 
 public class BasicPassFragment extends DialogFragment implements View.OnClickListener {
 
@@ -25,10 +29,6 @@ public class BasicPassFragment extends DialogFragment implements View.OnClickLis
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public EditText getEtPassword() {
-        return etPassword;
     }
 
     @SuppressLint("InflateParams")
@@ -63,7 +63,7 @@ public class BasicPassFragment extends DialogFragment implements View.OnClickLis
             password = etPassword.getText().toString();
             confirmPassword = etConfirmPassword.getText().toString();
             if (etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
-                getDialog().dismiss();
+                getDialog().cancel();
             } else {
                 UIViewController.ToastAdapter.showLong(getActivity(), "Не совпадает подтверждение пароля");
             }
