@@ -40,7 +40,7 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
 
         settingPasswordDialog = new BasicPassFragment();
 
-        administrator = authenticationService.findAdministratorInDatabase(settingPasswordDialog);
+        administrator = authenticationService.findAdministrator(settingPasswordDialog);
 
         etPosition.setText(administrator.getPosition());
         etSurname.setText(administrator.getSurname());
@@ -89,7 +89,7 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
                     administrator.setSecondName(etSecondName.getText().toString());
                     administrator.setPassword(settingPasswordDialog.getPassword());
 
-                    authenticationService.updateAdministratorInDatabase(administrator);
+                    authenticationService.updateAdministrator(administrator);
                     hideKeyboard(view);
                     finish();
                 }

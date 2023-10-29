@@ -2,15 +2,16 @@ package kg.printer.kkm.domains;
 
 public class User {
 
-    private int id;
-    private String position, surname, name, secondName, password;
+    private boolean isBackings, isDiscounts, isChangePrice, isOrders;
+    private int listIndex;
+    private String position, surname, name, secondName, inn, percentOfDiscount, password;
 
-    public int getId() {
-        return id;
+    public int getListIndex() {
+        return listIndex;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setListIndex(int listIndex) {
+        this.listIndex = listIndex;
     }
 
     public String getPosition() {
@@ -53,4 +54,51 @@ public class User {
         this.password = password;
     }
 
+    public boolean isBackings() {
+        return isBackings;
+    }
+
+    public void setBackings(boolean backings) {
+        isBackings = backings;
+    }
+
+    public boolean isDiscounts() {
+        return isDiscounts;
+    }
+
+    public void setDiscounts(boolean discounts) {
+        isDiscounts = discounts;
+    }
+
+    public boolean isChangePrice() {
+        return isChangePrice;
+    }
+
+    public void setChangePrice(boolean changePrice) {
+        isChangePrice = changePrice;
+    }
+
+    public boolean isOrders() {
+        return isOrders;
+    }
+
+    public void setOrders(boolean orders) {
+        isOrders = orders;
+    }
+
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public String getPercentOfDiscount() {
+        return percentOfDiscount;
+    }
+
+    public void setPercentOfDiscount(String percentOfDiscount) {
+        this.percentOfDiscount = percentOfDiscount;
+    }
 }

@@ -25,9 +25,11 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        init();
         initView();
         addListener();
-        init();
+
+        updateView();
     }
 
     @Override
@@ -48,6 +50,15 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
             btnSettings.setTextColor(Color.GRAY);
             btnSettings.setClickable(false);
         }
+    }
+
+    @Override
+    public void init() {
+        Intent intent = getIntent();
+        position = intent.getStringExtra("position");
+        surname = intent.getStringExtra("surname");
+        name = intent.getStringExtra("name");
+        secondName = intent.getStringExtra("secondName");
     }
 
     @Override
@@ -77,22 +88,6 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
         btnSettings.setOnClickListener(this);
     }
 
-    @Override
-    public void init() {
-        Intent intent = getIntent();
-        position = intent.getStringExtra("position");
-        surname = intent.getStringExtra("surname");
-        name = intent.getStringExtra("name");
-        secondName = intent.getStringExtra("secondName");
-
-        if (name != null && !name.isEmpty()) {
-            tvMessage.setText(name.trim());
-            /*UIViewController.ToastAdapter.show(this, "Вы вошли как "
-                    + position.trim() + ", " + surname.trim() + " "
-                    + name.trim() + " " + secondName.trim());*/
-        }
-    }
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
@@ -105,6 +100,12 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
                 break;
             default:
                 break;
+        }
+    }
+
+    private void updateView() {
+        if (name != null && !name.isEmpty()) {
+            tvMessage.setText(name.trim());
         }
     }
 

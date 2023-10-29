@@ -27,28 +27,8 @@ public class BasicPassFragment extends DialogFragment implements View.OnClickLis
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
     public EditText getEtPassword() {
         return etPassword;
-    }
-
-    public void setEtPassword(EditText etPassword) {
-        this.etPassword = etPassword;
-    }
-
-    public EditText getEtConfirmPassword() {
-        return etConfirmPassword;
-    }
-
-    public void setEtConfirmPassword(EditText etConfirmPassword) {
-        this.etConfirmPassword = etConfirmPassword;
     }
 
     @SuppressLint("InflateParams")
@@ -65,11 +45,12 @@ public class BasicPassFragment extends DialogFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+
         etPassword = getDialog().findViewById(R.id.et_password);
         etConfirmPassword = getDialog().findViewById(R.id.et_confirm_password);
 
-        Button btn_ok = getDialog().findViewById(R.id.btn_ok);
-        btn_ok.setOnClickListener(this);
+        Button btnOk = getDialog().findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(this);
 
         etPassword.setText(password);
         etConfirmPassword.setText(password);

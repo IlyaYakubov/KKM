@@ -36,9 +36,24 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
+        init();
         initView();
         addListener();
-        init();
+
+        updateView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        authenticationService = new AuthenticationService(this);
+        authenticationService.checkAllPermissions(this);
     }
 
     @Override
@@ -75,14 +90,6 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         btnNine.setOnClickListener(this);
     }
 
-    @Override
-    public void init() {
-        authenticationService = new AuthenticationService(this);
-        authenticationService.checkAllPermission(this);
-
-        spinnerOfUsers();
-    }
-
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View view) {
@@ -93,8 +100,8 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
                 // now text is password
                 user.setPassword(text);
 
-                if (authenticationService.userExistsInDatabase(user)) {
-                    user = authenticationService.findUserByIdInDatabase(user.getId());
+                if (authenticationService.findUser(user)) {
+                    user = authenticationService.findUserByListIndex(user.getListIndex());
                     turnToActivityWithUser(MenuActivity.class, user);
                     etNumData.setText("");
                 } else {
@@ -140,8 +147,8 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         }
     }
 
-    private void spinnerOfUsers() {
-        users = authenticationService.readUsersFromDatabase();
+    private void updateView() {
+        users = authenticationService.readUsers();
 
         List<String> names = new ArrayList<>();
         for (User element : users) {
@@ -156,7 +163,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         sprLogin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                user.setId(position);
+                user.setListIndex(position);
                 user.setName(sprLogin.getSelectedItem().toString());
             }
             @Override

@@ -13,9 +13,9 @@ import kg.printer.kkm.view.UnitsActivity;
 
 public class UnitService {
 
-    private DatabaseDAO dbHelper;
-
     private final ArrayList<Unit> units = new ArrayList<>();
+
+    private DatabaseDAO dbHelper;
 
     public UnitService(UnitsActivity unitsActivity) {
         this.dbHelper = new DatabaseDAO(unitsActivity);
@@ -25,27 +25,7 @@ public class UnitService {
         this.dbHelper = new DatabaseDAO(unitActivity);
     }
 
-    public ArrayList<Unit> readUnits() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all products
-        Cursor cursor = db.query("products", null, null, null, null, null, null);
-
-        units.clear();
-
-        while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("price");
-            int unitColIndex = cursor.getColumnIndex("unit");
-            units.add(new Unit(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
-        }
-
-        cursor.close();
-
-        return units;
-    }
-
-    public ArrayList<String> readUnitNames() {
+    public ArrayList<String> readUnits() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select all units
@@ -67,7 +47,7 @@ public class UnitService {
         return unitNames;
     }
 
-    public Unit readUnit(int listIndex) {
+    public Unit findUnitByListIndex(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select unit
@@ -97,7 +77,7 @@ public class UnitService {
         cv.put("full_name", fullName);
         cv.put("code", code);
 
-        cv.put("position_on_list", lastPosition() + 1);
+        cv.put("position_on_list", lastIndex() + 1);
 
         db.insert("units", null, cv);
     }
@@ -115,7 +95,7 @@ public class UnitService {
         db.update("units", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
     }
 
-    public int lastPosition() {
+    public int lastIndex() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select all units

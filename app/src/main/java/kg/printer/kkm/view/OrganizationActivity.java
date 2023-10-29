@@ -29,12 +29,17 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
 
-        organizationService = new OrganizationService(this);
-        organization = organizationService.readData();
-
+        init();
         initView();
         addListener();
-        init();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        organizationService = new OrganizationService(this);
+        organization = organizationService.readOrganization();
     }
 
     @Override
@@ -90,27 +95,6 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
     }
 
     @Override
-    public void init() {
-        if (organization.getTypeOfOwnership().equals("Индивидуальный предприниматель")) {
-            sprTypeOfOwnership.setSelection(0);
-        } else {
-            sprTypeOfOwnership.setSelection(1);
-        }
-
-        if (organization.getTax().equals("Общая система")) {
-            sprTaxation.setSelection(0);
-        } else if (organization.getTax().equals("Упрощенная система")) {
-            sprTaxation.setSelection(1);
-        }
-
-        etOrgName.setText(organization.getName());
-        etMagazineName.setText(organization.getMagazine_name());
-        etInn.setText(organization.getInn());
-        etAddressMagazine.setText(organization.getAddress_magazine());
-        etTelephoneMagazine.setText(organization.getTelephone_magazine());
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etOrgName.getText().toString().isEmpty()) {
@@ -128,11 +112,31 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
                 String address_magazine = etAddressMagazine.getText().toString();
                 String telephone_magazine = etTelephoneMagazine.getText().toString();
 
-                organizationService.addOrgData(typeOfOwnership, tax, org_name, inn, magazine_name, address_magazine, telephone_magazine);
+                organizationService.updateOrganization(typeOfOwnership, tax, org_name, inn, magazine_name, address_magazine, telephone_magazine);
                 hideKeyboard(view);
                 finish();
             }
         }
+    }
+
+    private void updateView() {
+        if (organization.getTypeOfOwnership().equals("Индивидуальный предприниматель")) {
+            sprTypeOfOwnership.setSelection(0);
+        } else {
+            sprTypeOfOwnership.setSelection(1);
+        }
+
+        if (organization.getTax().equals("Общая система")) {
+            sprTaxation.setSelection(0);
+        } else if (organization.getTax().equals("Упрощенная система")) {
+            sprTaxation.setSelection(1);
+        }
+
+        etOrgName.setText(organization.getName());
+        etMagazineName.setText(organization.getMagazine_name());
+        etInn.setText(organization.getInn());
+        etAddressMagazine.setText(organization.getAddress_magazine());
+        etTelephoneMagazine.setText(organization.getTelephone_magazine());
     }
 
     private void hideKeyboard(View view) {

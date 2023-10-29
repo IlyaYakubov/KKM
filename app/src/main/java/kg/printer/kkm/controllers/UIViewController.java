@@ -47,11 +47,11 @@ public class UIViewController {
 
         private ProgressDialog progressDialog;
 
+        public abstract void init();
+
         public abstract void initView();
 
         public abstract void addListener();
-
-        public abstract void init();
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {

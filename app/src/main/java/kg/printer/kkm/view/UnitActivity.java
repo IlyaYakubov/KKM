@@ -23,11 +23,22 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
 
     private UnitService unitService;
 
+    private Unit unit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unit);
 
+        init();
+        initView();
+        addListener();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
         unitService = new UnitService(this);
 
         Intent intent = getIntent();
@@ -35,21 +46,10 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         newItem = intent.getIntExtra("newItem", 1);
 
         // редактирование существующей единицы измерения
-        Unit unit = null;
         if (newItem == 0) {
-            unit = unitService.readUnit(listIndex);
+            unit = unitService.findUnitByListIndex(listIndex);
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        initView();
-        addListener();
-        init();
-
-        if (unit != null) {
-            etName.setText(unit.getName());
-            etFullName.setText(unit.getFullName());
-            etCodeName.setText(unit.getCode());
         }
     }
 
@@ -58,7 +58,6 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         etName = findViewById(R.id.et_name);
         etFullName = findViewById(R.id.et_full_name);
         etCodeName = findViewById(R.id.et_code_name);
-
         btnOk = findViewById(R.id.btn_ok);
     }
 
@@ -68,33 +67,32 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     @Override
-    public void init() {
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_ok) {
+            if (etName.getText().toString().isEmpty()) {
+                UIViewController.ToastAdapter.show(this, "Заполните наименование");
+            } else {
+                String name = etName.getText().toString();
+                String fullName = etFullName.getText().toString();
+                String codeName = etCodeName.getText().toString();
 
+                if (newItem == 1) {
+                    unitService.createUnit(name, fullName, codeName);
+                } else {
+                    unitService.updateUnit(name, fullName, codeName, listIndex);
+                }
+
+                hideKeyboard(view);
+                finish();
+            }
+        }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_ok:
-                if (etName.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните наименование");
-                } else {
-                    String name = etName.getText().toString();
-                    String fullName = etFullName.getText().toString();
-                    String codeName = etCodeName.getText().toString();
-
-                    if (newItem == 1) {
-                        unitService.createUnit(name, fullName, codeName);
-                    } else {
-                        unitService.updateUnit(name, fullName, codeName, listIndex);
-                    }
-
-                    hideKeyboard(view);
-                    finish();
-                }
-                break;
-            default:
-                break;
+    private void updateView() {
+        if (unit != null) {
+            etName.setText(unit.getName());
+            etFullName.setText(unit.getFullName());
+            etCodeName.setText(unit.getCode());
         }
     }
 

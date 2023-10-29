@@ -17,9 +17,14 @@ public class SettingsActivity extends UIViewController.BaseAdapter implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        init();
         initView();
         addListener();
-        init();
+    }
+
+    @Override
+    public void init() {
+        // do nothing
     }
 
     @Override
@@ -36,11 +41,6 @@ public class SettingsActivity extends UIViewController.BaseAdapter implements Vi
         btnAddUser.setOnClickListener(this);
         btnProducts.setOnClickListener(this);
         btnUnits.setOnClickListener(this);
-    }
-
-    @Override
-    public void init() {
-        // do nothing
     }
 
     @SuppressLint("NonConstantResourceId")

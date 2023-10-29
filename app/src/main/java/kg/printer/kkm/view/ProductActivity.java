@@ -35,11 +35,22 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
     private ProductService productService;
 
+    private Product product;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        init();
+        initView();
+        addListener();
+
+        updateView(product);
+    }
+
+    @Override
+    public void init() {
         productService = new ProductService(this);
 
         Intent intent = getIntent();
@@ -47,22 +58,13 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         newItem = intent.getIntExtra("newItem", 1);
 
         // редактирование существующей номенклатуры
-        Product product = null;
         if (newItem == 0) {
-            product = productService.readProduct(listIndex);
+            product = productService.findProductByListIndex(listIndex);
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
 
-        init();
-        initView();
-        addListener();
-
-        if (product != null) {
-            etName.setText(product.getName());
-            spr_Unit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
-            etPrice.setText(product.getPrice());
-        }
+        listUnits = productService.findAllUnits();
     }
 
     @Override
@@ -98,11 +100,6 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     }
 
     @Override
-    public void init() {
-        listUnits = productService.readUnitsFromBaseData();
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etName.getText().toString().isEmpty()) {
@@ -120,6 +117,14 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
                 hideKeyboard(view);
                 finish();
             }
+        }
+    }
+
+    private void updateView(Product product) {
+        if (product != null) {
+            etName.setText(product.getName());
+            spr_Unit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
+            etPrice.setText(product.getPrice());
         }
     }
 

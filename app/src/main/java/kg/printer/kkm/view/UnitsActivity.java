@@ -62,7 +62,7 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
     }
 
     private void fillAdapter() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitService.readUnitNames());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitService.readUnits());
         lvData.setAdapter(adapter);
 
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {

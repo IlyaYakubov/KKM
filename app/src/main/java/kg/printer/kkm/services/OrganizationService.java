@@ -16,7 +16,7 @@ public class OrganizationService {
         this.dbHelper = new DatabaseDAO(organizationActivity);
     }
 
-    public Organization readData() {
+    public Organization readOrganization() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select organization
@@ -47,7 +47,13 @@ public class OrganizationService {
         return organization;
     }
 
-    public void addOrgData(String typeOfOwnership, String tax, String org_name, String inn, String magazine_name, String address_magazine, String telephone_magazine) {
+    public void updateOrganization(String typeOfOwnership,
+                                   String tax,
+                                   String org_name,
+                                   String inn,
+                                   String magazine_name,
+                                   String address_magazine,
+                                   String telephone_magazine) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 

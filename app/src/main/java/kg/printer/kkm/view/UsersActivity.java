@@ -19,7 +19,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
     private ListView lvData;
     private Button btnAdd;
 
-    private final ArrayList<User> users = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
     private final ArrayList<String> names = new ArrayList<>();
 
     private AuthenticationService authenticationService;
@@ -39,7 +39,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
         super.onResume();
 
         names.clear();
-        authenticationService.fillUsers(users);
+        users = authenticationService.readUsers();
         fillAdapter(users);
     }
 
@@ -59,7 +59,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
         authenticationService = new AuthenticationService(this);
 
         if (users.isEmpty()) {
-            authenticationService.createAdministratorInDatabase();
+            authenticationService.createAdministrator();
         }
     }
 

@@ -2,6 +2,7 @@ package kg.printer.kkm.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.User;
 import kg.printer.kkm.services.AuthenticationService;
 import kg.printer.kkm.view.old.BasicPassFragment;
 
@@ -35,47 +37,17 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        init();
         initView();
         addListener();
-        init();
+
+        updateView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setVisibleValueOfPercent();
-    }
-
-    @Override
-    public void initView() {
-        etPosition = findViewById(R.id.et_position);
-        etSurname = findViewById(R.id.et_surname);
-        etName = findViewById(R.id.et_name);
-        etSecondName = findViewById(R.id.et_second_name);
-        etInn = findViewById(R.id.et_inn);
-
-        tvNotBigger = findViewById(R.id.tv_not_bigger);
-        etPercentDiscount = findViewById(R.id.et_percent_discount);
-        tvPercent = findViewById(R.id.tv_percent);
-
-        swBackings = findViewById(R.id.sw_backings);
-        swDiscounts = findViewById(R.id.sw_discounts);
-        swChangePrice = findViewById(R.id.sw_change_price);
-        swOrders = findViewById(R.id.sw_orders);
-
-        btnSetPass = findViewById(R.id.btn_set_pass);
-        btnDelPass = findViewById(R.id.btn_del_pass);
-        btnDelUser = findViewById(R.id.btn_del_user);
-        btnOk = findViewById(R.id.btn_ok);
-    }
-
-    @Override
-    public void addListener() {
-        swDiscounts.setOnClickListener(this);
-        btnSetPass.setOnClickListener(this);
-        btnDelPass.setOnClickListener(this);
-        btnDelUser.setOnClickListener(this);
-        btnOk.setOnClickListener(this);
     }
 
     @Override
@@ -86,24 +58,40 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         Intent intent = getIntent();
         listIndex = intent.getIntExtra("listIndex", -1);
         newItem = intent.getIntExtra("newItem", 1);
+    }
 
-        // редактирование существующего пользователя
-        if (newItem == 0) {
-            authenticationService.readUserFromDatabase(settingPasswordDialog,
-                    listIndex,
-                    etPosition,
-                    etSurname,
-                    etName,
-                    etSecondName,
-                    etInn,
-                    etPercentDiscount,
-                    swBackings,
-                    swDiscounts,
-                    swChangePrice,
-                    swOrders);
-        } else {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
+    @Override
+    public void initView() {
+        etPosition = findViewById(R.id.et_position);
+        etSurname = findViewById(R.id.et_surname);
+        etName = findViewById(R.id.et_name);
+        etSecondName = findViewById(R.id.et_second_name);
+        etInn = findViewById(R.id.et_inn);
+        tvNotBigger = findViewById(R.id.tv_not_bigger);
+        etPercentDiscount = findViewById(R.id.et_percent_discount);
+        tvPercent = findViewById(R.id.tv_percent);
+        swBackings = findViewById(R.id.sw_backings);
+        swDiscounts = findViewById(R.id.sw_discounts);
+        swChangePrice = findViewById(R.id.sw_change_price);
+        swOrders = findViewById(R.id.sw_orders);
+        btnSetPass = findViewById(R.id.btn_set_pass);
+        btnDelPass = findViewById(R.id.btn_del_pass);
+
+        btnDelUser = findViewById(R.id.btn_del_user);
+        btnDelUser.setBackgroundColor(Color.WHITE);
+        btnDelUser.setTextColor(Color.GRAY);
+        btnDelUser.setClickable(false);
+
+        btnOk = findViewById(R.id.btn_ok);
+    }
+
+    @Override
+    public void addListener() {
+        swDiscounts.setOnClickListener(this);
+        btnSetPass.setOnClickListener(this);
+        btnDelPass.setOnClickListener(this);
+        btnDelUser.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -121,10 +109,10 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_del_user:
-                authenticationService.deleteUserFromDatabase(listIndex);
+                /*authenticationService.deleteUser(listIndex);
                 UIViewController.ToastAdapter.show(this, "Пользователь удалён");
                 hideKeyboard(view);
-                finish();
+                finish();*/
                 break;
             case R.id.btn_ok:
                 if (etPosition.getText().toString().isEmpty()) {
@@ -134,31 +122,24 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
+                    User user = new User();
+
+                    user.setPassword(settingPasswordDialog.getPassword());
+                    user.setPosition(etPosition.getText().toString());
+                    user.setSurname(etSurname.getText().toString());
+                    user.setName(etName.getText().toString());
+                    user.setSecondName(etSecondName.getText().toString());
+                    user.setInn(etInn.getText().toString());
+                    user.setPercentOfDiscount(etPercentDiscount.getText().toString());
+                    user.setBackings(swBackings.isChecked());
+                    user.setDiscounts(swDiscounts.isChecked());
+                    user.setChangePrice(swChangePrice.isChecked());
+                    user.setOrders(swOrders.isChecked());
+
                     if (newItem == 1) {
-                        authenticationService.createUserData(settingPasswordDialog,
-                                etPosition,
-                                etSurname,
-                                etName,
-                                etSecondName,
-                                etInn,
-                                etPercentDiscount,
-                                swBackings,
-                                swDiscounts,
-                                swChangePrice,
-                                swOrders);
+                        authenticationService.createUser(user);
                     } else {
-                        authenticationService.updateUserData(settingPasswordDialog,
-                                listIndex,
-                                etPosition,
-                                etSurname,
-                                etName,
-                                etSecondName,
-                                etInn,
-                                etPercentDiscount,
-                                swBackings,
-                                swDiscounts,
-                                swChangePrice,
-                                swOrders);
+                        authenticationService.updateUser(user, listIndex);
                     }
 
                     hideKeyboard(view);
@@ -167,6 +148,29 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 break;
             default:
                 break;
+        }
+    }
+
+    private void updateView() {
+        // редактирование существующего пользователя
+        if (newItem == 0) {
+            User user = authenticationService.findUserByListIndex(listIndex);
+
+            if (user != null) {
+                etPosition.setText(user.getPosition());
+                etSurname.setText(user.getSurname());
+                etName.setText(user.getName());
+                etSecondName.setText(user.getSecondName());
+                etInn.setText(user.getInn());
+                etPercentDiscount.setText(user.getPercentOfDiscount());
+
+                if (user.isBackings()) swBackings.setChecked(true);
+                if (user.isDiscounts()) swDiscounts.setChecked(true);
+                if (user.isChangePrice()) swChangePrice.setChecked(true);
+                if (user.isOrders()) swOrders.setChecked(true);
+            }
+        } else {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
     }
 

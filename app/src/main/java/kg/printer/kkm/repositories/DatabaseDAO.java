@@ -89,16 +89,6 @@ public class DatabaseDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table organizations ("
-                + "id integer primary key autoincrement,"
-                + "type_of_ownership text," // форма собственности
-                + "taxation text," // система налогооблажения
-                + "name text,"
-                + "inn text," // ИНН
-                + "magazine_name text," // торговая точка
-                + "address_magazine text,"
-                + "telephone_magazine text"
-                + ");");
         db.execSQL("create table users ("
                 + "id integer primary key autoincrement,"
                 + "position_on_list text,"
@@ -114,6 +104,16 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "is_discounts integer," // скидки
                 + "is_change_price integer," // изменять цену
                 + "is_orders integer" // заказы клиента
+                + ");");
+        db.execSQL("create table organizations ("
+                + "id integer primary key autoincrement,"
+                + "type_of_ownership text," // форма собственности
+                + "taxation text," // система налогооблажения
+                + "name text,"
+                + "inn text," // ИНН
+                + "magazine_name text," // торговая точка
+                + "address_magazine text,"
+                + "telephone_magazine text"
                 + ");");
         db.execSQL("create table units ("
                 + "id integer primary key autoincrement,"
