@@ -115,33 +115,25 @@
     <string name="cto">Обращение в ЦТО</string>
     <string name="cto_mode">Режим ЦТО</string>
 
-    <!-- organization -->
-    <string name="org_setting">Настройка организации</string>
-    <string name="org_name">Название организации</string>
-    <string name="inn">ИНН</string>
-    <string name="magazine_name">Наименование торговой точки</string>
-    <string name="magazine_address">Адрес торговой точки</string>
-    <string name="phone">Контактный телефон</string>
-
     <!-- menu -->
     <string name="settings">Настройки приложения</string>
     <string name="org">Организация</string>
     <string name="products">Номенклатура</string>
     <string name="units">Единицы измерения</string>
     <string name="sync">Синхронизация</string>
-    <string name="set_user">Настройка пользователя</string>
 
-    <!-- user -->
-    <string name="add_user">Добавить пользователя</string>
-    <string name="set_of_admin">Настройка администратора</string>
+    <!-- users -->
+    <string name="users">Пользователи</string>
+    <string name="add_user">Добавить</string>
     <string name="position">Должность</string>
     <string name="administrator">Администратор</string>
     <string name="surname">Фамилия</string>
     <string name="name">Имя</string>
     <string name="second_name">Отчество</string>
-    <string name="users">Пользователи</string>
 
-    <!-- users -->
+    <!-- user -->
+    <string name="set_of_admin">Администратор</string>
+    <string name="set_user">Пользователь</string>
     <string name="cashier">Кассир</string>
     <string name="forwards">Возвраты</string>
     <string name="discounts">Скидки</string>
@@ -152,20 +144,28 @@
     <string name="del_pass">Удалить пароль</string>
     <string name="delete">Удалить</string>
 
-    <!-- products -->
-    <string name="product">Номенклатура</string>
-    <string name="add_product">Создать номенклатуру</string>
-    <string name="edit_product">Редактирование номенклатуры</string>
-    <string name="name_product">Наименование номенклатуры</string>
-    <string name="coast">Цена</string>
+    <!-- organization -->
+    <string name="org_setting">Организация</string>
+    <string name="org_name">Наименование</string>
+    <string name="inn">ИНН</string>
+    <string name="magazine_name">Наименование торговой точки</string>
+    <string name="magazine_address">Адрес торговой точки</string>
+    <string name="phone">Контактный телефон</string>
 
     <!-- units -->
-    <string name="add_unit">Добавить единицу измерения</string>
-    <string name="set_unit">Редактирование единицы измерения</string>
-    <string name="name_unit">Краткое наименование</string>
+    <string name="add_unit">Добавить</string>
+    <string name="set_unit">Единица измерения</string>
+    <string name="name_unit">Наименование</string>
     <string name="full_name_unit">Полное наименование</string>
     <string name="unit">Единица измерения</string>
     <string name="code_name_unit">Международный код</string>
+
+    <!-- products -->
+    <string name="product">Номенклатура</string>
+    <string name="add_product">Добавить</string>
+    <string name="edit_product">Номенклатура</string>
+    <string name="name_product">Наименование</string>
+    <string name="price">Цена</string>
 
     <!-- numbers -->
     <string name="percent">%</string>
@@ -183,7 +183,7 @@
     <string name="sale_cash">Внесение наличных</string>
     <string name="result">Итог</string>
     <string name="contributed">Внесено</string>
-    <string name="surrender">Сдача</string>
+    <string name="change">Сдача</string>
     <string name="receipt">Пробить чек</string>
 
 </resources>

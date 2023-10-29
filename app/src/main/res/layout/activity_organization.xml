@@ -23,13 +23,13 @@
             android:orientation="vertical">
 
             <Spinner
-                android:id="@+id/spr_form_of_sobstvennosti"
+                android:id="@+id/spr_type_of_ownership"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp" />
 
             <Spinner
-                android:id="@+id/spr_system_nalog"
+                android:id="@+id/spr_taxation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp" />
@@ -62,7 +62,7 @@
                 android:maxLength="100" />
 
             <EditText
-                android:id="@+id/et_adress_magazine"
+                android:id="@+id/et_address_magazine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

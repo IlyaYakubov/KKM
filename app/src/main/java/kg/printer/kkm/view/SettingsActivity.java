@@ -10,7 +10,7 @@ import kg.printer.kkm.controllers.UIViewController;
 
 public class SettingsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private Button btn_set_org, btn_add_user, btn_products, btn_units;
+    private Button btnSetOrg, btnAddUser, btnProducts, btnUnits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +24,18 @@ public class SettingsActivity extends UIViewController.BaseAdapter implements Vi
 
     @Override
     public void initView() {
-        btn_set_org = findViewById(R.id.btn_set_org);
-        btn_add_user = findViewById(R.id.btn_add_user);
-        btn_products = findViewById(R.id.btn_products);
-        btn_units = findViewById(R.id.btn_units);
+        btnSetOrg = findViewById(R.id.btn_set_org);
+        btnAddUser = findViewById(R.id.btn_add_user);
+        btnProducts = findViewById(R.id.btn_products);
+        btnUnits = findViewById(R.id.btn_units);
     }
 
     @Override
     public void addListener() {
-        btn_set_org.setOnClickListener(this);
-        btn_add_user.setOnClickListener(this);
-        btn_products.setOnClickListener(this);
-        btn_units.setOnClickListener(this);
+        btnSetOrg.setOnClickListener(this);
+        btnAddUser.setOnClickListener(this);
+        btnProducts.setOnClickListener(this);
+        btnUnits.setOnClickListener(this);
     }
 
     @Override

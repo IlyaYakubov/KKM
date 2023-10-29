@@ -36,7 +36,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tv_product_unit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -44,7 +44,7 @@
                     android:text="@string/unit" />
 
                 <Spinner
-                    android:id="@+id/spr_basic_unit"
+                    android:id="@+id/spr_unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -54,11 +54,11 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/et_coast"
+                android:id="@+id/et_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/coast"
+                android:hint="@string/price"
                 android:inputType="number|numberDecimal" />
 
         </LinearLayout>

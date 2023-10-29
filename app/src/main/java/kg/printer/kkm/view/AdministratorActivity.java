@@ -15,14 +15,14 @@ import kg.printer.kkm.view.old.BasicPassFragment;
 
 public class AdministratorActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private EditText et_position, et_surname, et_name, et_second_name;
-    private Button btn_set_pass, btn_del_pass, btn_ok;
-
-    private Administrator administrator;
+    private EditText etPosition, etSurname, etName, etSecondName;
+    private Button btnSetPass, btnDelPass, btnOk;
 
     private BasicPassFragment settingPasswordDialog;
 
     private AuthenticationService authenticationService;
+
+    private Administrator administrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +42,28 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
 
         administrator = authenticationService.findAdministratorInDatabase(settingPasswordDialog);
 
-        et_position.setText(administrator.getPosition());
-        et_surname.setText(administrator.getSurname());
-        et_name.setText(administrator.getName());
-        et_second_name.setText(administrator.getSecondName());
+        etPosition.setText(administrator.getPosition());
+        etSurname.setText(administrator.getSurname());
+        etName.setText(administrator.getName());
+        etSecondName.setText(administrator.getSecondName());
     }
 
     @Override
     public void initView() {
-        et_position = findViewById(R.id.et_position);
-        et_surname = findViewById(R.id.et_surname);
-        et_name = findViewById(R.id.et_name);
-        et_second_name = findViewById(R.id.et_second_name);
-        btn_set_pass = findViewById(R.id.btn_set_pass);
-        btn_del_pass = findViewById(R.id.btn_del_pass);
-        btn_ok = findViewById(R.id.btn_ok);
+        etPosition = findViewById(R.id.et_position);
+        etSurname = findViewById(R.id.et_surname);
+        etName = findViewById(R.id.et_name);
+        etSecondName = findViewById(R.id.et_second_name);
+        btnSetPass = findViewById(R.id.btn_set_pass);
+        btnDelPass = findViewById(R.id.btn_del_pass);
+        btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
-        btn_set_pass.setOnClickListener(this);
-        btn_del_pass.setOnClickListener(this);
-        btn_ok.setOnClickListener(this);
+        btnSetPass.setOnClickListener(this);
+        btnDelPass.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -78,15 +78,15 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_ok:
-                if (et_position.getText().toString().isEmpty()) {
+                if (etPosition.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните должность");
-                } else if (et_name.getText().toString().isEmpty()) {
+                } else if (etName.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните имя");
                 } else {
-                    administrator.setPosition(et_position.getText().toString());
-                    administrator.setSurname(et_surname.getText().toString());
-                    administrator.setName(et_name.getText().toString());
-                    administrator.setSecondName(et_second_name.getText().toString());
+                    administrator.setPosition(etPosition.getText().toString());
+                    administrator.setSurname(etSurname.getText().toString());
+                    administrator.setName(etName.getText().toString());
+                    administrator.setSecondName(etSecondName.getText().toString());
                     administrator.setPassword(settingPasswordDialog.getPassword());
 
                     authenticationService.updateAdministratorInDatabase(administrator);

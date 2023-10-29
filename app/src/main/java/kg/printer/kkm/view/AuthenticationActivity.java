@@ -20,14 +20,15 @@ import java.util.List;
 
 public class AuthenticationActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private Spinner spr_login;
-    private EditText et_num_data;
-    private ImageButton btn_clear_num;
-    private Button btn_login, btn_zero, btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine;
+    private Spinner sprLogin;
+    private EditText etNumData;
+    private ImageButton btnClearNum;
+    private Button btnLogin, btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
+
+    private ArrayList<User> users;
 
     private AuthenticationService authenticationService;
 
-    private ArrayList<User> users;
     private User user = new User();
 
     @Override
@@ -42,36 +43,36 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
 
     @Override
     public void initView() {
-        spr_login = findViewById(R.id.spr_login);
-        et_num_data = findViewById(R.id.et_num_data);
-        btn_login = findViewById(R.id.btn_login);
-        btn_clear_num = findViewById(R.id.btn_clear_num);
-        btn_zero = findViewById(R.id.btn_zero);
-        btn_one = findViewById(R.id.btn_one);
-        btn_two = findViewById(R.id.btn_two);
-        btn_three = findViewById(R.id.btn_three);
-        btn_four = findViewById(R.id.btn_four);
-        btn_five = findViewById(R.id.btn_five);
-        btn_six = findViewById(R.id.btn_six);
-        btn_seven = findViewById(R.id.btn_seven);
-        btn_eight = findViewById(R.id.btn_eight);
-        btn_nine = findViewById(R.id.btn_nine);
+        sprLogin = findViewById(R.id.spr_login);
+        etNumData = findViewById(R.id.et_num_data);
+        btnLogin = findViewById(R.id.btn_login);
+        btnClearNum = findViewById(R.id.btn_clear_num);
+        btnZero = findViewById(R.id.btn_zero);
+        btnOne = findViewById(R.id.btn_one);
+        btnTwo = findViewById(R.id.btn_two);
+        btnThree = findViewById(R.id.btn_three);
+        btnFour = findViewById(R.id.btn_four);
+        btnFive = findViewById(R.id.btn_five);
+        btnSix = findViewById(R.id.btn_six);
+        btnSeven = findViewById(R.id.btn_seven);
+        btnEight = findViewById(R.id.btn_eight);
+        btnNine = findViewById(R.id.btn_nine);
     }
 
     @Override
     public void addListener() {
-        btn_login.setOnClickListener(this);
-        btn_clear_num.setOnClickListener(this);
-        btn_zero.setOnClickListener(this);
-        btn_one.setOnClickListener(this);
-        btn_two.setOnClickListener(this);
-        btn_three.setOnClickListener(this);
-        btn_four.setOnClickListener(this);
-        btn_five.setOnClickListener(this);
-        btn_six.setOnClickListener(this);
-        btn_seven.setOnClickListener(this);
-        btn_eight.setOnClickListener(this);
-        btn_nine.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        btnClearNum.setOnClickListener(this);
+        btnZero.setOnClickListener(this);
+        btnOne.setOnClickListener(this);
+        btnTwo.setOnClickListener(this);
+        btnThree.setOnClickListener(this);
+        btnFour.setOnClickListener(this);
+        btnFive.setOnClickListener(this);
+        btnSix.setOnClickListener(this);
+        btnSeven.setOnClickListener(this);
+        btnEight.setOnClickListener(this);
+        btnNine.setOnClickListener(this);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View view) {
-        String text = et_num_data.getText().toString();
+        String text = etNumData.getText().toString();
 
         switch (view.getId()) {
             case R.id.btn_login:
@@ -95,44 +96,44 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
                 if (authenticationService.userExistsInDatabase(user)) {
                     user = authenticationService.findUserByIdInDatabase(user.getId());
                     turnToActivityWithUser(MenuActivity.class, user);
-                    et_num_data.setText("");
+                    etNumData.setText("");
                 } else {
                     UIViewController.ToastAdapter.show(this, "Неправльный пароль");
                 }
                 break;
             case R.id.btn_zero:
-                et_num_data.setText(text + "0");
+                etNumData.setText(text + "0");
                 break;
             case R.id.btn_one:
-                et_num_data.setText(text + "1");
+                etNumData.setText(text + "1");
                 break;
             case R.id.btn_two:
-                et_num_data.setText(text + "2");
+                etNumData.setText(text + "2");
                 break;
             case R.id.btn_three:
-                et_num_data.setText(text + "3");
+                etNumData.setText(text + "3");
                 break;
             case R.id.btn_four:
-                et_num_data.setText(text + "4");
+                etNumData.setText(text + "4");
                 break;
             case R.id.btn_five:
-                et_num_data.setText(text + "5");
+                etNumData.setText(text + "5");
                 break;
             case R.id.btn_six:
-                et_num_data.setText(text + "6");
+                etNumData.setText(text + "6");
                 break;
             case R.id.btn_seven:
-                et_num_data.setText(text + "7");
+                etNumData.setText(text + "7");
                 break;
             case R.id.btn_eight:
-                et_num_data.setText(text + "8");
+                etNumData.setText(text + "8");
                 break;
             case R.id.btn_nine:
-                et_num_data.setText(text + "9");
+                etNumData.setText(text + "9");
                 break;
             case R.id.btn_clear_num:
                 text = text.length() <= 0 ? null : text.substring(0, text.length() - 1);
-                et_num_data.setText(text);
+                etNumData.setText(text);
                 break;
             default:
                 break;
@@ -149,14 +150,14 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spr_login.setAdapter(arrayAdapter);
-        spr_login.setSelection(0);
+        sprLogin.setAdapter(arrayAdapter);
+        sprLogin.setSelection(0);
 
-        spr_login.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sprLogin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 user.setId(position);
-                user.setName(spr_login.getSelectedItem().toString());
+                user.setName(sprLogin.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {

@@ -34,7 +34,7 @@
                     android:text="@string/result" />
 
                 <TextView
-                    android:id="@+id/tv_itog"
+                    android:id="@+id/tv_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -71,10 +71,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/surrender" />
+                    android:text="@string/change" />
 
                 <TextView
-                    android:id="@+id/tv_surrender"
+                    android:id="@+id/tv_change"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

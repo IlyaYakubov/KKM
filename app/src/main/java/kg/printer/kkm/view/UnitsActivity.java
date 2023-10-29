@@ -11,18 +11,16 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.Organization;
 import kg.printer.kkm.domains.Unit;
 import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.repositories.Database;
 
 import java.util.ArrayList;
 
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-public class UnitsActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
+public class UnitsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private ListView lv_data;
-    private Button btn_add;
+    private ListView lvData;
+    private Button btnAdd;
 
     private final ArrayList<Unit> units = new ArrayList<>();
 
@@ -47,13 +45,13 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
 
     @Override
     public void initView() {
-        lv_data = findViewById(R.id.lv_data);
-        btn_add = findViewById(R.id.btn_add);
+        lvData = findViewById(R.id.lv_items);
+        btnAdd = findViewById(R.id.btn_add);
     }
 
     @Override
     public void addListener() {
-        btn_add.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     @Override
@@ -68,8 +66,7 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
         }
     }
 
-    @Override
-    public Organization readData() {
+    public void readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select all units
@@ -87,36 +84,15 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitNames);
-        lv_data.setAdapter(adapter);
+        lvData.setAdapter(adapter);
 
-        lv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 turnToActivityWithPosition(UnitActivity.class, position, 0);
             }
         });
 
         cursor.close();
-        return null;
-    }
-
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
-    public void addData() {
-
-    }
-
-    @Override
-    public void deleteData() {
-
-    }
-
-    @Override
-    public int lastPosition() {
-        return 0;
     }
 
 }

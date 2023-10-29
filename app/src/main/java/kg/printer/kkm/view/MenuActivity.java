@@ -15,8 +15,8 @@ import kg.printer.kkm.controllers.UIViewController;
 
 public class MenuActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private TextView tv_message;
-    private Button btn_sale, btn_x_report, btn_z_report, btn_settings;
+    private TextView tvMessage;
+    private Button btnSale, btnXReport, btnZReport, btnSettings;
 
     private String position, surname, name, secondName;
 
@@ -34,47 +34,47 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     protected void onResume() {
         super.onResume();
         if (Objects.equals(position, "Администратор")) {
-            btn_sale.setText("Продажа (не доступна)");
-            btn_sale.setBackgroundColor(Color.WHITE);
-            btn_sale.setTextColor(Color.GRAY);
-            btn_sale.setClickable(false);
+            btnSale.setText("Продажа (не доступна)");
+            btnSale.setBackgroundColor(Color.WHITE);
+            btnSale.setTextColor(Color.GRAY);
+            btnSale.setClickable(false);
 
-            btn_settings.setClickable(true);
+            btnSettings.setClickable(true);
         } else {
-            btn_sale.setClickable(true);
+            btnSale.setClickable(true);
 
-            btn_settings.setText("Настройки (не доступны)");
-            btn_settings.setBackgroundColor(Color.WHITE);
-            btn_settings.setTextColor(Color.GRAY);
-            btn_settings.setClickable(false);
+            btnSettings.setText("Настройки (не доступны)");
+            btnSettings.setBackgroundColor(Color.WHITE);
+            btnSettings.setTextColor(Color.GRAY);
+            btnSettings.setClickable(false);
         }
     }
 
     @Override
     public void initView() {
-        tv_message = findViewById(R.id.tv_message);
+        tvMessage = findViewById(R.id.tv_message);
 
-        btn_sale = findViewById(R.id.btn_reg_sale);
+        btnSale = findViewById(R.id.btn_reg_sale);
 
-        btn_x_report = findViewById(R.id.btn_x_report);
-        btn_x_report.setBackgroundColor(Color.WHITE);
-        btn_x_report.setTextColor(Color.GRAY);
-        btn_x_report.setClickable(false);
+        btnXReport = findViewById(R.id.btn_x_report);
+        btnXReport.setBackgroundColor(Color.WHITE);
+        btnXReport.setTextColor(Color.GRAY);
+        btnXReport.setClickable(false);
 
-        btn_z_report = findViewById(R.id.btn_z_report);
-        btn_z_report.setBackgroundColor(Color.WHITE);
-        btn_z_report.setTextColor(Color.GRAY);
-        btn_z_report.setClickable(false);
+        btnZReport = findViewById(R.id.btn_z_report);
+        btnZReport.setBackgroundColor(Color.WHITE);
+        btnZReport.setTextColor(Color.GRAY);
+        btnZReport.setClickable(false);
 
-        btn_settings = findViewById(R.id.btn_settings);
+        btnSettings = findViewById(R.id.btn_settings);
     }
 
     @Override
     public void addListener() {
-        btn_sale.setOnClickListener(this);
-        btn_x_report.setOnClickListener(this);
-        btn_z_report.setOnClickListener(this);
-        btn_settings.setOnClickListener(this);
+        btnSale.setOnClickListener(this);
+        btnXReport.setOnClickListener(this);
+        btnZReport.setOnClickListener(this);
+        btnSettings.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
         secondName = intent.getStringExtra("secondName");
 
         if (name != null && !name.isEmpty()) {
-            tv_message.setText(name.trim());
+            tvMessage.setText(name.trim());
             /*UIViewController.ToastAdapter.show(this, "Вы вошли как "
                     + position.trim() + ", " + surname.trim() + " "
                     + name.trim() + " " + secondName.trim());*/

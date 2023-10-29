@@ -18,13 +18,13 @@ import kg.printer.kkm.view.old.BasicPassFragment;
 
 public class UserActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private TextView tv_not_bigger, tv_percent;
-    private EditText et_position, et_surname, et_name, et_second_name, et_inn, et_percent_discount;
-    private Switch sw_backings, sw_discounts, sw_change_cost, sw_orders;
-    private Button btn_set_pass, btn_del_pass, btn_del_user, btn_ok;
+    private TextView tvNotBigger, tvPercent;
+    private EditText etPosition, etSurname, etName, etSecondName, etInn, etPercentDiscount;
+    private Switch swBackings, swDiscounts, swChangePrice, swOrders;
+    private Button btnSetPass, btnDelPass, btnDelUser, btnOk;
 
-    private int newElement; // 1 true - 0 false
-    private int position_on_list;
+    private int newItem; // 1 true - 0 false
+    private int listIndex;
 
     public BasicPassFragment settingPasswordDialog;
 
@@ -48,34 +48,34 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        et_position = findViewById(R.id.et_position);
-        et_surname = findViewById(R.id.et_surname);
-        et_name = findViewById(R.id.et_name);
-        et_second_name = findViewById(R.id.et_second_name);
-        et_inn = findViewById(R.id.et_inn);
+        etPosition = findViewById(R.id.et_position);
+        etSurname = findViewById(R.id.et_surname);
+        etName = findViewById(R.id.et_name);
+        etSecondName = findViewById(R.id.et_second_name);
+        etInn = findViewById(R.id.et_inn);
 
-        tv_not_bigger = findViewById(R.id.tv_not_bigger);
-        et_percent_discount = findViewById(R.id.et_percent_discount);
-        tv_percent = findViewById(R.id.tv_percent);
+        tvNotBigger = findViewById(R.id.tv_not_bigger);
+        etPercentDiscount = findViewById(R.id.et_percent_discount);
+        tvPercent = findViewById(R.id.tv_percent);
 
-        sw_backings = findViewById(R.id.sw_backings);
-        sw_discounts = findViewById(R.id.sw_discounts);
-        sw_change_cost = findViewById(R.id.sw_change_cost);
-        sw_orders = findViewById(R.id.sw_orders);
+        swBackings = findViewById(R.id.sw_backings);
+        swDiscounts = findViewById(R.id.sw_discounts);
+        swChangePrice = findViewById(R.id.sw_change_price);
+        swOrders = findViewById(R.id.sw_orders);
 
-        btn_set_pass = findViewById(R.id.btn_set_pass);
-        btn_del_pass = findViewById(R.id.btn_del_pass);
-        btn_del_user = findViewById(R.id.btn_del_user);
-        btn_ok = findViewById(R.id.btn_ok);
+        btnSetPass = findViewById(R.id.btn_set_pass);
+        btnDelPass = findViewById(R.id.btn_del_pass);
+        btnDelUser = findViewById(R.id.btn_del_user);
+        btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
-        sw_discounts.setOnClickListener(this);
-        btn_set_pass.setOnClickListener(this);
-        btn_del_pass.setOnClickListener(this);
-        btn_del_user.setOnClickListener(this);
-        btn_ok.setOnClickListener(this);
+        swDiscounts.setOnClickListener(this);
+        btnSetPass.setOnClickListener(this);
+        btnDelPass.setOnClickListener(this);
+        btnDelUser.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     @Override
@@ -84,23 +84,23 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         settingPasswordDialog = new BasicPassFragment();
 
         Intent intent = getIntent();
-        position_on_list = intent.getIntExtra("position_on_list", -1);
-        newElement = intent.getIntExtra("new_element", 1);
+        listIndex = intent.getIntExtra("listIndex", -1);
+        newItem = intent.getIntExtra("newItem", 1);
 
         // редактирование существующего пользователя
-        if (newElement == 0) {
+        if (newItem == 0) {
             authenticationService.readUserFromDatabase(settingPasswordDialog,
-                    position_on_list,
-                    et_position,
-                    et_surname,
-                    et_name,
-                    et_second_name,
-                    et_inn,
-                    et_percent_discount,
-                    sw_backings,
-                    sw_discounts,
-                    sw_change_cost,
-                    sw_orders);
+                    listIndex,
+                    etPosition,
+                    etSurname,
+                    etName,
+                    etSecondName,
+                    etInn,
+                    etPercentDiscount,
+                    swBackings,
+                    swDiscounts,
+                    swChangePrice,
+                    swOrders);
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
@@ -121,44 +121,44 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_del_user:
-                authenticationService.deleteUserFromDatabase(position_on_list);
+                authenticationService.deleteUserFromDatabase(listIndex);
                 UIViewController.ToastAdapter.show(this, "Пользователь удалён");
                 hideKeyboard(view);
                 finish();
                 break;
             case R.id.btn_ok:
-                if (et_position.getText().toString().isEmpty()) {
+                if (etPosition.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните должность");
-                } else if (et_name.getText().toString().isEmpty()) {
+                } else if (etName.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните имя");
-                } else if (et_inn.getText().toString().isEmpty() || et_inn.getText().toString().length() < 14) {
+                } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
-                    if (newElement == 1) {
+                    if (newItem == 1) {
                         authenticationService.createUserData(settingPasswordDialog,
-                                et_position,
-                                et_surname,
-                                et_name,
-                                et_second_name,
-                                et_inn,
-                                et_percent_discount,
-                                sw_backings,
-                                sw_discounts,
-                                sw_change_cost,
-                                sw_orders);
+                                etPosition,
+                                etSurname,
+                                etName,
+                                etSecondName,
+                                etInn,
+                                etPercentDiscount,
+                                swBackings,
+                                swDiscounts,
+                                swChangePrice,
+                                swOrders);
                     } else {
                         authenticationService.updateUserData(settingPasswordDialog,
-                                position_on_list,
-                                et_position,
-                                et_surname,
-                                et_name,
-                                et_second_name,
-                                et_inn,
-                                et_percent_discount,
-                                sw_backings,
-                                sw_discounts,
-                                sw_change_cost,
-                                sw_orders);
+                                listIndex,
+                                etPosition,
+                                etSurname,
+                                etName,
+                                etSecondName,
+                                etInn,
+                                etPercentDiscount,
+                                swBackings,
+                                swDiscounts,
+                                swChangePrice,
+                                swOrders);
                     }
 
                     hideKeyboard(view);
@@ -171,14 +171,14 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void setVisibleValueOfPercent() {
-        if (sw_discounts.isChecked()) {
-            tv_not_bigger.setVisibility(View.VISIBLE);
-            et_percent_discount.setVisibility(View.VISIBLE);
-            tv_percent.setVisibility(View.VISIBLE);
+        if (swDiscounts.isChecked()) {
+            tvNotBigger.setVisibility(View.VISIBLE);
+            etPercentDiscount.setVisibility(View.VISIBLE);
+            tvPercent.setVisibility(View.VISIBLE);
         } else {
-            tv_not_bigger.setVisibility(View.INVISIBLE);
-            et_percent_discount.setVisibility(View.INVISIBLE);
-            tv_percent.setVisibility(View.INVISIBLE);
+            tvNotBigger.setVisibility(View.INVISIBLE);
+            etPercentDiscount.setVisibility(View.INVISIBLE);
+            tvPercent.setVisibility(View.INVISIBLE);
         }
     }
 

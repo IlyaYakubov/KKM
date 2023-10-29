@@ -127,7 +127,7 @@ public class AuthenticationService {
             int percentOfDiscountColIndex = cursor.getColumnIndex("percent_of_discount");
             int isBackingsColIndex = cursor.getColumnIndex("is_backings");
             int isDiscountsColIndex = cursor.getColumnIndex("is_discounts");
-            int isChangeCostColIndex = cursor.getColumnIndex("is_change_costs");
+            int isChangeCostColIndex = cursor.getColumnIndex("is_change_price");
             int isOrdersColIndex = cursor.getColumnIndex("is_orders");
 
             settingPasswordDialog.setPassword(cursor.getString(passColIndex));
@@ -189,7 +189,7 @@ public class AuthenticationService {
         cv.put("percent_of_discount", percentOfDiscount);
         cv.put("is_backings", isBackings);
         cv.put("is_discounts", isDiscounts);
-        cv.put("is_change_costs", isChangeCost);
+        cv.put("is_change_price", isChangeCost);
         cv.put("is_orders", isOrders);
 
         cv.put("position_on_list", lastUserIdInDatabase() + 1);
@@ -240,7 +240,7 @@ public class AuthenticationService {
         cv.put("percent_of_discount", percentOfDiscount);
         cv.put("is_backings", isBackings);
         cv.put("is_discounts", isDiscounts);
-        cv.put("is_change_costs", isChangeCost);
+        cv.put("is_change_price", isChangeCost);
         cv.put("is_orders", isOrders);
 
         cv.put("position_on_list", positionOfList);

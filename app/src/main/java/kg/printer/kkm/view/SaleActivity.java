@@ -21,14 +21,14 @@ import java.util.ArrayList;
 
 public class SaleActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private int positionOnList;
+    private TextView tvProduct, tvQuantity, tvPrice, tvSum;
+    private EditText etNumData;
+    private Button btnClearNum, btnDot;
+    private Button btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
+    private Button btnQuantity, btnPrice;
+    private Button btnOk;
 
-    private TextView tv_product, tv_quantity, tv_coast, tv_sum;
-    private EditText et_num_data;
-    private Button btn_clear_num, btn_dot;
-    private Button btn_zero, btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine;
-    private Button btn_quantity, btn_coast;
-    private Button btn_ok;
+    private int positionOnList;
 
     private ArrayList<String> list;
     private ArrayList<String> result;
@@ -45,37 +45,37 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        tv_product = findViewById(R.id.tv_product);
-        tv_quantity = findViewById(R.id.tv_quantity);
-        tv_coast = findViewById(R.id.tv_coast);
-        tv_sum = findViewById(R.id.tv_sum);
+        tvProduct = findViewById(R.id.tv_product);
+        tvQuantity = findViewById(R.id.tv_quantity);
+        tvPrice = findViewById(R.id.tv_price);
+        tvSum = findViewById(R.id.tv_sum);
 
-        et_num_data = findViewById(R.id.et_num_data);
+        etNumData = findViewById(R.id.et_num_data);
 
-        btn_clear_num = findViewById(R.id.btn_clear_num);
-        btn_dot = findViewById(R.id.btn_dot);
+        btnClearNum = findViewById(R.id.btn_clear_num);
+        btnDot = findViewById(R.id.btn_dot);
 
-        btn_zero = findViewById(R.id.btn_zero);
-        btn_one = findViewById(R.id.btn_one);
-        btn_two = findViewById(R.id.btn_two);
-        btn_three = findViewById(R.id.btn_three);
-        btn_four = findViewById(R.id.btn_four);
-        btn_five = findViewById(R.id.btn_five);
-        btn_six = findViewById(R.id.btn_six);
-        btn_seven = findViewById(R.id.btn_seven);
-        btn_eight = findViewById(R.id.btn_eight);
-        btn_nine = findViewById(R.id.btn_nine);
+        btnZero = findViewById(R.id.btn_zero);
+        btnOne = findViewById(R.id.btn_one);
+        btnTwo = findViewById(R.id.btn_two);
+        btnThree = findViewById(R.id.btn_three);
+        btnFour = findViewById(R.id.btn_four);
+        btnFive = findViewById(R.id.btn_five);
+        btnSix = findViewById(R.id.btn_six);
+        btnSeven = findViewById(R.id.btn_seven);
+        btnEight = findViewById(R.id.btn_eight);
+        btnNine = findViewById(R.id.btn_nine);
 
-        btn_quantity = findViewById(R.id.btn_quantity);
-        btn_coast = findViewById(R.id.btn_coast);
+        btnQuantity = findViewById(R.id.btn_quantity);
+        btnPrice = findViewById(R.id.btn_price);
 
-        btn_ok = findViewById(R.id.btn_ok);
+        btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
 
-        tv_quantity.addTextChangedListener(new TextWatcher() {
+        tvQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 toCount();
@@ -90,7 +90,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
             }
         });
 
-        tv_coast.addTextChangedListener(new TextWatcher() {
+        tvPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 toCount();
@@ -105,24 +105,24 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
             }
         });
 
-        btn_clear_num.setOnClickListener(this);
-        btn_dot.setOnClickListener(this);
+        btnClearNum.setOnClickListener(this);
+        btnDot.setOnClickListener(this);
 
-        btn_zero.setOnClickListener(this);
-        btn_one.setOnClickListener(this);
-        btn_two.setOnClickListener(this);
-        btn_three.setOnClickListener(this);
-        btn_four.setOnClickListener(this);
-        btn_five.setOnClickListener(this);
-        btn_six.setOnClickListener(this);
-        btn_seven.setOnClickListener(this);
-        btn_eight.setOnClickListener(this);
-        btn_nine.setOnClickListener(this);
+        btnZero.setOnClickListener(this);
+        btnOne.setOnClickListener(this);
+        btnTwo.setOnClickListener(this);
+        btnThree.setOnClickListener(this);
+        btnFour.setOnClickListener(this);
+        btnFive.setOnClickListener(this);
+        btnSix.setOnClickListener(this);
+        btnSeven.setOnClickListener(this);
+        btnEight.setOnClickListener(this);
+        btnNine.setOnClickListener(this);
 
-        btn_quantity.setOnClickListener(this);
-        btn_coast.setOnClickListener(this);
+        btnQuantity.setOnClickListener(this);
+        btnPrice.setOnClickListener(this);
 
-        btn_ok.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         Intent intent = getIntent();
         positionOnList = Integer.parseInt(intent.getStringExtra("position"));
         list = intent.getExtras().getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("itog");
+        result = intent.getExtras().getStringArrayList("result");
 
         readDataFromBaseData();
 
@@ -140,85 +140,85 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View v) {
-        String text = et_num_data.getText().toString();
+        String text = etNumData.getText().toString();
 
         switch (v.getId()) {
             case R.id.btn_quantity:
-                if (!et_num_data.getText().toString().isEmpty()) {
+                if (!etNumData.getText().toString().isEmpty()) {
                     checkDot(4);
-                    tv_quantity.setText(et_num_data.getText().toString());
-                    et_num_data.setText("");
+                    tvQuantity.setText(etNumData.getText().toString());
+                    etNumData.setText("");
                 }
                 break;
-            case R.id.btn_coast:
-                if (!et_num_data.getText().toString().isEmpty()) {
+            case R.id.btn_price:
+                if (!etNumData.getText().toString().isEmpty()) {
                     checkDot(3);
-                    tv_coast.setText(et_num_data.getText().toString());
-                    et_num_data.setText("");
+                    tvPrice.setText(etNumData.getText().toString());
+                    etNumData.setText("");
                 }
                 break;
             case R.id.btn_ok:
-                if (tv_quantity.getText().equals("")) return;
+                if (tvQuantity.getText().equals("")) return;
 
-                list.add(tv_product.getText().toString());
-                result.add(tv_sum.getText().toString());
+                list.add(tvProduct.getText().toString());
+                result.add(tvSum.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                 intent.putExtra("list", list);
-                intent.putExtra("itog", result);
-                intent.putExtra("summa", tv_sum.getText().toString());
+                intent.putExtra("result", result);
+                intent.putExtra("sum", tvSum.getText().toString());
                 startActivity(intent);
                 finish();
                 break;
             case R.id.btn_dot:
                 int dotIndex = text.indexOf(".");
                 if (dotIndex == -1) {
-                    et_num_data.setText(text + ".");
+                    etNumData.setText(text + ".");
                     checkDot(4);
                 }
                 break;
             case R.id.btn_zero:
-                et_num_data.setText(text + "0");
+                etNumData.setText(text + "0");
                 checkDot(4);
                 break;
             case R.id.btn_one:
-                et_num_data.setText(text + "1");
+                etNumData.setText(text + "1");
                 checkDot(4);
                 break;
             case R.id.btn_two:
-                et_num_data.setText(text + "2");
+                etNumData.setText(text + "2");
                 checkDot(4);
                 break;
             case R.id.btn_three:
-                et_num_data.setText(text + "3");
+                etNumData.setText(text + "3");
                 checkDot(4);
                 break;
             case R.id.btn_four:
-                et_num_data.setText(text + "4");
+                etNumData.setText(text + "4");
                 checkDot(4);
                 break;
             case R.id.btn_five:
-                et_num_data.setText(text + "5");
+                etNumData.setText(text + "5");
                 checkDot(4);
                 break;
             case R.id.btn_six:
-                et_num_data.setText(text + "6");
+                etNumData.setText(text + "6");
                 checkDot(4);
                 break;
             case R.id.btn_seven:
-                et_num_data.setText(text + "7");
+                etNumData.setText(text + "7");
                 checkDot(4);
                 break;
             case R.id.btn_eight:
-                et_num_data.setText(text + "8");
+                etNumData.setText(text + "8");
                 checkDot(4);
                 break;
             case R.id.btn_nine:
-                et_num_data.setText(text + "9");
+                etNumData.setText(text + "9");
                 checkDot(4);
                 break;
             case R.id.btn_clear_num:
-                et_num_data.setText("");
+                etNumData.setText("");
                 break;
             default:
                 break;
@@ -235,27 +235,27 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
         if (cursor.moveToNext()) {
             int nameColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("coast");
-            tv_product.setText(cursor.getString(nameColIndex));
-            tv_coast.setText(cursor.getString(coastColIndex));
+            int coastColIndex = cursor.getColumnIndex("price");
+            tvProduct.setText(cursor.getString(nameColIndex));
+            tvPrice.setText(cursor.getString(coastColIndex));
         }
 
         cursor.close();
     }
 
     private void toCount() {
-        if (!tv_quantity.getText().equals("")) {
-            double quantity = Double.parseDouble(tv_quantity.getText().toString());
-            double coast = Double.parseDouble(tv_coast.getText().toString());
+        if (!tvQuantity.getText().equals("")) {
+            double quantity = Double.parseDouble(tvQuantity.getText().toString());
+            double coast = Double.parseDouble(tvPrice.getText().toString());
             double sum = quantity * coast;
 
             @SuppressLint("DefaultLocale") String formattedDouble = String.format("%.2f", sum);
-            tv_sum.setText(formattedDouble);
+            tvSum.setText(formattedDouble);
         }
     }
 
     private void checkDot(int length) {
-        String text = et_num_data.getText().toString();
+        String text = etNumData.getText().toString();
 
         int dotIndex = text.indexOf(".");
         int lastIndex = text.length();
@@ -263,11 +263,11 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         String textResult = text.length() <= 0 ? null : text.substring(0, text.length() - 1);
         if (dotIndex == 0) {
             text = textResult;
-            et_num_data.setText(text);
+            etNumData.setText(text);
         } else if (dotIndex > 0) {
             if (lastIndex - dotIndex > length) {
                 text = textResult;
-                et_num_data.setText(text);
+                etNumData.setText(text);
             }
         }
     }

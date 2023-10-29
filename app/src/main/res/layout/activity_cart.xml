@@ -21,7 +21,7 @@
         android:text="@string/select_product" />
 
     <ListView
-        android:id="@+id/lv_data"
+        android:id="@+id/lv_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
@@ -29,7 +29,7 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/tv_messages"
+        android:id="@+id/tv_message_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

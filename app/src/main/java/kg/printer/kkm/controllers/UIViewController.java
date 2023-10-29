@@ -40,7 +40,6 @@ import java.util.regex.Pattern;
 import kg.printer.kkm.R;
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.domains.User;
-import kg.printer.kkm.view.ProductActivity;
 
 public class UIViewController {
 
@@ -64,10 +63,10 @@ public class UIViewController {
             startActivity(i);
         }
 
-        public void turnToActivityWithPosition(Class<?> cls, int position_on_list, int new_element) {
+        public void turnToActivityWithPosition(Class<?> cls, int indexList, int newItem) {
             Intent intent = new Intent(this, cls);
-            intent.putExtra("position_on_list", position_on_list);
-            intent.putExtra("new_element", new_element);
+            intent.putExtra("listIndex", indexList);
+            intent.putExtra("newItem", newItem);
             startActivity(intent);
         }
 
@@ -303,7 +302,7 @@ public class UIViewController {
             Product p = getProduct(position);
 
             ((TextView) view.findViewById(R.id.tv_product)).setText(p.getName());
-            ((TextView) view.findViewById(R.id.tv_coast)).setText("цена: " + p.getPrice());
+            ((TextView) view.findViewById(R.id.tv_price)).setText("цена: " + p.getPrice());
             ((TextView) view.findViewById(R.id.tv_unit)).setText("ед.изм: " + p.getUnit());
 
             return view;

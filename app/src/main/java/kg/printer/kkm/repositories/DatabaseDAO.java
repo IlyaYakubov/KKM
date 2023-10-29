@@ -112,7 +112,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "percent_of_discount text," // максимальный процент скидки
                 + "is_backings integer," // возвраты
                 + "is_discounts integer," // скидки
-                + "is_change_costs integer," // изменять цену
+                + "is_change_price integer," // изменять цену
                 + "is_orders integer" // заказы клиента
                 + ");");
         db.execSQL("create table products ("
@@ -120,8 +120,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "position_on_list text,"
                 + "name text,"
                 + "unit text,"
-                + "tnved text,"
-                + "coast text"
+                + "price text"
                 + ");");
         db.execSQL("create table units ("
                 + "id integer primary key autoincrement,"

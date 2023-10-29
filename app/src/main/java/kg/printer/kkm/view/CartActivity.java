@@ -16,11 +16,10 @@ import java.util.ArrayList;
 public class CartActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
     private ListView lvData;
-    private Button btn_select_product, btn_cash;
+    private Button btnSelectProduct, btnCash;
 
     private ArrayList<String> products = new ArrayList<>();
-    private ArrayList<String> itog = new ArrayList<>();
-    private String sum;
+    private ArrayList<String> results = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +33,15 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        lvData = findViewById(R.id.lv_data);
-        btn_select_product = findViewById(R.id.btn_select_product);
-        btn_cash = findViewById(R.id.btn_cash);
+        lvData = findViewById(R.id.lv_items);
+        btnSelectProduct = findViewById(R.id.btn_select_product);
+        btnCash = findViewById(R.id.btn_cash);
     }
 
     @Override
     public void addListener() {
-        btn_select_product.setOnClickListener(this);
-        btn_cash.setOnClickListener(this);
+        btnSelectProduct.setOnClickListener(this);
+        btnCash.setOnClickListener(this);
     }
 
     @Override
@@ -50,12 +49,12 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
         Intent intent = getIntent();
         try {
             products = intent.getExtras().getStringArrayList("list");
-            itog = intent.getExtras().getStringArrayList("itog");
+            results = intent.getExtras().getStringArrayList("itog");
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
             lvData.setAdapter(adapter);
 
-            sum = intent.getStringExtra("summa");
+            String sum = intent.getStringExtra("summa");
         } catch (Exception e) {}
     }
 
@@ -66,7 +65,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_select_product:
                 Intent intentGoodsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
                 intentGoodsList.putStringArrayListExtra("list", products);
-                intentGoodsList.putStringArrayListExtra("itog", itog);
+                intentGoodsList.putStringArrayListExtra("itog", results);
                 startActivity(intentGoodsList);
                 finish();
                 break;
@@ -76,7 +75,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
                 }
 
                 Intent intentCash = new Intent(getApplicationContext(), CashActivity.class);
-                intentCash.putStringArrayListExtra("itog", itog);
+                intentCash.putStringArrayListExtra("itog", results);
                 startActivity(intentCash);
                 finish();
                 break;

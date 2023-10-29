@@ -20,9 +20,9 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
 
     private double sum = 0;
 
-    private TextView tv_result, tv_change;
-    private EditText et_contributed;
-    private Button btn_ok;
+    private TextView tvResult, tvChange;
+    private EditText etContributed;
+    private Button btnOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +36,18 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        tv_result = findViewById(R.id.tv_itog);
-        tv_change = findViewById(R.id.tv_surrender);
+        tvResult = findViewById(R.id.tv_result);
+        tvChange = findViewById(R.id.tv_change);
 
-        et_contributed = findViewById(R.id.et_contributed);
+        etContributed = findViewById(R.id.et_contributed);
 
-        btn_ok = findViewById(R.id.btn_ok);
+        btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
 
-        et_contributed.addTextChangedListener(new TextWatcher() {
+        etContributed.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 toCount();
@@ -62,7 +62,7 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
             }
         });
 
-        btn_ok.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
 
     }
 
@@ -76,16 +76,16 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
             this.sum = this.sum + Double.parseDouble(sum);
         }
 
-        tv_result.setText(String.valueOf(sum));
-        et_contributed.setText(String.valueOf(sum));
-        tv_change.setText("0");
+        tvResult.setText(String.valueOf(sum));
+        etContributed.setText(String.valueOf(sum));
+        tvChange.setText("0");
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_ok) {
             //noinspection EqualsBetweenInconvertibleTypes
-            if (et_contributed.getText().equals("")) {
+            if (etContributed.getText().equals("")) {
                 return;
             }
 
@@ -95,12 +95,12 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void toCount() {
-        if (!et_contributed.getText().toString().equals("")) {
-            double contributed = Double.parseDouble(et_contributed.getText().toString());
+        if (!etContributed.getText().toString().equals("")) {
+            double contributed = Double.parseDouble(etContributed.getText().toString());
             double surrender = contributed - sum;
 
-            tv_result.setText(String.valueOf(contributed));
-            tv_change.setText(String.valueOf(surrender));
+            tvResult.setText(String.valueOf(contributed));
+            tvChange.setText(String.valueOf(surrender));
         }
     }
 

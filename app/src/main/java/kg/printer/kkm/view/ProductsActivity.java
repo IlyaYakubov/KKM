@@ -1,7 +1,5 @@
 package kg.printer.kkm.view;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,26 +8,27 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.Organization;
 import kg.printer.kkm.domains.Product;
-import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.repositories.Database;
+import kg.printer.kkm.services.ProductService;
 
 import java.util.ArrayList;
 
-public class ProductsActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
+public class ProductsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private ListView lv_data;
-    private Button btn_add;
-    private ArrayList<Product> data = new ArrayList<>();
-    private UIViewController.BoxAdapter boxAdapter;
+    private ListView lvData;
+    private Button btnAdd;
 
-    private DatabaseDAO dbHelper;
+    private ArrayList<Product> products = new ArrayList<>();
+
+    private ProductService productService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
+
+        productService = new ProductService(this);
+        products = productService.readProducts();
 
         initView();
         addListener();
@@ -40,84 +39,42 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
     protected void onResume() {
         super.onResume();
 
-        readData();
+        products = productService.readProducts();
+        fillAdapter();
     }
 
     @Override
     public void initView() {
-        lv_data = findViewById(R.id.lv_data);
-        btn_add = findViewById(R.id.btn_add);
+        lvData = findViewById(R.id.lv_items);
+        btnAdd = findViewById(R.id.btn_add);
     }
 
     @Override
     public void addListener() {
-        btn_add.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     @Override
     public void init() {
-        dbHelper = new DatabaseDAO(getApplicationContext());
+        fillAdapter();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_add:
-                turnToActivityWithPosition(ProductActivity.class, -1, 1);
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_add) {
+            turnToActivityWithPosition(ProductActivity.class, -1, 1);
         }
     }
 
-    @Override
-    public Organization readData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    private void fillAdapter() {
+        UIViewController.BoxAdapter boxAdapter = new UIViewController.BoxAdapter(this, products);
+        lvData.setAdapter(boxAdapter);
 
-        // select all products
-        Cursor cursor = db.query("products", null, null, null, null, null, null);
-
-        data.clear();
-
-        while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("coast");
-            int unitColIndex = cursor.getColumnIndex("unit");
-            data.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
-        }
-
-        boxAdapter = new UIViewController.BoxAdapter(this, data);
-        //ArrayAdapter<Product> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        lv_data.setAdapter(boxAdapter);
-
-        lv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 turnToActivityWithPosition(ProductActivity.class, position, 0);
             }
         });
-
-        cursor.close();
-        return null;
-    }
-
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
-    public void addData() {
-
-    }
-
-    @Override
-    public void deleteData() {
-
-    }
-
-    @Override
-    public int lastPosition() {
-        return 0;
     }
 
 }

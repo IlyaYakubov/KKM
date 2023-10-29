@@ -55,10 +55,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/coast" />
+                    android:text="@string/price" />
 
                 <TextView
-                    android:id="@+id/tv_coast"
+                    android:id="@+id/tv_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -249,14 +249,14 @@
                 android:text="@string/erase" />
 
             <Button
-                android:id="@+id/btn_coast"
+                android:id="@+id/btn_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:layout_weight="15"
-                android:text="@string/coast" />
+                android:text="@string/price" />
 
             <Button
                 android:id="@+id/btn_quantity"

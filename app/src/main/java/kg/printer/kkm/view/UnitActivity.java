@@ -13,17 +13,15 @@ import android.widget.EditText;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.Organization;
 import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.repositories.Database;
 
-public class UnitActivity extends UIViewController.BaseAdapter implements View.OnClickListener, Database {
+public class UnitActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private EditText et_name, et_full_name, et_code_name;
-    private Button btn_ok;
+    private EditText etName, etFullName, etCodeName;
+    private Button btnOk;
 
-    private int newElement; // 1 true - 0 false
-    private int position_on_list;
+    private int newItem; // 1 true - 0 false
+    private int listIndex;
 
     private DatabaseDAO dbHelper;
 
@@ -39,16 +37,16 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
 
     @Override
     public void initView() {
-        et_name = findViewById(R.id.et_name);
-        et_full_name = findViewById(R.id.et_full_name);
-        et_code_name = findViewById(R.id.et_code_name);
+        etName = findViewById(R.id.et_name);
+        etFullName = findViewById(R.id.et_full_name);
+        etCodeName = findViewById(R.id.et_code_name);
 
-        btn_ok = findViewById(R.id.btn_ok);
+        btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
-        btn_ok.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     @Override
@@ -56,10 +54,10 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         dbHelper = new DatabaseDAO(getApplicationContext());
 
         Intent intent = getIntent();
-        position_on_list = intent.getIntExtra("position_on_list", -1);
-        newElement = intent.getIntExtra("new_element", 1);
+        listIndex = intent.getIntExtra("listIndex", -1);
+        newItem = intent.getIntExtra("newItem", 1);
 
-        if (newElement == 0) {
+        if (newItem == 0) {
             readData();
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -70,7 +68,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_ok:
-                if (et_name.getText().toString().isEmpty()) {
+                if (etName.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните наименование единицы измерения");
                 } else {
                     addData();
@@ -83,61 +81,47 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         }
     }
 
-    @Override
-    public Organization readData() {
+    public void readData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select unit
         Cursor cursor = db.rawQuery("select * from units where position_on_list = ?"
-                , new String[] { String.valueOf(position_on_list) });
+                , new String[] { String.valueOf(listIndex) });
 
         if (cursor.moveToFirst()) {
             int nameColIndex = cursor.getColumnIndex("name");
             int fuulNameColIndex = cursor.getColumnIndex("full_name");
             int codeColIndex = cursor.getColumnIndex("code");
 
-            et_name.setText(cursor.getString(nameColIndex));
-            et_full_name.setText(cursor.getString(fuulNameColIndex));
-            et_code_name.setText(cursor.getString(codeColIndex));
+            etName.setText(cursor.getString(nameColIndex));
+            etFullName.setText(cursor.getString(fuulNameColIndex));
+            etCodeName.setText(cursor.getString(codeColIndex));
         }
 
         cursor.close();
-        return null;
     }
 
-    @Override
-    public void updateData() {
-
-    }
-
-    @Override
     public void addData() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        String name = et_name.getText().toString();
-        String fullName = et_full_name.getText().toString();
-        String codeName = et_code_name.getText().toString();
+        String name = etName.getText().toString();
+        String fullName = etFullName.getText().toString();
+        String codeName = etCodeName.getText().toString();
 
         cv.put("name", name);
         cv.put("full_name", fullName);
         cv.put("code", codeName);
 
-        if (newElement == 1) {
+        if (newItem == 1) {
             cv.put("position_on_list", lastPosition() + 1);
             db.insert("units", null, cv);
         } else {
-            cv.put("position_on_list", position_on_list);
-            db.update("units", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
+            cv.put("position_on_list", listIndex);
+            db.update("units", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
         }
     }
 
-    @Override
-    public void deleteData() {
-
-    }
-
-    @Override
     public int lastPosition() {
         dbHelper = new DatabaseDAO(getApplicationContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();

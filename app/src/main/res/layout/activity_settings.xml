@@ -58,10 +58,10 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_products"
+                    android:id="@+id/btn_units"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/products" />
+                    android:text="@string/units" />
 
             </LinearLayout>
 
@@ -72,10 +72,10 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_units"
+                    android:id="@+id/btn_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/units" />
+                    android:text="@string/products" />
 
             </LinearLayout>
 

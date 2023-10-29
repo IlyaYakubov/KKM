@@ -16,8 +16,9 @@ import java.util.ArrayList;
 
 public class UsersActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private ListView lv_names;
-    private Button btn_add;
+    private ListView lvData;
+    private Button btnAdd;
+
     private final ArrayList<User> users = new ArrayList<>();
     private final ArrayList<String> names = new ArrayList<>();
 
@@ -44,13 +45,13 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
 
     @Override
     public void initView() {
-        lv_names = findViewById(R.id.lv_data);
-        btn_add = findViewById(R.id.btn_add);
+        lvData = findViewById(R.id.lv_items);
+        btnAdd = findViewById(R.id.btn_add);
     }
 
     @Override
     public void addListener() {
-        btn_add.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     @Override
@@ -74,9 +75,9 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
             names.add(user.getName());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        lv_names.setAdapter(adapter);
+        lvData.setAdapter(adapter);
 
-        lv_names.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     turnToActivity(AdministratorActivity.class);

@@ -36,7 +36,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
     @Override
     public void initView() {
-        lvProducts = findViewById(R.id.lv_data);
+        lvProducts = findViewById(R.id.lv_items);
     }
 
     @Override
@@ -48,12 +48,11 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
     public void init() {
         Intent intent = getIntent();
         list = intent.getExtras().getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("itog");
+        result = intent.getExtras().getStringArrayList("result");
 
         readDataFromBaseData();
 
         boxAdapter = new UIViewController.BoxAdapter(this, products);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         lvProducts.setAdapter(boxAdapter);
 
         lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,7 +60,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
                 Intent intent = new Intent(getApplicationContext(), SaleActivity.class);
                 intent.putExtra("position", String.valueOf(position));
                 intent.putStringArrayListExtra("list", list);
-                intent.putStringArrayListExtra("itog", result);
+                intent.putStringArrayListExtra("result", result);
                 startActivity(intent);
                 finish();
             }
@@ -79,7 +78,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("coast");
+            int coastColIndex = cursor.getColumnIndex("price");
             int unitColIndex = cursor.getColumnIndex("unit");
             products.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
