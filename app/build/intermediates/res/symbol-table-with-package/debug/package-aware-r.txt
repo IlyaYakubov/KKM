@@ -768,7 +768,6 @@ id btn_add_user
 id btn_cash
 id btn_clear_num
 id btn_clear_send
-id btn_coast
 id btn_connect
 id btn_del_pass
 id btn_del_user
@@ -781,6 +780,7 @@ id btn_login
 id btn_nine
 id btn_ok
 id btn_one
+id btn_price
 id btn_print
 id btn_products
 id btn_quantity
@@ -829,9 +829,8 @@ id default_activity_button
 id disableHome
 id edit_query
 id end
-id et_adress_magazine
+id et_address_magazine
 id et_barcode_content
-id et_coast
 id et_code_name
 id et_confirm_password
 id et_contributed
@@ -845,6 +844,7 @@ id et_password
 id et_percent_discount
 id et_pic_width
 id et_position
+id et_price
 id et_second_name
 id et_send
 id et_set_net_gateway
@@ -879,8 +879,8 @@ id list_item
 id ll_print_image_upload_image
 id ll_wifi_pd
 id ll_wifi_set_net_ip_dhcp
-id lv_data
 id lv_dialog_list_basic_content
+id lv_items
 id lv_set_wifi
 id message
 id middle
@@ -939,10 +939,10 @@ id showTitle
 id sp_wifi_set
 id spacer
 id split_action_bar
-id spr_basic_unit
-id spr_form_of_sobstvennosti
 id spr_login
-id spr_system_nalog
+id spr_taxation
+id spr_type_of_ownership
+id spr_unit
 id src_atop
 id src_in
 id src_over
@@ -950,7 +950,7 @@ id start
 id submenuarrow
 id submit_area
 id sw_backings
-id sw_change_cost
+id sw_change_price
 id sw_discounts
 id sw_orders
 id tabMode
@@ -961,7 +961,6 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
-id textView
 id time
 id title
 id titleDividerNoCustom
@@ -972,20 +971,21 @@ id tv_barcode_group_item_indicator
 id tv_barcode_text
 id tv_barcodetype
 id tv_basic_dialog_item_text
-id tv_coast
+id tv_change
 id tv_device_selected
 id tv_dialog_list_basic_title
 id tv_error_tip
-id tv_itog
 id tv_message
-id tv_messages
+id tv_message_cart
 id tv_not_bigger
 id tv_percent
+id tv_price
 id tv_product
+id tv_product_unit
 id tv_quantity
+id tv_result
 id tv_rev
 id tv_sum
-id tv_surrender
 id tv_title
 id tv_unit
 id tx_set_net_save_change
@@ -1147,6 +1147,7 @@ string barcode_print
 string bmp_limit_width
 string cash
 string cashier
+string change
 string change_costs
 string check_products
 string choose_bluetooth_device
@@ -1157,7 +1158,6 @@ string cmdtype_esc
 string cmdtype_pin
 string cmdtype_tsc
 string cmdtype_zpl
-string coast
 string code_name_unit
 string command_type
 string confirm_set_this_wifi
@@ -1206,6 +1206,7 @@ string picture
 string please_connect
 string pls_connect_printer_first
 string position
+string price
 string print
 string product
 string products
@@ -1232,7 +1233,6 @@ string ssid
 string status_bar_notification_info_overflow
 string sum
 string surname
-string surrender
 string sync
 string temp1_content2_email
 string temp1_title1_printer_tech

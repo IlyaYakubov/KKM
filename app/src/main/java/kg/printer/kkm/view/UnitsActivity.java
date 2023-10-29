@@ -1,7 +1,5 @@
 package kg.printer.kkm.view;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,10 +9,7 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.Unit;
-import kg.printer.kkm.repositories.DatabaseDAO;
-
-import java.util.ArrayList;
+import kg.printer.kkm.services.UnitService;
 
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class UnitsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
@@ -22,14 +17,14 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
     private ListView lvData;
     private Button btnAdd;
 
-    private final ArrayList<Unit> units = new ArrayList<>();
-
-    private DatabaseDAO dbHelper;
+    private UnitService unitService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_units);
+
+        unitService = new UnitService(this);
 
         initView();
         addListener();
@@ -40,7 +35,7 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
     protected void onResume() {
         super.onResume();
 
-        readData();
+        fillAdapter();
     }
 
     @Override
@@ -56,7 +51,7 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
 
     @Override
     public void init() {
-        dbHelper = new DatabaseDAO(getApplicationContext());
+
     }
 
     @Override
@@ -66,24 +61,8 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
         }
     }
 
-    public void readData() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all units
-        Cursor cursor = db.query("units", null, null, null, null, null, null);
-
-        units.clear();
-
-        ArrayList<String> unitNames = new ArrayList<>();
-
-        while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("name");
-            Unit unit = new Unit(cursor.getString(positionColIndex), "", "");
-            units.add(unit);
-            unitNames.add(unit.getName());
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitNames);
+    private void fillAdapter() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitService.readUnitNames());
         lvData.setAdapter(adapter);
 
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,8 +70,6 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
                 turnToActivityWithPosition(UnitActivity.class, position, 0);
             }
         });
-
-        cursor.close();
     }
 
 }

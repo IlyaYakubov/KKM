@@ -15,7 +15,7 @@ public class ProductService {
 
     private DatabaseDAO dbHelper;
 
-    private ArrayList<Product> data = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<String> listUnits = new ArrayList<>();
 
     public ProductService(ProductsActivity productsActivity) {
@@ -32,26 +32,26 @@ public class ProductService {
         // select all products
         Cursor cursor = db.query("products", null, null, null, null, null, null);
 
-        data.clear();
+        products.clear();
 
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
             int coastColIndex = cursor.getColumnIndex("price");
             int unitColIndex = cursor.getColumnIndex("unit");
-            data.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
         }
 
         cursor.close();
 
-        return data;
+        return products;
     }
 
-    public Product readProduct(int position_on_list) {
+    public Product readProduct(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select product
         Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
-                , new String[] { String.valueOf(position_on_list) });
+                , new String[] { String.valueOf(listIndex) });
 
         Product product = null;
 
@@ -68,13 +68,13 @@ public class ProductService {
         return product;
     }
 
-    public void createProduct(String name, String basicUnit, String coast) {
+    public void createProduct(String name, String unit, String price) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("name", name);
-        cv.put("unit", basicUnit);
-        cv.put("price", coast);
+        cv.put("unit", unit);
+        cv.put("price", price);
 
         cv.put("position_on_list", lastIndexInDatabase() + 1);
 

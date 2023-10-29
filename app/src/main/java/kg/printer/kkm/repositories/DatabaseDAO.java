@@ -115,19 +115,19 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "is_change_price integer," // изменять цену
                 + "is_orders integer" // заказы клиента
                 + ");");
+        db.execSQL("create table units ("
+                + "id integer primary key autoincrement,"
+                + "position_on_list text,"
+                + "name text,"
+                + "full_name text,"
+                + "code text" // международный код
+                + ");");
         db.execSQL("create table products ("
                 + "id integer primary key autoincrement,"
                 + "position_on_list text,"
                 + "name text,"
                 + "unit text,"
                 + "price text"
-                + ");");
-        db.execSQL("create table units ("
-                + "id integer primary key autoincrement,"
-                + "position_on_list text,"
-                + "name text,"
-                + "full_name text,"
-                + "code text"
                 + ");");
     }
 

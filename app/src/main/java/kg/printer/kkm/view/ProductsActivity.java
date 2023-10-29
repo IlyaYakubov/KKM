@@ -18,9 +18,9 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
     private ListView lvData;
     private Button btnAdd;
 
-    private ArrayList<Product> products = new ArrayList<>();
-
     private ProductService productService;
+
+    private ArrayList<Product> products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
