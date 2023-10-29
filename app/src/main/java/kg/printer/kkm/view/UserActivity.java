@@ -32,6 +32,8 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
 
     private AuthenticationService authenticationService;
 
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,14 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         Intent intent = getIntent();
         listIndex = intent.getIntExtra("listIndex", -1);
         newItem = intent.getIntExtra("newItem", 1);
+
+        // редактирование существующего пользователя
+        if (newItem == 0) {
+            user = authenticationService.findUserByListIndex(listIndex);
+            settingPasswordDialog.setPassword(user.getPassword());
+        } else {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
     }
 
     @Override
@@ -106,6 +116,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 break;
             case R.id.btn_del_pass:
                 settingPasswordDialog.setPassword("");
+                user.setPassword("");
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_del_user:
@@ -122,8 +133,6 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
                     UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
-                    User user = new User();
-
                     user.setPassword(settingPasswordDialog.getPassword());
                     user.setPosition(etPosition.getText().toString());
                     user.setSurname(etSurname.getText().toString());

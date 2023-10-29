@@ -40,7 +40,8 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
 
         settingPasswordDialog = new BasicPassFragment();
 
-        administrator = authenticationService.findAdministrator(settingPasswordDialog);
+        administrator = authenticationService.readAdministrator();
+        settingPasswordDialog.setPassword(administrator.getPassword());
 
         etPosition.setText(administrator.getPosition());
         etSurname.setText(administrator.getSurname());
@@ -75,6 +76,7 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
                 break;
             case R.id.btn_del_pass:
                 settingPasswordDialog.setPassword("");
+                administrator.setPassword("");
                 UIViewController.ToastAdapter.show(this, "Пароль удалён");
                 break;
             case R.id.btn_ok:

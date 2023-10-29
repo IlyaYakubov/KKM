@@ -63,24 +63,6 @@ public class AuthenticationService {
         }
     }
 
-    public User findUserByListIndex(int listIndex) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ?"
-                , new String[] { String.valueOf(listIndex) });
-
-        User user = null;
-
-        if (cursor.moveToFirst()) {
-            user = newUser(cursor);
-        }
-
-        cursor.close();
-
-        return user;
-    }
-
     public void createUser(User user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -154,6 +136,24 @@ public class AuthenticationService {
         }*/
     }
 
+    public User findUserByListIndex(int listIndex) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // select user
+        Cursor cursor = db.rawQuery("select * from users where position_on_list = ?"
+                , new String[] { String.valueOf(listIndex) });
+
+        User user = null;
+
+        if (cursor.moveToFirst()) {
+            user = newUser(cursor);
+        }
+
+        cursor.close();
+
+        return user;
+    }
+
     public boolean findUser(User user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -209,24 +209,7 @@ public class AuthenticationService {
         cursor.close();
     }
 
-    public void updateAdministrator(Administrator administrator) {
-        ContentValues cv = new ContentValues();
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        cv.put("is_admin", 1);
-        cv.put("position_on_list", 0);
-        cv.put("password", administrator.getPassword());
-        cv.put("position", administrator.getPosition());
-        cv.put("surname", administrator.getSurname());
-        cv.put("name", administrator.getName());
-        cv.put("second_name", administrator.getSecondName());
-
-        db.update("users", cv, "position_on_list = ?", new String[] { "0" });
-
-        dbHelper.close();
-    }
-
-    public Administrator findAdministrator(BasicPassFragment settingPasswordDialog) {
+    public Administrator readAdministrator() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select just administrator
@@ -246,13 +229,29 @@ public class AuthenticationService {
             administrator.setSurname(cursor.getString(surnameColIndex));
             administrator.setName(cursor.getString(nameColIndex));
             administrator.setSecondName(cursor.getString(secondNameColIndex));
-
-            settingPasswordDialog.setPassword(cursor.getString(passColIndex));
+            administrator.setPassword(cursor.getString(passColIndex));
         }
 
         cursor.close();
 
         return administrator;
+    }
+
+    public void updateAdministrator(Administrator administrator) {
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        cv.put("is_admin", 1);
+        cv.put("position_on_list", 0);
+        cv.put("password", administrator.getPassword());
+        cv.put("position", administrator.getPosition());
+        cv.put("surname", administrator.getSurname());
+        cv.put("name", administrator.getName());
+        cv.put("second_name", administrator.getSecondName());
+
+        db.update("users", cv, "position_on_list = ?", new String[] { "0" });
+
+        dbHelper.close();
     }
 
     private User newUser(Cursor cursor) {
