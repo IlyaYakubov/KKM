@@ -24,18 +24,21 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_units);
 
-        unitService = new UnitService(this);
-
+        init();
         initView();
         addListener();
-        init();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        fillAdapter();
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        unitService = new UnitService(this);
     }
 
     @Override
@@ -50,18 +53,13 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
     }
 
     @Override
-    public void init() {
-
-    }
-
-    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add) {
             turnToActivityWithPosition(UnitActivity.class, -1, 1);
         }
     }
 
-    private void fillAdapter() {
+    private void updateView() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, unitService.readUnits());
         lvData.setAdapter(adapter);
 

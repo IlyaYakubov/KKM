@@ -36,9 +36,10 @@ public class ProductService {
 
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("price");
             int unitColIndex = cursor.getColumnIndex("unit");
-            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
+            int priceColIndex = cursor.getColumnIndex("price");
+
+            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(unitColIndex), cursor.getString(priceColIndex)));
         }
 
         cursor.close();
@@ -57,10 +58,10 @@ public class ProductService {
 
         if (cursor.moveToNext()) {
             int nameColIndex = cursor.getColumnIndex("name");
-            int basicUnitColIndex = cursor.getColumnIndex("unit");
-            int coastColIndex = cursor.getColumnIndex("price");
+            int unitColIndex = cursor.getColumnIndex("unit");
+            int priceColIndex = cursor.getColumnIndex("price");
 
-            product = new Product(cursor.getString(nameColIndex), cursor.getString(basicUnitColIndex), cursor.getString(coastColIndex));
+            product = new Product(cursor.getString(nameColIndex), cursor.getString(unitColIndex), cursor.getString(priceColIndex));
         }
 
         cursor.close();
@@ -90,6 +91,7 @@ public class ProductService {
         cv.put("price", coast);
 
         cv.put("position_on_list", position_on_list);
+
         db.update("products", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
     }
 
@@ -122,8 +124,8 @@ public class ProductService {
         listUnits.clear();
 
         while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("name");
-            listUnits.add(cursor.getString(positionColIndex));
+            int nameColIndex = cursor.getColumnIndex("name");
+            listUnits.add(cursor.getString(nameColIndex));
         }
 
         cursor.close();

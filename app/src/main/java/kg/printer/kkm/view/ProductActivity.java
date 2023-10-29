@@ -46,7 +46,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         initView();
         addListener();
 
-        updateView(product);
+        updateView();
     }
 
     @Override
@@ -120,12 +120,10 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         }
     }
 
-    private void updateView(Product product) {
-        if (product != null) {
-            etName.setText(product.getName());
-            spr_Unit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
-            etPrice.setText(product.getPrice());
-        }
+    private void updateView() {
+        etName.setText(product.getName());
+        spr_Unit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
+        etPrice.setText(product.getPrice());
     }
 
     private void hideKeyboard(View view) {

@@ -12,45 +12,73 @@ import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class CashActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private double sum = 0;
-
     private TextView tvResult, tvChange;
     private EditText etContributed;
     private Button btnOk;
+
+    private double sum = 0;
+
+    private SaleService saleService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash);
 
+        init();
         initView();
         addListener();
-        init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        saleService = new SaleService(this);
+
+        Intent intent = getIntent();
+        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
+        assert result != null;
+        for (String delta : result) {
+            delta = delta.replace(',','.');
+            sum = sum + Double.parseDouble(delta);
+        }
     }
 
     @Override
     public void initView() {
         tvResult = findViewById(R.id.tv_result);
         tvChange = findViewById(R.id.tv_change);
-
         etContributed = findViewById(R.id.et_contributed);
-
         btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
-
         etContributed.addTextChangedListener(new TextWatcher() {
+            @SuppressWarnings("rawtypes")
             @Override
             public void afterTextChanged(Editable s) {
-                toCount();
+                if (!etContributed.getText().toString().equals("")) {
+                    Map result = saleService.toCount(etContributed.getText().toString(), sum);
+
+                    tvResult.setText(String.valueOf(result.get("contributed")));
+                    tvChange.setText(String.valueOf(result.get("change")));
+                }
             }
 
             @Override
@@ -63,19 +91,9 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
         });
 
         btnOk.setOnClickListener(this);
-
     }
 
-    @Override
-    public void init() {
-        Intent intent = getIntent();
-        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
-        assert result != null;
-        for (String sum : result) {
-            sum = sum.replace(',','.');
-            this.sum = this.sum + Double.parseDouble(sum);
-        }
-
+    private void updateView() {
         tvResult.setText(String.valueOf(sum));
         etContributed.setText(String.valueOf(sum));
         tvChange.setText("0");
@@ -91,16 +109,6 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
 
             hideKeyboard(v);
             finish();
-        }
-    }
-
-    private void toCount() {
-        if (!etContributed.getText().toString().equals("")) {
-            double contributed = Double.parseDouble(etContributed.getText().toString());
-            double surrender = contributed - sum;
-
-            tvResult.setText(String.valueOf(contributed));
-            tvChange.setText(String.valueOf(surrender));
         }
     }
 

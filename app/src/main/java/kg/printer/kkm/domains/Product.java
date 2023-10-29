@@ -2,12 +2,12 @@ package kg.printer.kkm.domains;
 
 public class Product {
 
-    private String name, price, unit;
+    private String name, unit, price;
 
-    public Product(String describe, String price, String unit) {
-        this.name = describe;
-        this.price = price;
+    public Product(String name, String unit, String price) {
+        this.name = name;
         this.unit = unit;
+        this.price = price;
     }
 
     public String getName() {
@@ -18,14 +18,6 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
     public String getUnit() {
         return unit;
     }
@@ -33,4 +25,9 @@ public class Product {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+    public String getPrice() {
+        return price;
+    }
+
 }

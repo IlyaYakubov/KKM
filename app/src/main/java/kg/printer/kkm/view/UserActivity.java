@@ -44,15 +44,13 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         init();
         initView();
         addListener();
-
-        updateView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        setVisibleValueOfPercent();
+        updateView();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
@@ -71,6 +69,8 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             user = authenticationService.findUserByListIndex(listIndex);
             settingPasswordDialog.setPassword(user.getPassword());
         } else {
+            user = new User();
+            settingPasswordDialog.setPassword("");
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
     }
@@ -92,6 +92,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         btnSetPass = findViewById(R.id.btn_set_pass);
         btnDelPass = findViewById(R.id.btn_del_pass);
 
+        // todo временно
         btnDelUser = findViewById(R.id.btn_del_user);
         btnDelUser.setBackgroundColor(Color.WHITE);
         btnDelUser.setTextColor(Color.GRAY);
@@ -136,8 +137,6 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                     UIViewController.ToastAdapter.show(this, "Заполните должность");
                 } else if (etName.getText().toString().isEmpty()) {
                     UIViewController.ToastAdapter.show(this, "Заполните имя");
-                } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
-                    UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
                 } else {
                     user.setPassword(settingPasswordDialog.getPassword());
                     user.setPosition(etPosition.getText().toString());
@@ -169,8 +168,6 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     private void updateView() {
         // редактирование существующего пользователя
         if (newItem == 0) {
-            User user = authenticationService.findUserByListIndex(listIndex);
-
             if (user != null) {
                 etPosition.setText(user.getPosition());
                 etSurname.setText(user.getSurname());
@@ -187,6 +184,8 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
+
+        setVisibleValueOfPercent();
     }
 
     private void setVisibleValueOfPercent() {

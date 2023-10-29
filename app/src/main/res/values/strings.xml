@@ -174,7 +174,7 @@
     <!-- trade -->
     <string name="sale">Чек</string>
     <string name="select_product">Подобрать номенклатуру</string>
-    <string name="cash">Наличные</string>
+    <string name="cash">Оплата наличными</string>
     <string name="adding_product">Расчёт номенклатуры для чека</string>
     <string name="quantity">Количество</string>
     <string name="quantity_briefly">Кол-во</string>

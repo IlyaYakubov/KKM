@@ -13,25 +13,44 @@ import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.repositories.DatabaseDAO;
+import kg.printer.kkm.services.ProductService;
+import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
 
 public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
     private ListView lvProducts;
+
     private ArrayList<String> list;
     private ArrayList<String> result;
-    private ArrayList<Product> products = new ArrayList<>();
-    private UIViewController.BoxAdapter boxAdapter;
+
+    private SaleService saleService;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_selection);
 
+        init();
         initView();
         addListener();
-        init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        saleService = new SaleService(this);
+
+        Intent intent = getIntent();
+        list = intent.getExtras().getStringArrayList("list");
+        result = intent.getExtras().getStringArrayList("result");
     }
 
     @Override
@@ -44,15 +63,8 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
         // do nothing
     }
 
-    @Override
-    public void init() {
-        Intent intent = getIntent();
-        list = intent.getExtras().getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("result");
-
-        readDataFromBaseData();
-
-        boxAdapter = new UIViewController.BoxAdapter(this, products);
+    private void updateView() {
+        UIViewController.BoxAdapter boxAdapter = new UIViewController.BoxAdapter(this, saleService.readProducts());
         lvProducts.setAdapter(boxAdapter);
 
         lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,25 +77,6 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
                 finish();
             }
         });
-    }
-
-    private void readDataFromBaseData() {
-        DatabaseDAO dbHelper = new DatabaseDAO(getApplicationContext());
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all products
-        Cursor cursor = db.query("products", null, null, null, null, null, null);
-
-        products.clear();
-
-        while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("price");
-            int unitColIndex = cursor.getColumnIndex("unit");
-            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(coastColIndex), cursor.getString(unitColIndex)));
-        }
-
-        cursor.close();
     }
 
 }

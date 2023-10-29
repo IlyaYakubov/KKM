@@ -8,10 +8,8 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.services.ProductService;
 
-import java.util.ArrayList;
 
 public class ProductsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
@@ -20,27 +18,28 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
 
     private ProductService productService;
 
-    private ArrayList<Product> products = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        productService = new ProductService(this);
-        products = productService.readProducts();
-
+        init();
         initView();
         addListener();
-        init();
+
+        updateView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        products = productService.readProducts();
-        fillAdapter();
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        productService = new ProductService(this);
     }
 
     @Override
@@ -55,19 +54,14 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
     }
 
     @Override
-    public void init() {
-        fillAdapter();
-    }
-
-    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add) {
             turnToActivityWithPosition(ProductActivity.class, -1, 1);
         }
     }
 
-    private void fillAdapter() {
-        UIViewController.BoxAdapter boxAdapter = new UIViewController.BoxAdapter(this, products);
+    private void updateView() {
+        UIViewController.BoxAdapter boxAdapter = new UIViewController.BoxAdapter(this, productService.readProducts());
         lvData.setAdapter(boxAdapter);
 
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {

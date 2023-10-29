@@ -19,9 +19,6 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
     private ListView lvData;
     private Button btnAdd;
 
-    private ArrayList<User> users = new ArrayList<>();
-    private final ArrayList<String> names = new ArrayList<>();
-
     private AuthenticationService authenticationService;
 
     @Override
@@ -29,18 +26,22 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
+        init();
         initView();
         addListener();
-        init();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        names.clear();
-        users = authenticationService.readUsers();
-        fillAdapter(users);
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        authenticationService = new AuthenticationService(this);
+        authenticationService.createAdministrator();
     }
 
     @Override
@@ -55,22 +56,15 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
     }
 
     @Override
-    public void init() {
-        authenticationService = new AuthenticationService(this);
-
-        if (users.isEmpty()) {
-            authenticationService.createAdministrator();
-        }
-    }
-
-    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add) {
             turnToActivityWithPosition(UserActivity.class, -1, 1);
         }
     }
 
-    private void fillAdapter(ArrayList<User> users) {
+    private void updateView() {
+        ArrayList<User> users = authenticationService.readUsers();
+        ArrayList<String> names = new ArrayList<>();
         for (User user : users) {
             names.add(user.getName());
         }

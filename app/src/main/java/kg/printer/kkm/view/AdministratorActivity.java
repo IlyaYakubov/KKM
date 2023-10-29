@@ -3,6 +3,7 @@ package kg.printer.kkm.view;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +30,18 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrator);
 
+        init();
         initView();
         addListener();
-        init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @Override
@@ -42,11 +52,6 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
 
         administrator = authenticationService.readAdministrator();
         settingPasswordDialog.setPassword(administrator.getPassword());
-
-        etPosition.setText(administrator.getPosition());
-        etSurname.setText(administrator.getSurname());
-        etName.setText(administrator.getName());
-        etSecondName.setText(administrator.getSecondName());
     }
 
     @Override
@@ -99,6 +104,13 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
             default:
                 break;
         }
+    }
+
+    private void updateView() {
+        etPosition.setText(administrator.getPosition());
+        etSurname.setText(administrator.getSurname());
+        etName.setText(administrator.getName());
+        etSecondName.setText(administrator.getSecondName());
     }
 
     private void hideKeyboard(View view) {

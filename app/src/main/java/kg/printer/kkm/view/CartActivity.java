@@ -33,6 +33,26 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        Intent intent = getIntent();
+
+        try { // todo при открытии первый раз происходит ошибка
+            products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
+            results = intent.getExtras().getStringArrayList("result");
+            String sum = intent.getStringExtra("sum");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void initView() {
         lvData = findViewById(R.id.lv_items);
         btnSelectProduct = findViewById(R.id.btn_select_product);
@@ -43,22 +63,6 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     public void addListener() {
         btnSelectProduct.setOnClickListener(this);
         btnCash.setOnClickListener(this);
-    }
-
-    @Override
-    public void init() {
-        Intent intent = getIntent();
-        try {
-            products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
-            results = intent.getExtras().getStringArrayList("result");
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
-            lvData.setAdapter(adapter);
-
-            String sum = intent.getStringExtra("sum");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -85,6 +89,11 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
             default:
                 break;
         }
+    }
+
+    private void updateView() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
+        lvData.setAdapter(adapter);
     }
 
 }

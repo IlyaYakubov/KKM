@@ -44,6 +44,7 @@ public class OrganizationService {
         }
 
         cursor.close();
+
         return organization;
     }
 

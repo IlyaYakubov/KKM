@@ -2,8 +2,6 @@ package kg.printer.kkm.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -15,9 +13,10 @@ import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.repositories.DatabaseDAO;
+import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SaleActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
@@ -28,19 +27,40 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
     private Button btnQuantity, btnPrice;
     private Button btnOk;
 
-    private int positionOnList;
-
     private ArrayList<String> list;
     private ArrayList<String> result;
+
+    private SaleService saleService;
+
+    private int listIndex;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale);
 
+        init();
         initView();
         addListener();
-        init();
+
+        updateView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateView();
+    }
+
+    @Override
+    public void init() {
+        saleService = new SaleService(this);
+
+        Intent intent = getIntent();
+        listIndex = Integer.parseInt(intent.getStringExtra("position"));
+        list = intent.getExtras().getStringArrayList("list");
+        result = intent.getExtras().getStringArrayList("result");
     }
 
     @Override
@@ -49,12 +69,9 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         tvQuantity = findViewById(R.id.tv_quantity);
         tvPrice = findViewById(R.id.tv_price);
         tvSum = findViewById(R.id.tv_sum);
-
         etNumData = findViewById(R.id.et_num_data);
-
         btnClearNum = findViewById(R.id.btn_clear_num);
         btnDot = findViewById(R.id.btn_dot);
-
         btnZero = findViewById(R.id.btn_zero);
         btnOne = findViewById(R.id.btn_one);
         btnTwo = findViewById(R.id.btn_two);
@@ -65,20 +82,21 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         btnSeven = findViewById(R.id.btn_seven);
         btnEight = findViewById(R.id.btn_eight);
         btnNine = findViewById(R.id.btn_nine);
-
         btnQuantity = findViewById(R.id.btn_quantity);
         btnPrice = findViewById(R.id.btn_price);
-
         btnOk = findViewById(R.id.btn_ok);
     }
 
     @Override
     public void addListener() {
-
         tvQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                toCount();
+                if (!tvQuantity.getText().equals("")) {
+                    String quantity = tvQuantity.getText().toString();
+                    String price = tvPrice.getText().toString();
+                    tvSum.setText(saleService.toMultiply(quantity, price));
+                }
             }
 
             @Override
@@ -93,7 +111,11 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         tvPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                toCount();
+                if (!tvQuantity.getText().equals("")) {
+                    String quantity = tvQuantity.getText().toString();
+                    String price = tvPrice.getText().toString();
+                    tvSum.setText(saleService.toMultiply(quantity, price));
+                }
             }
 
             @Override
@@ -107,7 +129,6 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
         btnClearNum.setOnClickListener(this);
         btnDot.setOnClickListener(this);
-
         btnZero.setOnClickListener(this);
         btnOne.setOnClickListener(this);
         btnTwo.setOnClickListener(this);
@@ -118,23 +139,9 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         btnSeven.setOnClickListener(this);
         btnEight.setOnClickListener(this);
         btnNine.setOnClickListener(this);
-
         btnQuantity.setOnClickListener(this);
         btnPrice.setOnClickListener(this);
-
         btnOk.setOnClickListener(this);
-    }
-
-    @Override
-    public void init() {
-        Intent intent = getIntent();
-        positionOnList = Integer.parseInt(intent.getStringExtra("position"));
-        list = intent.getExtras().getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("result");
-
-        readDataFromBaseData();
-
-        toCount();
     }
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
@@ -225,32 +232,14 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         }
     }
 
-    private void readDataFromBaseData() {
-        DatabaseDAO dbHelper = new DatabaseDAO(getApplicationContext());
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    @SuppressWarnings("rawtypes")
+    private void updateView() {
+        Map map = saleService.findProductByListIndex(listIndex);
+        tvProduct.setText(String.valueOf(map.get("name")));
+        tvPrice.setText(String.valueOf(map.get("price")));
 
-        // select product
-        Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
-                , new String[]{String.valueOf(positionOnList)});
-
-        if (cursor.moveToNext()) {
-            int nameColIndex = cursor.getColumnIndex("name");
-            int coastColIndex = cursor.getColumnIndex("price");
-            tvProduct.setText(cursor.getString(nameColIndex));
-            tvPrice.setText(cursor.getString(coastColIndex));
-        }
-
-        cursor.close();
-    }
-
-    private void toCount() {
         if (!tvQuantity.getText().equals("")) {
-            double quantity = Double.parseDouble(tvQuantity.getText().toString());
-            double coast = Double.parseDouble(tvPrice.getText().toString());
-            double sum = quantity * coast;
-
-            @SuppressLint("DefaultLocale") String formattedDouble = String.format("%.2f", sum);
-            tvSum.setText(formattedDouble);
+            tvSum.setText(saleService.toMultiply(tvQuantity.getText().toString(), tvPrice.getText().toString()));
         }
     }
 
