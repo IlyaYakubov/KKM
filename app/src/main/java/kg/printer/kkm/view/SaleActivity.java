@@ -160,7 +160,9 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
                     return;
                 }
 
-                list.add(tvProduct.getText().toString());
+                list.add(tvProduct.getText().toString()
+                        + "          кол-во: " + tvQuantity.getText().toString()
+                        + " сумма: " + tvSum.getText().toString() + " руб.");
                 result.add(tvSum.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);

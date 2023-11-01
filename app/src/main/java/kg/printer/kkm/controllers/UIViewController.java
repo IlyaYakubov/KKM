@@ -302,8 +302,8 @@ public class UIViewController {
             Product p = getProduct(position);
 
             ((TextView) view.findViewById(R.id.tv_product)).setText(p.getName());
-            ((TextView) view.findViewById(R.id.tv_price)).setText("цена: " + p.getPrice());
             ((TextView) view.findViewById(R.id.tv_unit)).setText("ед.изм: " + p.getUnit());
+            ((TextView) view.findViewById(R.id.tv_price)).setText("цена: " + p.getPrice());
 
             return view;
         }

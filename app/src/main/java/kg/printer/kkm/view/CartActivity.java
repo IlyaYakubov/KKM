@@ -70,10 +70,10 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_select_product:
-                Intent intentGoodsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
-                intentGoodsList.putStringArrayListExtra("list", products);
-                intentGoodsList.putStringArrayListExtra("result", results);
-                startActivity(intentGoodsList);
+                Intent intentProductsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
+                intentProductsList.putStringArrayListExtra("list", products);
+                intentProductsList.putStringArrayListExtra("result", results);
+                startActivity(intentProductsList);
                 finish();
                 break;
             case R.id.btn_cash:
