@@ -25,6 +25,13 @@ public class UnitService {
         this.dbHelper = new DatabaseDAO(unitActivity);
     }
 
+    /**
+     * Метод создает единицу измерения
+     *
+     * @param name - наименование
+     * @param fullName - полное наименование
+     * @param code - международный код единицы измерения
+     */
     public void createUnit(String name, String fullName, String code) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -38,6 +45,9 @@ public class UnitService {
         db.insert("units", null, cv);
     }
 
+    /**
+     * @return список единиц измерения
+     */
     public ArrayList<String> readUnits() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -63,6 +73,14 @@ public class UnitService {
         return unitNames;
     }
 
+    /**
+     * Метод изменяет запись единицы измерения
+     *
+     * @param name - наименование
+     * @param fullName - полное наименование
+     * @param code - международный код
+     * @param listIndex - индекс в списке
+     */
     public void updateUnit(String name, String fullName, String code, int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -76,6 +94,10 @@ public class UnitService {
         db.update("units", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
     }
 
+    /**
+     * @param listIndex - индекс в списке
+     * @return единица измерения
+     */
     public Unit findUnitByListIndex(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -98,6 +120,9 @@ public class UnitService {
         return unit;
     }
 
+    /**
+     * @return индекс последней записи единицы измерения
+     */
     public int lastIndex() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 

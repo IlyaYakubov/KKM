@@ -16,6 +16,9 @@ public class OrganizationService {
         this.dbHelper = new DatabaseDAO(organizationActivity);
     }
 
+    /**
+     * @return объект организация с заполненными свойствами
+     */
     public Organization readOrganization() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -48,8 +51,19 @@ public class OrganizationService {
         return organization;
     }
 
+    /**
+     * Метод обновляет данные организации
+     *
+     * @param typeOfOwnership - форма собственности
+     * @param taxation - система налогооблажения
+     * @param org_name - наименование организации
+     * @param inn - ИНН организации
+     * @param magazine_name - наименование торговой точки
+     * @param address_magazine - адрес торговой точки
+     * @param telephone_magazine - телефон торговой точки
+     */
     public void updateOrganization(String typeOfOwnership,
-                                   String tax,
+                                   String taxation,
                                    String org_name,
                                    String inn,
                                    String magazine_name,
@@ -59,7 +73,7 @@ public class OrganizationService {
         ContentValues cv = new ContentValues();
 
         cv.put("type_of_ownership", typeOfOwnership);
-        cv.put("taxation", tax);
+        cv.put("taxation", taxation);
         cv.put("name", org_name);
         cv.put("inn", inn);
         cv.put("magazine_name", magazine_name);

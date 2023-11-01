@@ -26,6 +26,9 @@ public class ProductService {
         this.dbHelper = new DatabaseDAO(productActivity);
     }
 
+    /**
+     * @return вся номенклатура
+     */
     public ArrayList<Product> readProducts() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -47,6 +50,10 @@ public class ProductService {
         return products;
     }
 
+    /**
+     * @param listIndex - последний индекс записи номенклатуры
+     * @return номенклатура
+     */
     public Product findProductByListIndex(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -69,6 +76,13 @@ public class ProductService {
         return product;
     }
 
+    /**
+     * Метод создает запись номенклатуры
+     *
+     * @param name - наименоване
+     * @param unit - единица измерения
+     * @param price - цена
+     */
     public void createProduct(String name, String unit, String price) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -82,19 +96,30 @@ public class ProductService {
         db.insert("products", null, cv);
     }
 
-    public void updateProduct(String name, String basicUnit, String coast, int position_on_list) {
+    /**
+     * Метод изменяет запись номенклатуры
+     *
+     * @param name - новое наименование
+     * @param unit - новая единица измерения
+     * @param price - новая цена
+     * @param listIndex - индекс номенклатуры в списке
+     */
+    public void updateProduct(String name, String unit, String price, int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("name", name);
-        cv.put("unit", basicUnit);
-        cv.put("price", coast);
+        cv.put("unit", unit);
+        cv.put("price", price);
 
-        cv.put("position_on_list", position_on_list);
+        cv.put("position_on_list", listIndex);
 
-        db.update("products", cv, "position_on_list = ?", new String[] { String.valueOf(position_on_list) });
+        db.update("products", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
     }
 
+    /**
+     * @return последний индекс записи
+     */
     public int lastIndex() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -112,7 +137,6 @@ public class ProductService {
     }
 
     /**
-     *
      * @return единицы измерения из базы
      */
     public ArrayList<String> findAllUnits() {

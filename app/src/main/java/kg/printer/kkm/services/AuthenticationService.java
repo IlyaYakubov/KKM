@@ -49,6 +49,11 @@ public class AuthenticationService {
         this.dbHelper = new DatabaseDAO(usersActivity.getApplicationContext());
     }
 
+    /**
+     * Метод вызывает проверку разрешений
+     *
+     * @param authenticationActivity - контроллер аутентификации
+     */
     public void checkAllPermissions(AuthenticationActivity authenticationActivity) {
         listPermissions.clear();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -63,6 +68,11 @@ public class AuthenticationService {
         }
     }
 
+    /**
+     * Метод создает запись пользователя
+     *
+     * @param user - пользователь, который будет создан в качестве записи
+     */
     public void createUser(User user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -85,6 +95,9 @@ public class AuthenticationService {
         db.insert("users", null, cv);
     }
 
+    /**
+     * @return список пользователей
+     */
     public ArrayList<User> readUsers() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -101,6 +114,12 @@ public class AuthenticationService {
         return users;
     }
 
+    /**
+     * Метод изменяет запись пользователя
+     *
+     * @param user - изменяемый пользователь
+     * @param listIndex - индекс в списке
+     */
     public void updateUser(User user, int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -123,6 +142,11 @@ public class AuthenticationService {
         db.update("users", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
     }
 
+    /**
+     * Метод удаляет пользователя по индексу
+     *
+     * @param listIndex
+     */
     public void deleteUser(int listIndex) {
         /*SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete("users", "position_on_list = " + listIndex, null);
@@ -136,6 +160,10 @@ public class AuthenticationService {
         }*/
     }
 
+    /**
+     * @param listIndex - индекс в списке
+     * @return пользователь
+     */
     public User findUserByListIndex(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -154,6 +182,10 @@ public class AuthenticationService {
         return user;
     }
 
+    /**
+     * @param user - искомый пользователь
+     * @return найденный пользователь
+     */
     public boolean findUser(User user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -169,6 +201,9 @@ public class AuthenticationService {
         }
     }
 
+    /**
+     * @return последний индекс записи
+     */
     public int lastIndex() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -185,6 +220,9 @@ public class AuthenticationService {
         return lastPosition;
     }
 
+    /**
+     * Метод создает администратора
+     */
     public void createAdministrator() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -209,6 +247,9 @@ public class AuthenticationService {
         cursor.close();
     }
 
+    /**
+     * @return данные администратора в качестве объекта
+     */
     public Administrator readAdministrator() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -237,6 +278,11 @@ public class AuthenticationService {
         return administrator;
     }
 
+    /**
+     * Метод изменяет данные администратора
+     *
+     * @param administrator - текущий администратор
+     */
     public void updateAdministrator(Administrator administrator) {
         ContentValues cv = new ContentValues();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -254,6 +300,10 @@ public class AuthenticationService {
         dbHelper.close();
     }
 
+    /**
+     * @param cursor - выборка из базы данных
+     * @return новый объект пользователя
+     */
     private User newUser(Cursor cursor) {
         int idColIndex = cursor.getColumnIndex("position_on_list");
         int passColIndex = cursor.getColumnIndex("password");

@@ -31,6 +31,11 @@ public class SaleService {
         this.dbHelper = new DatabaseDAO(saleActivity);
     }
 
+    /**
+     * @param contributedParam - внесено наличными
+     * @param sum - значение суммы
+     * @return структура с расчитанной сдачей
+     */
     @SuppressWarnings("rawtypes")
     public Map toCount(String contributedParam, double sum) {
         double contributed = Double.parseDouble(contributedParam);
@@ -43,6 +48,11 @@ public class SaleService {
         return result;
     }
 
+    /**
+     * @param quantityText - количество
+     * @param priceText - цена
+     * @return строка, результат умножения количества на цену
+     */
     public String toMultiply(String quantityText, String priceText) {
         if (quantityText.equals("") || priceText.equals("")) {
             return "";
@@ -55,6 +65,10 @@ public class SaleService {
         return String.format("%.2f", sum);
     }
 
+    /**
+     * @param listIndex - индекс в списке
+     * @return структура с наименованием номенклатуры и ценой
+     */
     public Map findProductByListIndex(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -77,6 +91,9 @@ public class SaleService {
         return map;
     }
 
+    /**
+     * @return список номенлатуры
+     */
     public ArrayList<Product> readProducts() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
