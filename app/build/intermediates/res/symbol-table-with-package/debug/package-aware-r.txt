@@ -774,6 +774,7 @@ id btn_del_user
 id btn_disConnect
 id btn_dot
 id btn_eight
+id btn_enter
 id btn_five
 id btn_four
 id btn_login

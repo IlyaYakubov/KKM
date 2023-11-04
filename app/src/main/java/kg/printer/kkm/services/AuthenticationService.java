@@ -183,6 +183,8 @@ public class AuthenticationService {
     }
 
     /**
+     * Метод проверяет, существует ли запись пользователя в хранилище
+     *
      * @param user - искомый пользователь
      * @return найденный пользователь
      */
@@ -190,7 +192,8 @@ public class AuthenticationService {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ? and password = ?", new String[] {String.valueOf(user.getListIndex()), user.getPassword()});
+        Cursor cursor = db.rawQuery("select * from users where position_on_list = ? and password = ?"
+                , new String[] {String.valueOf(user.getListIndex()), user.getPassword()});
 
         if (cursor.moveToFirst()) {
             cursor.close();

@@ -141,6 +141,10 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
                 finish();
                 break;
             case R.id.btn_enter:
+                if (text.isEmpty()) {
+                    return;
+                }
+
                 etContributed.setText(text);
                 etNumData.setText("");
                 break;

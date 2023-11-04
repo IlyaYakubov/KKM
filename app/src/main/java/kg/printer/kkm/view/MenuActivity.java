@@ -12,6 +12,7 @@ import java.util.Objects;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.User;
 
 public class MenuActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
@@ -19,6 +20,8 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     private Button btnSale, btnXReport, btnZReport, btnSettings;
 
     private String position, surname, name, secondName;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void init() {
         Intent intent = getIntent();
+        user = intent.getParcelableExtra("user");
+
         position = intent.getStringExtra("position");
         surname = intent.getStringExtra("surname");
         name = intent.getStringExtra("name");
@@ -105,7 +110,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
 
     private void updateView() {
         if (name != null && !name.isEmpty()) {
-            tvMessage.setText(name.trim());
+            tvMessage.setText(user.getName().trim());
         }
     }
 

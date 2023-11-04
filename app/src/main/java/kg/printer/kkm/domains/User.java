@@ -1,10 +1,16 @@
 package kg.printer.kkm.domains;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
 
     private boolean isBackings, isDiscounts, isChangePrice, isOrders;
     private int listIndex;
     private String position, surname, name, secondName, inn, percentOfDiscount, password;
+
+    public User() {
+    }
 
     public int getListIndex() {
         return listIndex;
@@ -101,4 +107,51 @@ public class User {
     public void setPercentOfDiscount(String percentOfDiscount) {
         this.percentOfDiscount = percentOfDiscount;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(listIndex);
+
+        dest.writeString(position);
+        dest.writeString(surname);
+        dest.writeString(name);
+        dest.writeString(secondName);
+        dest.writeString(inn);
+        dest.writeString(percentOfDiscount);
+        dest.writeString(password);
+
+        boolean[] booleans = {isBackings, isDiscounts, isChangePrice, isOrders};
+        dest.writeBooleanArray(booleans);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    private User(Parcel parcel) {
+        listIndex = parcel.readInt();
+
+        position = parcel.readString();
+        surname = parcel.readString();
+        name = parcel.readString();
+        secondName = parcel.readString();
+        inn = parcel.readString();
+        percentOfDiscount = parcel.readString();
+        password = parcel.readString();
+
+        boolean[] booleans = {isBackings, isDiscounts, isChangePrice, isOrders};
+        parcel.readBooleanArray(booleans);
+    }
+
 }
