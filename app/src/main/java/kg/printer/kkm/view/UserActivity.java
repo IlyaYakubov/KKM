@@ -92,7 +92,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         btnSetPass = findViewById(R.id.btn_set_pass);
         btnDelPass = findViewById(R.id.btn_del_pass);
 
-        // todo временно
+        // Кнопка деактивации пользователя
         btnDelUser = findViewById(R.id.btn_del_user);
         btnDelUser.setBackgroundColor(Color.WHITE);
         btnDelUser.setTextColor(Color.GRAY);

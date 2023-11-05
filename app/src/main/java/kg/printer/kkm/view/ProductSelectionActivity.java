@@ -12,6 +12,7 @@ import android.widget.ListView;
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 import kg.printer.kkm.domains.Product;
+import kg.printer.kkm.domains.User;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.services.ProductService;
 import kg.printer.kkm.services.SaleService;
@@ -26,6 +27,8 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
     private ArrayList<String> result;
 
     private SaleService saleService;
+
+    private User user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
         Intent intent = getIntent();
         list = intent.getExtras().getStringArrayList("list");
         result = intent.getExtras().getStringArrayList("result");
+        user = intent.getExtras().getParcelable("user");
     }
 
     @Override
@@ -73,6 +77,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
                 intent.putExtra("position", String.valueOf(position));
                 intent.putStringArrayListExtra("list", list);
                 intent.putStringArrayListExtra("result", result);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 finish();
             }

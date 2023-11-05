@@ -2,6 +2,7 @@ package kg.printer.kkm.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -13,10 +14,13 @@ import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.User;
+import kg.printer.kkm.services.AuthenticationService;
 import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class SaleActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
@@ -31,6 +35,9 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
     private ArrayList<String> result;
 
     private SaleService saleService;
+    private AuthenticationService authenticationService;
+
+    private User user;
 
     private int listIndex;
 
@@ -54,11 +61,13 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void init() {
         saleService = new SaleService(this);
+        authenticationService = new AuthenticationService(this);
 
         Intent intent = getIntent();
         listIndex = Integer.parseInt(intent.getStringExtra("position"));
-        list = intent.getExtras().getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("result");
+        list = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
+        result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
+        user = Objects.requireNonNull(intent.getExtras()).getParcelable("user");
     }
 
     @Override
@@ -169,6 +178,7 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
                 intent.putExtra("list", list);
                 intent.putExtra("result", result);
                 intent.putExtra("sum", tvSum.getText().toString());
+                intent.putExtra("user", user);
                 startActivity(intent);
                 finish();
                 break;
@@ -229,6 +239,15 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
 
     @SuppressWarnings("rawtypes")
     private void updateView() {
+        user = authenticationService.findUserByListIndex(user.getListIndex());
+        if (user.isChangePrice()) {
+            btnPrice.setClickable(true);
+        } else {
+            btnPrice.setBackgroundColor(Color.WHITE);
+            btnPrice.setTextColor(Color.GRAY);
+            btnPrice.setClickable(false);
+        }
+
         Map map = saleService.findProductByListIndex(listIndex);
         tvProduct.setText(String.valueOf(map.get("name")));
         tvPrice.setText(String.valueOf(map.get("price")));

@@ -39,8 +39,6 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         init();
         initView();
         addListener();
-
-        updateView();
     }
 
     @Override

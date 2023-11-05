@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
+import kg.printer.kkm.domains.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,14 +23,16 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     private ArrayList<String> products = new ArrayList<>();
     private ArrayList<String> results = new ArrayList<>();
 
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        init();
         initView();
         addListener();
-        init();
     }
 
     @Override
@@ -42,13 +45,14 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void init() {
         Intent intent = getIntent();
+        user = Objects.requireNonNull(intent.getExtras()).getParcelable("user");
+        products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
+        results = intent.getExtras().getStringArrayList("result");
+        String sum = intent.getStringExtra("sum");
 
-        try { // todo при открытии первый раз происходит ошибка
-            products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
-            results = intent.getExtras().getStringArrayList("result");
-            String sum = intent.getStringExtra("sum");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (products == null || results == null) {
+            products = new ArrayList<>();
+            results = new ArrayList<>();
         }
     }
 
@@ -73,6 +77,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
                 Intent intentProductsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
                 intentProductsList.putStringArrayListExtra("list", products);
                 intentProductsList.putStringArrayListExtra("result", results);
+                intentProductsList.putExtra("user", user);
                 startActivity(intentProductsList);
                 finish();
                 break;

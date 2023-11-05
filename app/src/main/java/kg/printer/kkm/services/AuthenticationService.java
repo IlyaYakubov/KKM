@@ -15,6 +15,7 @@ import kg.printer.kkm.domains.User;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.view.AdministratorActivity;
 import kg.printer.kkm.view.AuthenticationActivity;
+import kg.printer.kkm.view.SaleActivity;
 import kg.printer.kkm.view.UserActivity;
 import kg.printer.kkm.view.UsersActivity;
 import kg.printer.kkm.view.old.BasicPassFragment;
@@ -47,6 +48,10 @@ public class AuthenticationService {
 
     public AuthenticationService(UsersActivity usersActivity) {
         this.dbHelper = new DatabaseDAO(usersActivity.getApplicationContext());
+    }
+
+    public AuthenticationService(SaleActivity saleActivity) {
+        this.dbHelper = new DatabaseDAO(saleActivity.getApplicationContext());
     }
 
     /**

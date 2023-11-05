@@ -69,14 +69,15 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void initView() {
         tvMessage = findViewById(R.id.tv_message);
-
         btnSale = findViewById(R.id.btn_reg_sale);
 
+        // Доступность кнопки
         btnXReport = findViewById(R.id.btn_x_report);
         btnXReport.setBackgroundColor(Color.WHITE);
         btnXReport.setTextColor(Color.GRAY);
         btnXReport.setClickable(false);
 
+        // Доступность кнопки
         btnZReport = findViewById(R.id.btn_z_report);
         btnZReport.setBackgroundColor(Color.WHITE);
         btnZReport.setTextColor(Color.GRAY);
@@ -98,7 +99,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_reg_sale:
-                turnToActivity(CartActivity.class);
+                turnToActivityWithUser(CartActivity.class, user);
                 break;
             case R.id.btn_settings:
                 turnToActivity(SettingsActivity.class);
