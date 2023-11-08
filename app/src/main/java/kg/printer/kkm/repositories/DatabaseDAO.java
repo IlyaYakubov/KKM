@@ -90,44 +90,64 @@ public class DatabaseDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users ("
-                + "id integer primary key autoincrement,"
-                + "position_on_list text,"
-                + "is_admin integer,"
-                + "password text,"
-                + "position text,"
-                + "surname text,"
-                + "name text,"
-                + "second_name text,"
-                + "inn text,"
-                + "percent_of_discount text," // максимальный процент скидки
-                + "is_backings integer," // возвраты
-                + "is_discounts integer," // скидки
-                + "is_change_price integer," // изменять цену
-                + "is_orders integer" // заказы клиента
+                + "id INTEGER primary key autoincrement,"
+                + "position_on_list TEXT,"
+                + "is_admin INTEGER,"
+                + "password TEXT,"
+                + "position TEXT,"
+                + "surname TEXT,"
+                + "name TEXT,"
+                + "second_name TEXT,"
+                + "inn TEXT,"
+                + "percent_of_discount TEXT," // максимальный процент скидки
+                + "is_backings INTEGER," // возвраты
+                + "is_discounts INTEGER," // скидки
+                + "is_change_price INTEGER," // изменять цену
+                + "is_orders INTEGER" // заказы клиента
                 + ");");
         db.execSQL("create table organizations ("
-                + "id integer primary key autoincrement,"
-                + "type_of_ownership text," // форма собственности
-                + "taxation text," // система налогооблажения
-                + "name text,"
-                + "inn text," // ИНН
-                + "magazine_name text," // торговая точка
-                + "address_magazine text,"
-                + "telephone_magazine text"
+                + "id INTEGER primary key autoincrement,"
+                + "type_of_ownership TEXT," // форма собственности
+                + "taxation TEXT," // система налогооблажения
+                + "name TEXT,"
+                + "inn TEXT," // ИНН
+                + "magazine_name TEXT," // торговая точка
+                + "address_magazine TEXT,"
+                + "telephone_magazine TEXT"
                 + ");");
         db.execSQL("create table units ("
-                + "id integer primary key autoincrement,"
-                + "position_on_list text,"
-                + "name text,"
-                + "full_name text,"
-                + "code text" // международный код
+                + "id INTEGER primary key autoincrement,"
+                + "position_on_list TEXT,"
+                + "name TEXT,"
+                + "full_name TEXT,"
+                + "code TEXT" // международный код
                 + ");");
         db.execSQL("create table products ("
-                + "id integer primary key autoincrement,"
-                + "position_on_list text,"
-                + "name text,"
-                + "unit text,"
-                + "price text"
+                + "id INTEGER primary key autoincrement,"
+                + "position_on_list TEXT,"
+                + "name TEXT,"
+                + "unit TEXT,"
+                + "price TEXT"
+                + ");");
+        db.execSQL("create table sales_receipts (" // чеки продажи
+                + "id INTEGER primary key autoincrement,"
+                + "position_on_list TEXT,"
+                + "fiscal_document_number TEXT," // номер фискального документа
+                + "date_of_recieving TEXT," // дата выдачи чека (обычно текущая дата и время)
+                + "cash_shift_number TEXT," // номер кассовой смены
+                + "cash_shift_document_number TEXT," // номер документа в кассовой смене
+                + "total_amount TEXT," // номер кассовой смены
+                + "is_cash INTEGER" // наличными или нет (например безналичными)
+                + ");");
+        db.execSQL("create table cart (" // таблица списка товаров для чеков
+                + "id INTEGER primary key autoincrement,"
+                + "position_on_list TEXT,"
+                + "product TEXT,"
+                + "quantity TEXT,"
+                + "price TEXT,"
+                + "amount TEXT,"
+                + "sales_receipt_id INTEGER,"
+                + "foreign key (sales_receipt_id) references sales_receipts (id) on delete cascade"
                 + ");");
     }
 
@@ -153,4 +173,5 @@ public class DatabaseDAO extends SQLiteOpenHelper {
         }
 
     }
+
 }
