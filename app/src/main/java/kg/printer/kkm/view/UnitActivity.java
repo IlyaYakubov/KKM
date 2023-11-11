@@ -18,8 +18,8 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     private EditText etName, etFullName, etCodeName;
     private Button btnOk;
 
-    private boolean newItem;
     private int listIndex;
+    private boolean newItem;
 
     private UnitService unitService;
 

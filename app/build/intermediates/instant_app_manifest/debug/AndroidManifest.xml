@@ -34,7 +34,7 @@
         android:supportsRtl="true"
         android:testOnly="true" >
         <activity
-            android:name="kg.printer.kkm.view.AuthenticationActivity"
+            android:name="kg.printer.kkm.view.authorization.AuthenticationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" >
@@ -50,17 +50,17 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.view.CartActivity"
+            android:name="kg.printer.kkm.view.sales.CartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.view.CashActivity"
+            android:name="kg.printer.kkm.view.sales.CashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.view.SettingsActivity"
+            android:name="kg.printer.kkm.view.MenuSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
@@ -80,7 +80,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.view.AdministratorActivity"
+            android:name="kg.printer.kkm.view.authorization.AdministratorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
@@ -105,12 +105,12 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.view.ProductSelectionActivity"
+            android:name="kg.printer.kkm.view.sales.ProductSelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="kg.printer.kkm.view.SaleActivity"
+            android:name="kg.printer.kkm.view.sales.SaleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />

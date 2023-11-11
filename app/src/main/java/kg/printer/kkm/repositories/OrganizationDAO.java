@@ -31,8 +31,8 @@ public class OrganizationDAO {
             int nameColIndex = cursor.getColumnIndex("name");
             int innColIndex = cursor.getColumnIndex("inn");
             int magazineNameColIndex = cursor.getColumnIndex("magazine_name");
-            int addressMagazineColIndex = cursor.getColumnIndex("address_magazine");
-            int telephoneMagazineColIndex = cursor.getColumnIndex("telephone_magazine");
+            int addressMagazineColIndex = cursor.getColumnIndex("magazine_address");
+            int telephoneMagazineColIndex = cursor.getColumnIndex("magazine_telephone");
 
             organization.setTypeOfOwnership(cursor.getString(typeOfOwnershipColIndex));
             organization.setTaxation(cursor.getString(taxColIndex));
@@ -63,8 +63,8 @@ public class OrganizationDAO {
         cv.put("name", organization.getName());
         cv.put("inn", organization.getInn());
         cv.put("magazine_name", organization.getMagazineName());
-        cv.put("address_magazine", organization.getMagazineAddress());
-        cv.put("telephone_magazine", organization.getMagazineTelephone());
+        cv.put("magazine_address", organization.getMagazineAddress());
+        cv.put("magazine_telephone", organization.getMagazineTelephone());
 
         db.update("organizations", cv, null, null);
     }

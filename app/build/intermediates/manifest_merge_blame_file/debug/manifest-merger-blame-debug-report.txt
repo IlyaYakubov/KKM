@@ -71,8 +71,8 @@
 34        android:testOnly="true" >
 35        <activity
 35-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:30:9-40:20
-36            android:name="kg.printer.kkm.view.AuthenticationActivity"
-36-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:31:13-56
+36            android:name="kg.printer.kkm.view.authorization.AuthenticationActivity"
+36-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:31:13-70
 37            android:screenOrientation="portrait"
 37-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:32:13-49
 38            android:theme="@style/AppTheme"
@@ -102,8 +102,8 @@
 50-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:46:13-54
 51        <activity
 51-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:48:9-52:57
-52            android:name="kg.printer.kkm.view.CartActivity"
-52-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:49:13-46
+52            android:name="kg.printer.kkm.view.sales.CartActivity"
+52-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:49:13-52
 53            android:screenOrientation="portrait"
 53-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:50:13-49
 54            android:theme="@style/AppTheme"
@@ -112,8 +112,8 @@
 55-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:52:13-54
 56        <activity
 56-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:54:9-58:57
-57            android:name="kg.printer.kkm.view.CashActivity"
-57-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:55:13-46
+57            android:name="kg.printer.kkm.view.sales.CashActivity"
+57-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:55:13-52
 58            android:screenOrientation="portrait"
 58-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:56:13-49
 59            android:theme="@style/AppTheme"
@@ -122,8 +122,8 @@
 60-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:58:13-54
 61        <activity
 61-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:60:9-64:57
-62            android:name="kg.printer.kkm.view.SettingsActivity"
-62-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:61:13-50
+62            android:name="kg.printer.kkm.view.MenuSettingsActivity"
+62-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:61:13-54
 63            android:screenOrientation="portrait"
 63-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:62:13-49
 64            android:theme="@style/AppTheme"
@@ -162,8 +162,8 @@
 80-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:82:13-54
 81        <activity
 81-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:84:9-88:57
-82            android:name="kg.printer.kkm.view.AdministratorActivity"
-82-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:85:13-55
+82            android:name="kg.printer.kkm.view.authorization.AdministratorActivity"
+82-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:85:13-69
 83            android:screenOrientation="portrait"
 83-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:86:13-49
 84            android:theme="@style/AppTheme"
@@ -212,8 +212,8 @@
 105-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:112:13-54
 106        <activity
 106-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:114:9-118:57
-107            android:name="kg.printer.kkm.view.ProductSelectionActivity"
-107-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:115:13-58
+107            android:name="kg.printer.kkm.view.sales.ProductSelectionActivity"
+107-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:115:13-64
 108            android:screenOrientation="portrait"
 108-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:116:13-49
 109            android:theme="@style/AppTheme"
@@ -222,8 +222,8 @@
 110-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:118:13-54
 111        <activity
 111-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:120:9-124:57
-112            android:name="kg.printer.kkm.view.SaleActivity"
-112-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:121:13-46
+112            android:name="kg.printer.kkm.view.sales.SaleActivity"
+112-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:121:13-52
 113            android:screenOrientation="portrait"
 113-->D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:122:13-49
 114            android:theme="@style/AppTheme"

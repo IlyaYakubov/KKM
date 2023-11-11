@@ -125,7 +125,7 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Ilya\.grad
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:25:9-35
 	android:name
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:24:9-62
-activity#kg.printer.kkm.view.AuthenticationActivity
+activity#kg.printer.kkm.view.authorization.AuthenticationActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:30:9-40:20
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:32:13-49
@@ -134,7 +134,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:30:9-40:
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:33:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:31:13-56
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:31:13-70
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:36:13-39:29
 action#android.intent.action.MAIN
@@ -155,7 +155,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:42:9-46:
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:45:13-44
 	android:name
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:43:13-46
-activity#kg.printer.kkm.view.CartActivity
+activity#kg.printer.kkm.view.sales.CartActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:48:9-52:57
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:50:13-49
@@ -164,8 +164,8 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:48:9-52:
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:51:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:49:13-46
-activity#kg.printer.kkm.view.CashActivity
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:49:13-52
+activity#kg.printer.kkm.view.sales.CashActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:54:9-58:57
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:56:13-49
@@ -174,8 +174,8 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:54:9-58:
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:57:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:55:13-46
-activity#kg.printer.kkm.view.SettingsActivity
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:55:13-52
+activity#kg.printer.kkm.view.MenuSettingsActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:60:9-64:57
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:62:13-49
@@ -184,7 +184,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:60:9-64:
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:63:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:61:13-50
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:61:13-54
 activity#kg.printer.kkm.view.UsersActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:66:9-70:57
 	android:screenOrientation
@@ -215,7 +215,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:78:9-82:
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:81:13-44
 	android:name
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:79:13-47
-activity#kg.printer.kkm.view.AdministratorActivity
+activity#kg.printer.kkm.view.authorization.AdministratorActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:84:9-88:57
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:86:13-49
@@ -224,7 +224,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:84:9-88:
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:87:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:85:13-55
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:85:13-69
 activity#kg.printer.kkm.view.UserActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:90:9-94:57
 	android:screenOrientation
@@ -265,7 +265,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:108:9-11
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:111:13-44
 	android:name
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:109:13-54
-activity#kg.printer.kkm.view.ProductSelectionActivity
+activity#kg.printer.kkm.view.sales.ProductSelectionActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:114:9-118:57
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:116:13-49
@@ -274,8 +274,8 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:114:9-11
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:117:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:115:13-58
-activity#kg.printer.kkm.view.SaleActivity
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:115:13-64
+activity#kg.printer.kkm.view.sales.SaleActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:120:9-124:57
 	android:screenOrientation
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:122:13-49
@@ -284,7 +284,7 @@ ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:120:9-12
 	android:theme
 		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:123:13-44
 	android:name
-		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:121:13-46
+		ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:121:13-52
 activity#kg.printer.kkm.view.old.MainActivity
 ADDED from D:\Android\Projects\KKM\KKM\app\src\main\AndroidManifest.xml:126:9-131:20
 	android:screenOrientation

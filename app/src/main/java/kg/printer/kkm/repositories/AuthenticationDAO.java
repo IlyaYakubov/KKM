@@ -41,7 +41,7 @@ public class AuthenticationDAO {
         cv.put("is_change_price", user.isChangePrice());
         cv.put("is_orders", user.isOrders());
 
-        cv.put("position_on_list", lastIndex() + 1);
+        cv.put("list_index", lastIndex() + 1);
 
         db.insert("users", null, cv);
     }
@@ -88,9 +88,9 @@ public class AuthenticationDAO {
         cv.put("is_change_price", user.isChangePrice());
         cv.put("is_orders", user.isOrders());
 
-        cv.put("position_on_list", listIndex);
+        cv.put("list_index", listIndex);
 
-        db.update("users", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
+        db.update("users", cv, "list_index = ?", new String[] { String.valueOf(listIndex) });
     }
 
     /**
@@ -101,7 +101,7 @@ public class AuthenticationDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ?"
+        Cursor cursor = db.rawQuery("select * from users where list_index = ?"
                 , new String[] { String.valueOf(listIndex) });
 
         User user = null;
@@ -125,7 +125,7 @@ public class AuthenticationDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select user
-        Cursor cursor = db.rawQuery("select * from users where position_on_list = ? and password = ?"
+        Cursor cursor = db.rawQuery("select * from users where list_index = ? and password = ?"
                 , new String[] {String.valueOf(user.getListIndex()), user.getPassword()});
 
         if (cursor.moveToFirst()) {
@@ -171,7 +171,7 @@ public class AuthenticationDAO {
             ContentValues cv = new ContentValues();
 
             cv.put("is_admin", 1);
-            cv.put("position_on_list", 0);
+            cv.put("list_index", 0);
             cv.put("position", "Администратор");
             cv.put("surname", "");
             cv.put("name", "");
@@ -194,7 +194,7 @@ public class AuthenticationDAO {
 
         Administrator administrator = new Administrator();
         if (cursor.moveToFirst()) {
-            int idColIndex = cursor.getColumnIndex("position_on_list");
+            int idColIndex = cursor.getColumnIndex("list_index");
             int passColIndex = cursor.getColumnIndex("password");
             int positionColIndex = cursor.getColumnIndex("position");
             int surnameColIndex = cursor.getColumnIndex("surname");
@@ -224,14 +224,14 @@ public class AuthenticationDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         cv.put("is_admin", 1);
-        cv.put("position_on_list", 0);
+        cv.put("list_index", 0);
         cv.put("password", administrator.getPassword());
         cv.put("position", administrator.getPosition());
         cv.put("surname", administrator.getSurname());
         cv.put("name", administrator.getName());
         cv.put("second_name", administrator.getSecondName());
 
-        db.update("users", cv, "position_on_list = ?", new String[] { "0" });
+        db.update("users", cv, "list_index = ?", new String[] { "0" });
 
         dbHelper.close();
     }
@@ -241,7 +241,7 @@ public class AuthenticationDAO {
      * @return новый объект пользователя
      */
     private User newUser(Cursor cursor) {
-        int idColIndex = cursor.getColumnIndex("position_on_list");
+        int idColIndex = cursor.getColumnIndex("list_index");
         int passColIndex = cursor.getColumnIndex("password");
         int positionColIndex = cursor.getColumnIndex("position");
         int surnameColIndex = cursor.getColumnIndex("surname");

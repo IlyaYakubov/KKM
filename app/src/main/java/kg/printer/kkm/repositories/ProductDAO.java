@@ -51,7 +51,7 @@ public class ProductDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select product
-        Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
+        Cursor cursor = db.rawQuery("select * from products where list_index = ?"
                 , new String[] { String.valueOf(listIndex) });
 
         Product product = null;
@@ -82,7 +82,7 @@ public class ProductDAO {
         cv.put("unit", product.getUnit());
         cv.put("price", product.getPrice());
 
-        cv.put("position_on_list", lastIndex() + 1);
+        cv.put("list_index", lastIndex() + 1);
 
         db.insert("products", null, cv);
     }
@@ -101,9 +101,9 @@ public class ProductDAO {
         cv.put("unit", product.getUnit());
         cv.put("price", product.getPrice());
 
-        cv.put("position_on_list", listIndex);
+        cv.put("list_index", listIndex);
 
-        db.update("products", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
+        db.update("products", cv, "list_index = ?", new String[] { String.valueOf(listIndex) });
     }
 
     /**

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -15,12 +16,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize">
 
             <Spinner
                 android:id="@+id/spr_type_of_ownership"
@@ -41,7 +44,8 @@
                 android:layout_marginTop="30dp"
                 android:hint="@string/org_name"
                 android:inputType="textPersonName"
-                android:maxLength="100" />
+                android:maxLength="100"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_inn"
@@ -50,7 +54,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/inn"
                 android:inputType="number"
-                android:maxLength="14" />
+                android:maxLength="14"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_magazine_name"
@@ -59,24 +64,27 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/magazine_name"
                 android:inputType="textPersonName"
-                android:maxLength="100" />
+                android:maxLength="100"
+                tools:ignore="Autofill" />
 
             <EditText
-                android:id="@+id/et_address_magazine"
+                android:id="@+id/et_magazine_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/magazine_address"
                 android:inputType="textPersonName"
-                android:maxLength="100" />
+                android:maxLength="100"
+                tools:ignore="Autofill" />
 
             <EditText
-                android:id="@+id/et_telephone_magazine"
+                android:id="@+id/et_magazine_telephone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/phone"
-                android:inputType="phone" />
+                android:inputType="phone"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
 

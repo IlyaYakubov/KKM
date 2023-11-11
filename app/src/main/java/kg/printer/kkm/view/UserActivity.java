@@ -27,8 +27,8 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     private Switch swBackings, swDiscounts, swChangePrice, swOrders;
     private Button btnSetPass, btnDelPass, btnDelUser, btnOk;
 
-    private boolean newItem;
     private int listIndex;
+    private boolean newItem;
 
     public BasicPassFragment settingPasswordDialog;
 
@@ -125,12 +125,6 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 user.setPassword("");
                 showToast("Пароль удалён");
                 hideKeyboard(view);
-                break;
-            case R.id.btn_del_user:
-                /*authenticationService.deleteUser(listIndex);
-                UIViewController.ToastAdapter.show(this, "Пользователь удалён");
-                hideKeyboard(view);
-                finish();*/
                 break;
             case R.id.btn_ok:
                 if (etPosition.getText().toString().isEmpty()) {

@@ -32,7 +32,7 @@ public class UnitDAO {
         cv.put("full_name", unit.getFullName());
         cv.put("code", unit.getCode());
 
-        cv.put("position_on_list", lastIndex() + 1);
+        cv.put("list_index", lastIndex() + 1);
 
         db.insert("units", null, cv);
     }
@@ -79,9 +79,9 @@ public class UnitDAO {
         cv.put("full_name", unit.getFullName());
         cv.put("code", unit.getCode());
 
-        cv.put("position_on_list", listIndex);
+        cv.put("list_index", listIndex);
 
-        db.update("units", cv, "position_on_list = ?", new String[] { String.valueOf(listIndex) });
+        db.update("units", cv, "list_index = ?", new String[] { String.valueOf(listIndex) });
     }
 
     /**
@@ -92,7 +92,7 @@ public class UnitDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select unit
-        Cursor cursor = db.rawQuery("select * from units where position_on_list = ?"
+        Cursor cursor = db.rawQuery("select * from units where list_index = ?"
                 , new String[] { String.valueOf(listIndex) });
 
         Unit unit = new Unit("", "", "");

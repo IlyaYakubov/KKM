@@ -25,12 +25,12 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     private EditText etName, etPrice;
     private Button btnOk;
 
-    private boolean newItem;
     private int listIndex;
+    private boolean newItem;
 
     private String unitName;
 
-    private ArrayAdapter<String> adapterBasicUnit;
+    private ArrayAdapter<String> adapterUnit;
     private ArrayList<String> listUnits = new ArrayList<>();
 
     private ProductService productService;
@@ -70,11 +70,11 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
     @Override
     public void initView() {
-        adapterBasicUnit = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listUnits);
-        adapterBasicUnit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterUnit = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listUnits);
+        adapterUnit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sprUnit = findViewById(R.id.spr_unit);
-        sprUnit.setAdapter(adapterBasicUnit);
+        sprUnit.setAdapter(adapterUnit);
         sprUnit.setPrompt("Единица измерения");
         sprUnit.setSelection(0);
         sprUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -122,7 +122,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
     private void updateView() {
         etName.setText(product.getName());
-        sprUnit.setSelection(adapterBasicUnit.getPosition(product.getUnit()));
+        sprUnit.setSelection(adapterUnit.getPosition(product.getUnit()));
         etPrice.setText(product.getPrice());
     }
 

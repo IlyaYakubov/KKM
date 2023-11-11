@@ -23,11 +23,12 @@ public class SaleDAO {
      * @param listIndex - индекс в списке
      * @return структура с наименованием номенклатуры и ценой
      */
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Map findProductByListIndex(int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // select product
-        Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
+        Cursor cursor = db.rawQuery("select * from products where list_index = ?"
                 , new String[]{String.valueOf(listIndex)});
 
         Map map = new HashMap();

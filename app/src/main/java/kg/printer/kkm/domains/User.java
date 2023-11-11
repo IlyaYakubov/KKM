@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
-    private boolean isBackings, isDiscounts, isChangePrice, isOrders;
     private int listIndex;
     private String position, surname, name, secondName, inn, percentOfDiscount, password;
+    private boolean isBackings, isDiscounts, isChangePrice, isOrders;
 
     public User() {
     }
@@ -52,6 +52,22 @@ public class User implements Parcelable {
         this.secondName = secondName;
     }
 
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public String getPercentOfDiscount() {
+        return percentOfDiscount;
+    }
+
+    public void setPercentOfDiscount(String percentOfDiscount) {
+        this.percentOfDiscount = percentOfDiscount;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -90,22 +106,6 @@ public class User implements Parcelable {
 
     public void setOrders(boolean orders) {
         isOrders = orders;
-    }
-
-    public String getInn() {
-        return inn;
-    }
-
-    public void setInn(String inn) {
-        this.inn = inn;
-    }
-
-    public String getPercentOfDiscount() {
-        return percentOfDiscount;
-    }
-
-    public void setPercentOfDiscount(String percentOfDiscount) {
-        this.percentOfDiscount = percentOfDiscount;
     }
 
     @Override

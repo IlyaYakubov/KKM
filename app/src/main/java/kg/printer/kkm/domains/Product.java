@@ -2,7 +2,8 @@ package kg.printer.kkm.domains;
 
 public class Product {
 
-    private String name, unit, price;
+    private String name, price;
+    private String unit;
 
     public Product() {
     }

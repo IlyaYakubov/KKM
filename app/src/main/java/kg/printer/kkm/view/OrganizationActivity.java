@@ -83,8 +83,8 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
         etOrgName = findViewById(R.id.et_org_name);
         etInn = findViewById(R.id.et_inn);
         etMagazineName = findViewById(R.id.et_magazine_name);
-        etAddressMagazine = findViewById(R.id.et_address_magazine);
-        etTelephoneMagazine = findViewById(R.id.et_telephone_magazine);
+        etAddressMagazine = findViewById(R.id.et_magazine_address);
+        etTelephoneMagazine = findViewById(R.id.et_magazine_telephone);
 
         btnOk = findViewById(R.id.btn_ok);
     }

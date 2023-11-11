@@ -10,9 +10,6 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import kg.printer.kkm.domains.Organization;
-import kg.printer.kkm.services.OrganizationService;
-
 public class DatabaseDAO extends SQLiteOpenHelper {
 
     public DatabaseDAO(Context context) {
@@ -31,7 +28,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users ("
                 + "id INTEGER primary key autoincrement,"
-                + "position_on_list TEXT,"
+                + "list_index TEXT,"
                 + "is_admin INTEGER,"
                 + "password TEXT,"
                 + "position TEXT,"
@@ -52,26 +49,28 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "name TEXT,"
                 + "inn TEXT," // ИНН
                 + "magazine_name TEXT," // торговая точка
-                + "address_magazine TEXT,"
-                + "telephone_magazine TEXT"
+                + "magazine_address TEXT,"
+                + "magazine_telephone TEXT"
                 + ");");
         db.execSQL("create table units ("
                 + "id INTEGER primary key autoincrement,"
-                + "position_on_list TEXT,"
+                + "list_index TEXT,"
                 + "name TEXT,"
                 + "full_name TEXT,"
-                + "code TEXT" // международный код
+                + "code TEXT," // международный код
+                + "product_id INTEGER,"
+                + "foreign key (product_id) references products (id)"
                 + ");");
         db.execSQL("create table products ("
                 + "id INTEGER primary key autoincrement,"
-                + "position_on_list TEXT,"
+                + "list_index TEXT,"
                 + "name TEXT,"
                 + "unit TEXT,"
                 + "price TEXT"
                 + ");");
         db.execSQL("create table sales_receipts (" // чеки продажи
                 + "id INTEGER primary key autoincrement,"
-                + "position_on_list TEXT,"
+                + "list_index TEXT,"
                 + "fiscal_document_number TEXT," // номер фискального документа
                 + "date_of_recieving TEXT," // дата выдачи чека (обычно текущая дата и время)
                 + "cash_shift_number TEXT," // номер кассовой смены
@@ -81,7 +80,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + ");");
         db.execSQL("create table cart (" // таблица списка товаров для чеков
                 + "id INTEGER primary key autoincrement,"
-                + "position_on_list TEXT,"
+                + "list_index TEXT,"
                 + "product TEXT,"
                 + "quantity TEXT,"
                 + "price TEXT,"
@@ -93,7 +92,7 @@ public class DatabaseDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // do nothing
     }
 
     public static class BaseEnums {
@@ -132,12 +131,12 @@ public class DatabaseDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         cv.put("is_admin", 1);
-        cv.put("position_on_list", 0);
-        cv.put("password", "");
+        cv.put("list_index", 0);
         cv.put("position", "Администратор");
         cv.put("surname", "");
         cv.put("name", "Администратор");
         cv.put("second_name", "");
+        cv.put("password", "");
 
         db.insert("users", null, cv);
 
