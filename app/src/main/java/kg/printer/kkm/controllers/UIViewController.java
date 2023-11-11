@@ -83,6 +83,10 @@ public class UIViewController {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }
 
+        public void showToast(int msg){
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
+
         public void showProgressDialog(final String str){
             runOnUiThread(new Runnable() {
                 @Override
@@ -494,26 +498,6 @@ public class UIViewController {
                 viewHolder.put(id, childView);
             }
             return (T) childView;
-        }
-
-    }
-
-    public static class ToastAdapter {
-
-        private ToastAdapter() {
-            throw new UnsupportedOperationException("cannot be instantiated");
-        }
-
-        public static void show(Context context, String msg) {
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-        }
-
-        public static void show(Context context, int msgResId) {
-            Toast.makeText(context, msgResId, Toast.LENGTH_SHORT).show();
-        }
-
-        public static void showLong(Context context, String msg) {
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         }
 
     }

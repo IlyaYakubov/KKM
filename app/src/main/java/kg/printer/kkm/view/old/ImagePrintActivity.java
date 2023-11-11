@@ -1,5 +1,6 @@
 package kg.printer.kkm.view.old;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -46,6 +47,7 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
     private ImageView ivImage;
     private EditText et_pic_width;
 
+    @SuppressWarnings("rawtypes")
     private RTPrinter rtPrinter;
     private Uri imageUri;
     private Bitmap mBitmap;
@@ -81,6 +83,7 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
         btn_print.setOnClickListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -106,7 +109,7 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
     private void print() throws SdkException {
 
         if (mBitmap == null) {
-            UIViewController.ToastAdapter.show(this, R.string.tip_upload_image);
+            showToast(R.string.tip_upload_image);
             return;
         }
         try {
@@ -116,12 +119,8 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
         }
 
 
-        switch (BaseApplication.getInstance().getCurrentCmdType()) {
-            case DatabaseDAO.BaseEnums.CMD_ESC:
-                escPrint();
-                break;
-            default:
-                break;
+        if (BaseApplication.getInstance().getCurrentCmdType() == DatabaseDAO.BaseEnums.CMD_ESC) {
+            escPrint();
         }
     }
 
@@ -131,7 +130,7 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
             @Override
             public void run() {
 
-                showProgressDialog("Loading...");
+                showProgressDialog("Загрузка...");
 
                 CmdFactory cmdFactory = new EscFactory();
                 Cmd cmd = cmdFactory.create();
@@ -149,6 +148,7 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
                 if (bmpPrintWidth > 72) {
                     bmpPrintWidth = 72;
                     runOnUiThread(new Runnable() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void run() {
                             et_pic_width.setText(bmpPrintWidth + "");
@@ -201,7 +201,7 @@ public class ImagePrintActivity extends UIViewController.BaseAdapter implements 
 
     private void takeAPicture() {
         if (!FunctionsService.SavingMediaFileService.isExternalStorageWritable()) {
-            UIViewController.ToastAdapter.show(this, R.string.insert_sdcard_tip);
+            showToast(R.string.insert_sdcard_tip);
             return;
         }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

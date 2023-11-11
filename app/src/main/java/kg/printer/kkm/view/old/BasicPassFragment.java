@@ -19,7 +19,7 @@ import kg.printer.kkm.view.UserActivity;
 
 public class BasicPassFragment extends DialogFragment implements View.OnClickListener {
 
-    private String password, confirmPassword;
+    private String password;
 
     private EditText etPassword, etConfirmPassword;
 
@@ -61,11 +61,9 @@ public class BasicPassFragment extends DialogFragment implements View.OnClickLis
     public void onClick(View v) {
         if (v.getId() == R.id.btn_ok) {
             password = etPassword.getText().toString();
-            confirmPassword = etConfirmPassword.getText().toString();
-            if (etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
+            String confirmPassword = etConfirmPassword.getText().toString();
+            if (etPassword.getText().toString().equals(confirmPassword)) {
                 getDialog().cancel();
-            } else {
-                UIViewController.ToastAdapter.showLong(getActivity(), "Не совпадает подтверждение пароля");
             }
         }
     }

@@ -104,7 +104,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etName.getText().toString().isEmpty()) {
-                UIViewController.ToastAdapter.show(this, "Заполните наименование");
+                showToast("Заполните наименование");
             } else {
                 Product product = new Product(etName.getText().toString(), unitName, etPrice.getText().toString());
 

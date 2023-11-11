@@ -123,7 +123,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_del_pass:
                 settingPasswordDialog.setPassword("");
                 user.setPassword("");
-                UIViewController.ToastAdapter.show(this, "Пароль удалён");
+                showToast("Пароль удалён");
                 hideKeyboard(view);
                 break;
             case R.id.btn_del_user:
@@ -134,9 +134,9 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 break;
             case R.id.btn_ok:
                 if (etPosition.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните должность");
+                    showToast("Заполните должность");
                 } else if (etName.getText().toString().isEmpty()) {
-                    UIViewController.ToastAdapter.show(this, "Заполните имя");
+                    showToast("Заполните имя");
                 } else {
                     user.setPassword(settingPasswordDialog.getPassword());
                     user.setPosition(etPosition.getText().toString());

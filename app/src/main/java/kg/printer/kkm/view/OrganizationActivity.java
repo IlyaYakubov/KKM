@@ -98,11 +98,11 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etOrgName.getText().toString().isEmpty()) {
-                UIViewController.ToastAdapter.show(this, "Заполните название организации");
+                showToast("Заполните название организации");
             } else if (etMagazineName.getText().toString().isEmpty()) {
-                UIViewController.ToastAdapter.show(this, "Заполните название торговой точки");
+                showToast("Заполните название торговой точки");
             } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
-                UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
+                showToast("ИНН должен быть 14 знаков");
             } else {
                 Organization organization = new Organization();
                 organization.setTypeOfOwnership(sprTypeOfOwnership.getSelectedItem().toString());

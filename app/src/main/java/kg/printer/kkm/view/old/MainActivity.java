@@ -1,5 +1,6 @@
 package kg.printer.kkm.view.old;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.View;
@@ -30,13 +31,14 @@ import kg.printer.kkm.repositories.DatabaseDAO;
 public class MainActivity extends UIViewController.BaseAdapter implements View.OnClickListener, PrinterObserver {
 
     private TextView tv_device_selected;
-    private RadioGroup rg_cmdtype;
+    private RadioGroup rg_cmdType;
     private UIViewController.FlowRadioGroupAdapter rg_connect;
 
-    private Button btn_selftest_print, btn_txt_print, btn_disConnect, btn_connect;
+    private Button btn_selfTest_print, btn_txt_print, btn_disConnect, btn_connect;
 
     @DatabaseDAO.BaseEnums.ConnectType
     private int checkedConType = DatabaseDAO.BaseEnums.CON_COM;
+    @SuppressWarnings("rawtypes")
     private RTPrinter rtPrinter = null;
     private PrinterFactory printerFactory;
     private Object configObj;
@@ -62,10 +64,10 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
     public void initView() {
         tv_device_selected = findViewById(R.id.tv_device_selected);
 
-        rg_cmdtype = findViewById(R.id.rg_cmdtype);
+        rg_cmdType = findViewById(R.id.rg_cmdtype);
         rg_connect = findViewById(R.id.rg_connect);
 
-        btn_selftest_print = findViewById(R.id.btn_selftest_print);
+        btn_selfTest_print = findViewById(R.id.btn_selftest_print);
         btn_txt_print = findViewById(R.id.btn_txt_print);
         btn_connect = findViewById(R.id.btn_connect);
         btn_disConnect = findViewById(R.id.btn_disConnect);
@@ -75,7 +77,7 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
     public void addListener() {
         tv_device_selected.setOnClickListener(this);
 
-        btn_selftest_print.setOnClickListener(this);
+        btn_selfTest_print.setOnClickListener(this);
         btn_txt_print.setOnClickListener(this);
         btn_connect.setOnClickListener(this);
         btn_disConnect.setOnClickListener(this);
@@ -96,6 +98,7 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
         printerPowerUtil = new PrinterPowerUtil(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -120,15 +123,13 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void radioButtonCheckListener() {
-        rg_cmdtype.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rg_cmdType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                switch (i) {
-                    case R.id.rb_cmd_esc:
-                        BaseApplication.instance.setCurrentCmdType(DatabaseDAO.BaseEnums.CMD_ESC);
-                        printerFactory = new ThermalPrinterFactory();
-                        rtPrinter = printerFactory.create();
-                        break;
+                if (i == R.id.rb_cmd_esc) {
+                    BaseApplication.instance.setCurrentCmdType(DatabaseDAO.BaseEnums.CMD_ESC);
+                    printerFactory = new ThermalPrinterFactory();
+                    rtPrinter = printerFactory.create();
                 }
             }
         });
@@ -137,23 +138,17 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 doDisConnect();
-                switch (i) {
-                    case R.id.rb_connect_com:
-                        checkedConType = DatabaseDAO.BaseEnums.CON_COM;
-                        break;
+                if (i == R.id.rb_connect_com) {
+                    checkedConType = DatabaseDAO.BaseEnums.CON_COM;
                 }
             }
         });
     }
 
     private void doConnect() {
-        switch (checkedConType) {
-            case DatabaseDAO.BaseEnums.CON_COM:
-                connectSerialPort((SerialPortConfigBean) configObj);
-                printerPowerUtil.setPrinterPower(true); // turn printer power on.
-                break;
-            default:
-                break;
+        if (checkedConType == DatabaseDAO.BaseEnums.CON_COM) {
+            connectSerialPort((SerialPortConfigBean) configObj);
+            printerPowerUtil.setPrinterPower(true); // turn printer power on.
         }
     }
 
@@ -166,12 +161,8 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void selfTestPrint() {
-        switch (BaseApplication.getInstance().getCurrentCmdType()) {
-            case DatabaseDAO.BaseEnums.CMD_ESC:
-                escSelftestPrint();
-                break;
-            default:
-                break;
+        if (BaseApplication.getInstance().getCurrentCmdType() == DatabaseDAO.BaseEnums.CMD_ESC) {
+            escSelftestPrint();
         }
     }
 
@@ -188,22 +179,19 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void showConnectDialog() {
-        switch (checkedConType) {
-            case DatabaseDAO.BaseEnums.CON_COM:
-                UIViewController.ToastAdapter.show(MainActivity.this, "Нажмите на [Подключиться] чтобы установить соединение");
-                break;
-            default:
-                break;
+        if (checkedConType == DatabaseDAO.BaseEnums.CON_COM) {
+            showToast("Нажмите на [Подключиться] чтобы установить соединение");
         }
     }
 
     private void setPrintEnable(boolean isEnable) {
-        btn_selftest_print.setEnabled(isEnable);
+        btn_selfTest_print.setEnabled(isEnable);
         btn_txt_print.setEnabled(isEnable);
         btn_connect.setEnabled(!isEnable);
         btn_disConnect.setEnabled(isEnable);
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void connectSerialPort(SerialPortConfigBean serialPortConfigBean) {
         PIFactory piFactory = new SerailPortFactory();
         PrinterInterface printerInterface = piFactory.create();
@@ -213,8 +201,6 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
             rtPrinter.connect(serialPortConfigBean);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
         }
     }
 

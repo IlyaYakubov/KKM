@@ -37,12 +37,12 @@ public class WIFISettingActivity extends UIViewController.BaseAdapter {
     private WiFiModeEnum wifi_mode = WiFiModeEnum.STA;
 
     private LinearLayout back;
-    private Spinner sp_wifi_set;
     private WifiManager wifiManager;
     private List<ScanResult> scanResults;
     private ListView lv_set_wifi;
     private UIViewController.WIFIListAdapter wifi_adapter;
-    private ComparatoLevel comparatoLevel = new ComparatoLevel();
+    private final ComparatorLevel comparatorLevel = new ComparatorLevel();
+    @SuppressWarnings("rawtypes")
     private RTPrinter rtPrinter;
 
     @Override
@@ -70,11 +70,11 @@ public class WIFISettingActivity extends UIViewController.BaseAdapter {
 
     public void initView() {
         back = findViewById(R.id.back);
-        sp_wifi_set = findViewById(R.id.sp_wifi_set);
+        Spinner sp_wifi_set = findViewById(R.id.sp_wifi_set);
         lv_set_wifi = findViewById(R.id.lv_set_wifi);
         wifi_adapter = new UIViewController.WIFIListAdapter(this, scanResults);
         lv_set_wifi.setAdapter(wifi_adapter);
-        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, WIFI_MMODE);
+        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, WIFI_MMODE);
         sp_wifi_set.setAdapter(spinner_adapter);
         sp_wifi_set.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -126,7 +126,7 @@ public class WIFISettingActivity extends UIViewController.BaseAdapter {
     }
 
     private void showConfirmDialog(final ScanResult scanResult) {
-        int WIFIType = 0;
+        int WIFIType;
         if (scanResult.capabilities.contains("WPA2-PSK")) {
             WIFIType = 1;
         } else if (scanResult.capabilities.contains("WPA-PSK")) {
@@ -153,7 +153,7 @@ public class WIFISettingActivity extends UIViewController.BaseAdapter {
             public void onClick(DialogInterface dialog, int which) {
 
                 if (rtPrinter == null || rtPrinter.getConnectState() != ConnectStateEnum.Connected) {
-                    UIViewController.ToastAdapter.show(WIFISettingActivity.this, R.string.pls_connect_printer_first);
+                    showToast(R.string.pls_connect_printer_first);
                     return;
                 }
                 //write the wifi infos to the printer.
@@ -164,16 +164,14 @@ public class WIFISettingActivity extends UIViewController.BaseAdapter {
     }
 
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_wifi_refresh:
-                ProgressDialog progressDialog = new ProgressDialog(this);
-                progressDialog.show();
-                scanResults.clear();
-                wifiManager.startScan();
-                scanResults.addAll(sortScanWifi());
-                wifi_adapter.notifyDataSetChanged();
-                progressDialog.cancel();
-                break;
+        if (view.getId() == R.id.btn_wifi_refresh) {
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.show();
+            scanResults.clear();
+            wifiManager.startScan();
+            scanResults.addAll(sortScanWifi());
+            wifi_adapter.notifyDataSetChanged();
+            progressDialog.cancel();
         }
     }
 
@@ -182,15 +180,18 @@ public class WIFISettingActivity extends UIViewController.BaseAdapter {
         int size = scanR.size();
         for (int i = 0; i < size; i++) {
             if (TextUtils.isEmpty(scanR.get(i).SSID)) {
+                //noinspection SuspiciousListRemoveInLoop
                 scanR.remove(i);
                 size--;
             }
         }
-        Collections.sort(scanR, comparatoLevel);
+        //noinspection unchecked
+        Collections.sort(scanR, comparatorLevel);
         return scanR;
     }
 
-    private class ComparatoLevel implements Comparator {
+    @SuppressWarnings("rawtypes")
+    private static class ComparatorLevel implements Comparator {
         public int compare(Object arg0, Object arg1) {
             ScanResult user0 = (ScanResult) arg0;
             ScanResult user1 = (ScanResult) arg1;

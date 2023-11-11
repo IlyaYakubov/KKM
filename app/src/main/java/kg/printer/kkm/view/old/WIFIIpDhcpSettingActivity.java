@@ -1,6 +1,6 @@
 package kg.printer.kkm.view.old;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,26 +17,26 @@ import com.rt.printerlibrary.utils.WiFiSettingUtil;
 
 public class WIFIIpDhcpSettingActivity extends UIViewController.BaseAdapter implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    private Context mContext;
-    private byte NET_MODE = 0x00;
+    private final byte NET_MODE = 0x00;
     private byte DHCP_STATE = 0x00;
 
     private LinearLayout back;//返回
     private RadioGroup rg_set_net_type;
     private EditText et_set_net_ip, et_set_net_mask, et_set_net_gateway;
 
+    @SuppressWarnings("rawtypes")
     private RTPrinter rtPrinter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.old_activity_set_wifi_net);
-        mContext = this;
         initView();
         addListener();
         init();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
@@ -71,38 +71,35 @@ public class WIFIIpDhcpSettingActivity extends UIViewController.BaseAdapter impl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tx_set_net_save_change:
-
-                if(rtPrinter != null && rtPrinter.getConnectState() == ConnectStateEnum.Connected){
-                    if (DHCP_STATE == 0x00) {//DHCP disable
-                        final String S_net_ip = et_set_net_ip.getText().toString();
-                        final String S_net_mask = et_set_net_mask.getText().toString();
-                        final String S_net_gateway = et_set_net_gateway.getText().toString();
-                        String[] ip_split = S_net_ip.split("\\.");
-                        String[] mask_split = S_net_mask.split("\\.");
-                        String[] gateway_split = S_net_gateway.split("\\.");
-                        int ip_length = ip_split.length;
-                        int mask_length = mask_split.length;
-                        int gateway_length = gateway_split.length;
-                        if ((ip_length == 4) && (mask_length == 4) && (gateway_length == 4)){
-                            byte[] btDisableDHCP = WiFiSettingUtil.getInstance().setDHCP(false);
-                            byte[] btIPSetting = WiFiSettingUtil.getInstance().setStaticIP(S_net_ip, S_net_mask, S_net_gateway);
-                            rtPrinter.writeMsgAsync(btDisableDHCP);
-                            rtPrinter.writeMsgAsync(btIPSetting);
-                        }else{
-                            UIViewController.ToastAdapter.show(WIFIIpDhcpSettingActivity.this, "Please input correct ip,sub_mask or gateway.");
-                        }
-                    } else if (DHCP_STATE == 0x01) {//DHCP enable
-                        byte[] btEnableDHCP = WiFiSettingUtil.getInstance().setDHCP(true);
-                        rtPrinter.writeMsgAsync(btEnableDHCP);
+        if (v.getId() == R.id.tx_set_net_save_change) {
+            if (rtPrinter != null && rtPrinter.getConnectState() == ConnectStateEnum.Connected) {
+                if (DHCP_STATE == 0x00) {//DHCP disable
+                    final String S_net_ip = et_set_net_ip.getText().toString();
+                    final String S_net_mask = et_set_net_mask.getText().toString();
+                    final String S_net_gateway = et_set_net_gateway.getText().toString();
+                    String[] ip_split = S_net_ip.split("\\.");
+                    String[] mask_split = S_net_mask.split("\\.");
+                    String[] gateway_split = S_net_gateway.split("\\.");
+                    int ip_length = ip_split.length;
+                    int mask_length = mask_split.length;
+                    int gateway_length = gateway_split.length;
+                    if ((ip_length == 4) && (mask_length == 4) && (gateway_length == 4)) {
+                        byte[] btDisableDHCP = WiFiSettingUtil.getInstance().setDHCP(false);
+                        byte[] btIPSetting = WiFiSettingUtil.getInstance().setStaticIP(S_net_ip, S_net_mask, S_net_gateway);
+                        rtPrinter.writeMsgAsync(btDisableDHCP);
+                        rtPrinter.writeMsgAsync(btIPSetting);
+                    } else {
+                        showToast("Введите корректные адреса");
                     }
+                } else if (DHCP_STATE == 0x01) {//DHCP enable
+                    byte[] btEnableDHCP = WiFiSettingUtil.getInstance().setDHCP(true);
+                    rtPrinter.writeMsgAsync(btEnableDHCP);
                 }
-
-                break;
+            }
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
