@@ -1,34 +1,30 @@
 package kg.printer.kkm.services;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.repositories.DatabaseDAO;
+import kg.printer.kkm.repositories.SaleDAO;
 import kg.printer.kkm.view.CashActivity;
 import kg.printer.kkm.view.ProductSelectionActivity;
 import kg.printer.kkm.view.SaleActivity;
 
 public class SaleService {
 
-    private ArrayList<Product> products = new ArrayList<>();
-
-    private DatabaseDAO dbHelper;
+    private final SaleDAO saleDAO;
 
     public SaleService(ProductSelectionActivity productSelectionActivity) {
-        this.dbHelper = new DatabaseDAO(productSelectionActivity);
+        saleDAO = new SaleDAO(new DatabaseDAO(productSelectionActivity));
     }
 
     public SaleService(CashActivity cashActivity) {
-        this.dbHelper = new DatabaseDAO(cashActivity);
+        saleDAO = new SaleDAO(new DatabaseDAO(cashActivity));
     }
 
     public SaleService(SaleActivity saleActivity) {
-        this.dbHelper = new DatabaseDAO(saleActivity);
+        saleDAO = new SaleDAO(new DatabaseDAO(saleActivity));
     }
 
     /**
@@ -70,49 +66,14 @@ public class SaleService {
      * @return структура с наименованием номенклатуры и ценой
      */
     public Map findProductByListIndex(int listIndex) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select product
-        Cursor cursor = db.rawQuery("select * from products where position_on_list = ?"
-                , new String[]{String.valueOf(listIndex)});
-
-        Map map = new HashMap();
-
-        if (cursor.moveToNext()) {
-            int nameColIndex = cursor.getColumnIndex("name");
-            int priceColIndex = cursor.getColumnIndex("price");
-
-            map.put("name", cursor.getString(nameColIndex));
-            map.put("price", cursor.getString(priceColIndex));
-        }
-
-        cursor.close();
-
-        return map;
+        return saleDAO.findProductByListIndex(listIndex);
     }
 
     /**
      * @return список номенлатуры
      */
     public ArrayList<Product> readProducts() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // select all products
-        Cursor cursor = db.query("products", null, null, null, null, null, null);
-
-        products.clear();
-
-        while (cursor.moveToNext()) {
-            int positionColIndex = cursor.getColumnIndex("name");
-            int unitColIndex = cursor.getColumnIndex("unit");
-            int priceColIndex = cursor.getColumnIndex("price");
-
-            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(unitColIndex), cursor.getString(priceColIndex)));
-        }
-
-        cursor.close();
-
-        return products;
+        return saleDAO.readProducts();
     }
 
 }

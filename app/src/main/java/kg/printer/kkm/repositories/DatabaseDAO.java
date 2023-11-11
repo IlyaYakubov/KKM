@@ -27,66 +27,6 @@ public class DatabaseDAO extends SQLiteOpenHelper {
         }
     }
 
-    private boolean administratorIsExists() {
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from users where is_admin = 1", new String[] { });
-
-        if (cursor.moveToFirst()) {
-            cursor.close();
-            return true;
-        } else {
-            cursor.close();
-            return false;
-        }
-    }
-
-    private void createAdministrator() {
-        ContentValues cv = new ContentValues();
-        SQLiteDatabase db = getWritableDatabase();
-
-        cv.put("is_admin", 1);
-        cv.put("position_on_list", 0);
-        cv.put("password", "");
-        cv.put("position", "Администратор");
-        cv.put("surname", "");
-        cv.put("name", "Администратор");
-        cv.put("second_name", "");
-
-        db.insert("users", null, cv);
-
-        close();
-    }
-
-    private boolean organizationIsExists() {
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from organizations", new String[] { });
-
-        if (cursor.moveToFirst()) {
-            cursor.close();
-            return true;
-        } else {
-            cursor.close();
-            return false;
-        }
-    }
-
-    private void createOrganization() {
-        ContentValues cv = new ContentValues();
-        SQLiteDatabase db = getWritableDatabase();
-
-        cv.put("type_of_ownership", "Юридическое лицо");
-        cv.put("taxation", "Общая система");
-        cv.put("name", "ООО Организация");
-        cv.put("inn", "12345678901234");
-        cv.put("magazine_name", "Магазин");
-        cv.put("address_magazine", "");
-        cv.put("telephone_magazine", "");
-
-        db.insert("organizations", null, cv);
-
-        close();
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users ("
@@ -172,6 +112,66 @@ public class DatabaseDAO extends SQLiteOpenHelper {
         public @interface ConnectType {
         }
 
+    }
+
+    private boolean administratorIsExists() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where is_admin = 1", new String[] { });
+
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    private void createAdministrator() {
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+
+        cv.put("is_admin", 1);
+        cv.put("position_on_list", 0);
+        cv.put("password", "");
+        cv.put("position", "Администратор");
+        cv.put("surname", "");
+        cv.put("name", "Администратор");
+        cv.put("second_name", "");
+
+        db.insert("users", null, cv);
+
+        close();
+    }
+
+    private boolean organizationIsExists() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from organizations", new String[] { });
+
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    private void createOrganization() {
+        ContentValues cv = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+
+        cv.put("type_of_ownership", "Юридическое лицо");
+        cv.put("taxation", "Общая система");
+        cv.put("name", "ООО Организация");
+        cv.put("inn", "12345678901234");
+        cv.put("magazine_name", "Магазин");
+        cv.put("address_magazine", "");
+        cv.put("telephone_magazine", "");
+
+        db.insert("organizations", null, cv);
+
+        close();
     }
 
 }
