@@ -98,11 +98,11 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etOrgName.getText().toString().isEmpty()) {
-                showToast("Заполните название организации");
+                showToast(getString(R.string.fill_in_the_name_of_the_organization));
             } else if (etMagazineName.getText().toString().isEmpty()) {
-                showToast("Заполните название торговой точки");
+                showToast(getString(R.string.fill_in_the_name_of_the_outlet));
             } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
-                showToast("ИНН должен быть 14 знаков");
+                showToast(getString(R.string.inn_must_be_fourteen_characters));
             } else {
                 Organization organization = new Organization();
                 organization.setTypeOfOwnership(sprTypeOfOwnership.getSelectedItem().toString());
@@ -121,15 +121,15 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
     }
 
     private void updateView() {
-        if (organization.getTypeOfOwnership().equals("Индивидуальный предприниматель")) {
+        if (organization.getTypeOfOwnership().equals(getString(R.string.individual_entrepreneur))) {
             sprTypeOfOwnership.setSelection(0);
         } else {
             sprTypeOfOwnership.setSelection(1);
         }
 
-        if (organization.getTaxation().equals("Общая система")) {
+        if (organization.getTaxation().equals(getString(R.string.general_system))) {
             sprTaxation.setSelection(0);
-        } else if (organization.getTaxation().equals("Упрощенная система")) {
+        } else if (organization.getTaxation().equals(getString(R.string.simplified_system))) {
             sprTaxation.setSelection(1);
         }
 

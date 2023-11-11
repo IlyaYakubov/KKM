@@ -89,7 +89,7 @@ public class WIFIIpDhcpSettingActivity extends UIViewController.BaseAdapter impl
                         rtPrinter.writeMsgAsync(btDisableDHCP);
                         rtPrinter.writeMsgAsync(btIPSetting);
                     } else {
-                        showToast("Введите корректные адреса");
+                        showToast(getString(R.string.enter_correct_data));
                     }
                 } else if (DHCP_STATE == 0x01) {//DHCP enable
                     byte[] btEnableDHCP = WiFiSettingUtil.getInstance().setDHCP(true);

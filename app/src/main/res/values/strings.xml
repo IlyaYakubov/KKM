@@ -189,6 +189,21 @@
     <!-- others -->
     <string name="pass_text">Пароль</string>
     <string name="delete_pass_text">Удалить пароль</string>
+    <string name="fill_in_the_name_of_the_organization">Заполните название организации</string>
+    <string name="fill_in_the_name_of_the_outlet">Заполните название торговой точки</string>
+    <string name="inn_must_be_fourteen_characters">ИНН должен быть 14 знаков</string>
+    <string name="individual_entrepreneur">Индивидуальный предприниматель</string>
+    <string name="general_system">Общая система</string>
+    <string name="simplified_system">Упрощенная система</string>
+    <string name="fill_in_the_name">Заполните наименование</string>
+    <string name="unit_label">Единица измерения</string>
+    <string name="password_removed">Пароль удалён</string>
+    <string name="fill_the_position">Заполните должность</string>
+    <string name="fill_the_name">Заполните имя</string>
+    <string name="wrong_password">Неправильный пароль</string>
+    <string name="error_text">Ошибка</string>
+    <string name="click_on_connect">Нажмите на [Подключиться] чтобы установить соединение</string>
+    <string name="enter_correct_data">Введите корректные адреса</string>
 
 </resources>
 

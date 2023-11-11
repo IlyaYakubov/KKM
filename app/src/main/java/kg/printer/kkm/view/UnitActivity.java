@@ -71,7 +71,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etName.getText().toString().isEmpty()) {
-                showToast("Заполните наименование");
+                showToast(getString(R.string.fill_in_the_name));
             } else {
                 Unit unit = new Unit(etName.getText().toString(), etFullName.getText().toString(), etCodeName.getText().toString());
 

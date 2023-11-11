@@ -180,7 +180,7 @@ public class MainActivity extends UIViewController.BaseAdapter implements View.O
 
     private void showConnectDialog() {
         if (checkedConType == DatabaseDAO.BaseEnums.CON_COM) {
-            showToast("Нажмите на [Подключиться] чтобы установить соединение");
+            showToast(getString(R.string.click_on_connect));
         }
     }
 

@@ -1,5 +1,6 @@
 package kg.printer.kkm.view.old;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.text.InputFilter;
@@ -27,6 +28,9 @@ import com.rt.printerlibrary.factory.cmd.CmdFactory;
 import com.rt.printerlibrary.printer.RTPrinter;
 import com.rt.printerlibrary.setting.BarcodeSetting;
 
+import java.util.Objects;
+
+@SuppressWarnings({"rawtypes", "RegExpRedundantEscape"})
 public class BarcodePrintActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
     public static final String BUNDLE_KEY_BARCODE_TYPE = "barcodeType";
@@ -38,7 +42,6 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
     private Button btn_print;
 
     private RTPrinter rtPrinter;
-    private Bundle mBundle;
     private BarcodeType barcodeType;
 
     @DatabaseDAO.BaseEnums.CmdType
@@ -69,8 +72,8 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
     public void init() {
         rtPrinter = BaseApplication.getInstance().getRtPrinter();
         curCmdType = BaseApplication.getInstance().getCurrentCmdType();
-        mBundle = getIntent().getExtras();
-        barcodeType = Enum.valueOf(BarcodeType.class, mBundle.getString(BUNDLE_KEY_BARCODE_TYPE));
+        Bundle mBundle = getIntent().getExtras();
+        barcodeType = Enum.valueOf(BarcodeType.class, Objects.requireNonNull(mBundle).getString(BUNDLE_KEY_BARCODE_TYPE));
         tv_barcodetype.setText(barcodeType.name());
         initBarcodeCheck();
     }
@@ -80,6 +83,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
         back.setOnClickListener(this);
         btn_print.setOnClickListener(this);
         rg_print_barcode_orientation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 switch (i) {
@@ -106,8 +110,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     @Override
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                         String regex = "[\\D]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, new InputFilter.LengthFilter(11)});
                 break;
@@ -123,8 +126,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[\\D]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, new InputFilter.LengthFilter(12)});
                 break;
@@ -136,8 +138,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[\\D]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, new InputFilter.LengthFilter(7)});
                 break;
@@ -150,14 +151,13 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[^a-zA-Z\\p{Digit} \\$%\\+\\-\\./]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, new InputFilter.AllCaps(), new InputFilter.LengthFilter(30)});
                 break;
             case ITF:
                 et_barcode_content.setRawInputType(InputType.TYPE_CLASS_NUMBER);
-                InputFilter.LengthFilter lengthFilter = null;
+                InputFilter.LengthFilter lengthFilter;
                 if (curCmdType == DatabaseDAO.BaseEnums.CMD_ESC) {
                     inputTip = getString(R.string.tip_barcode_text_ITF);
                     lengthFilter = new InputFilter.LengthFilter(30);
@@ -171,8 +171,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[\\D]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, lengthFilter});
                 break;
@@ -185,8 +184,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[^0-9a-dA-D\\$\\+\\-\\./:]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, new InputFilter.AllCaps(), new InputFilter.LengthFilter(30)});
                 break;
@@ -213,8 +211,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[^\\p{ASCII}]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }, new InputFilter.AllCaps(), new InputFilter.LengthFilter(42)});
                 break;
@@ -227,8 +224,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
                     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
                         String regex = "[^\\p{ASCII}]";
-                        String s = source.toString().replaceAll(regex, "");
-                        return s;
+                        return source.toString().replaceAll(regex, "");
                     }
                 }});
                 break;
@@ -245,7 +241,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
     private void print() throws SdkException {
         barcodeContent = et_barcode_content.getText().toString();
         if (TextUtils.isEmpty(barcodeContent)) {
-            showToast("Ошибка");
+            showToast(getString(R.string.error_text));
         }
 
         if(rtPrinter == null){
@@ -253,12 +249,8 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
             return;
         }
 
-        switch (curCmdType) {
-            case DatabaseDAO.BaseEnums.CMD_ESC:
-                escPrint();
-                break;
-            default:
-                break;
+        if (curCmdType == DatabaseDAO.BaseEnums.CMD_ESC) {
+            escPrint();
         }
     }
 
@@ -288,6 +280,7 @@ public class BarcodePrintActivity extends UIViewController.BaseAdapter implement
         rtPrinter.writeMsgAsync(escCmd.getAppendCmds());
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

@@ -82,13 +82,13 @@ public class AdministratorActivity extends UIViewController.BaseAdapter implemen
             case R.id.btn_del_pass:
                 settingPasswordDialog.setPassword("");
                 administrator.setPassword("");
-                showToast("Пароль удалён");
+                showToast(getString(R.string.password_removed));
                 break;
             case R.id.btn_ok:
                 if (etPosition.getText().toString().isEmpty()) {
-                    showToast("Заполните должность");
+                    showToast(getString(R.string.fill_the_position));
                 } else if (etName.getText().toString().isEmpty()) {
-                    showToast("Заполните имя");
+                    showToast(getString(R.string.fill_the_name));
                 } else {
                     administrator.setPosition(etPosition.getText().toString());
                     administrator.setSurname(etSurname.getText().toString());

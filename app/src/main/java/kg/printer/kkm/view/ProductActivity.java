@@ -75,7 +75,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
 
         sprUnit = findViewById(R.id.spr_unit);
         sprUnit.setAdapter(adapterUnit);
-        sprUnit.setPrompt("Единица измерения");
+        sprUnit.setPrompt(getString(R.string.unit_label));
         sprUnit.setSelection(0);
         sprUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -104,7 +104,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     public void onClick(View view) {
         if (view.getId() == R.id.btn_ok) {
             if (etName.getText().toString().isEmpty()) {
-                showToast("Заполните наименование");
+                showToast(getString(R.string.fill_in_the_name));
             } else {
                 Product product = new Product(etName.getText().toString(), unitName, etPrice.getText().toString());
 

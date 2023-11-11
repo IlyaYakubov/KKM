@@ -102,7 +102,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
                     turnToSalesActivity(MenuActivity.class, -1, null, null, user);
                     etNumData.setText("");
                 } else {
-                    showToast("Неправильный пароль");
+                    showToast(getString(R.string.wrong_password));
                 }
                 break;
             case R.id.btn_zero:

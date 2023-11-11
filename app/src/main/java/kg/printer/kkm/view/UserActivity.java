@@ -123,14 +123,14 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
             case R.id.btn_del_pass:
                 settingPasswordDialog.setPassword("");
                 user.setPassword("");
-                showToast("Пароль удалён");
+                showToast(getString(R.string.password_removed));
                 hideKeyboard(view);
                 break;
             case R.id.btn_ok:
                 if (etPosition.getText().toString().isEmpty()) {
-                    showToast("Заполните должность");
+                    showToast(getString(R.string.fill_the_position));
                 } else if (etName.getText().toString().isEmpty()) {
-                    showToast("Заполните имя");
+                    showToast(getString(R.string.fill_the_name));
                 } else {
                     user.setPassword(settingPasswordDialog.getPassword());
                     user.setPosition(etPosition.getText().toString());
