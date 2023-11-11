@@ -28,7 +28,7 @@
         android:supportsRtl="true">
 
         <activity
-            android:name=".view.AuthenticationActivity"
+            android:name=".view.authorization.AuthenticationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden">
@@ -46,19 +46,19 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".view.CartActivity"
+            android:name=".view.sales.CartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".view.CashActivity"
+            android:name=".view.sales.CashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".view.SettingsActivity"
+            android:name=".view.MenuSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
@@ -82,7 +82,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".view.AdministratorActivity"
+            android:name=".view.authorization.AdministratorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
@@ -112,13 +112,13 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".view.ProductSelectionActivity"
+            android:name=".view.sales.ProductSelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".view.SaleActivity"
+            android:name=".view.sales.SaleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />

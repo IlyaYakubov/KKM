@@ -1,40 +1,39 @@
-package kg.printer.kkm.view;
+package kg.printer.kkm.view.sales;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.User;
-import kg.printer.kkm.services.AuthenticationService;
+import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
-public class AuthenticationActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
+public class CashActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
-    private Spinner sprLogin;
-    private EditText etNumData;
+    private TextView tvResult, tvChange;
+    private EditText etContributed, etNumData;
     private ImageButton btnClearNum;
-    private Button btnLogin, btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
+    private Button btnOk, btnEnter, btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
 
-    private ArrayList<User> users;
+    private double sum = 0;
 
-    private AuthenticationService authenticationService;
-
-    private User user = new User();
+    private SaleService saleService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_authentication);
+        setContentView(R.layout.activity_cash);
 
         init();
         initView();
@@ -50,15 +49,25 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
 
     @Override
     public void init() {
-        authenticationService = new AuthenticationService(this);
-        authenticationService.checkAllPermissions(this);
+        saleService = new SaleService(this);
+
+        Intent intent = getIntent();
+        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
+        assert result != null;
+        for (String delta : result) {
+            delta = delta.replace(',','.');
+            sum = sum + Double.parseDouble(delta);
+        }
     }
 
     @Override
     public void initView() {
-        sprLogin = findViewById(R.id.spr_login);
+        tvResult = findViewById(R.id.tv_result);
+        tvChange = findViewById(R.id.tv_change);
+        etContributed = findViewById(R.id.et_contributed);
         etNumData = findViewById(R.id.et_num_data);
-        btnLogin = findViewById(R.id.btn_login);
+        btnOk = findViewById(R.id.btn_ok);
+        btnEnter = findViewById(R.id.btn_enter);
         btnClearNum = findViewById(R.id.btn_clear_num);
         btnZero = findViewById(R.id.btn_zero);
         btnOne = findViewById(R.id.btn_one);
@@ -74,7 +83,29 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
 
     @Override
     public void addListener() {
-        btnLogin.setOnClickListener(this);
+        etContributed.addTextChangedListener(new TextWatcher() {
+            @SuppressWarnings("rawtypes")
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!etContributed.getText().toString().equals("")) {
+                    Map result = saleService.toCount(etContributed.getText().toString(), sum);
+
+                    tvResult.setText(String.valueOf(result.get("contributed")));
+                    tvChange.setText(String.valueOf(result.get("change")));
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        btnOk.setOnClickListener(this);
+        btnEnter.setOnClickListener(this);
         btnClearNum.setOnClickListener(this);
         btnZero.setOnClickListener(this);
         btnOne.setOnClickListener(this);
@@ -88,23 +119,33 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         btnNine.setOnClickListener(this);
     }
 
-    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
+    private void updateView() {
+        tvResult.setText(String.valueOf(sum));
+        etContributed.setText(String.valueOf(sum));
+        tvChange.setText("0");
+    }
+
     @Override
     public void onClick(View view) {
         String text = etNumData.getText().toString();
 
         switch (view.getId()) {
-            case R.id.btn_login:
-                // now text is password
-                user.setPassword(text);
-
-                if (authenticationService.findUser(user)) {
-                    user = authenticationService.findUserByListIndex(user.getListIndex());
-                    turnToActivityWithUser(MenuActivity.class, user);
-                    etNumData.setText("");
-                } else {
-                    UIViewController.ToastAdapter.show(this, "Неправльный пароль");
+            case R.id.btn_ok:
+                //noinspection EqualsBetweenInconvertibleTypes
+                if (etContributed.getText().equals("")) {
+                    return;
                 }
+
+                hideKeyboard(view);
+                finish();
+                break;
+            case R.id.btn_enter:
+                if (text.isEmpty()) {
+                    return;
+                }
+
+                etContributed.setText(text);
+                etNumData.setText("");
                 break;
             case R.id.btn_zero:
                 etNumData.setText(text + "0");
@@ -145,30 +186,12 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
         }
     }
 
-    private void updateView() {
-        users = authenticationService.readUsers();
-
-        List<String> names = new ArrayList<>();
-        for (User element : users) {
-            names.add(element.getName());
+    private void hideKeyboard(View view) {
+        View viewLayout = this.getCurrentFocus();
+        if (viewLayout != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) CashActivity.this.getSystemService(UIViewController.BaseAdapter.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        sprLogin.setAdapter(arrayAdapter);
-        sprLogin.setSelection(0);
-
-        sprLogin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                user.setListIndex(position);
-                user.setName(sprLogin.getSelectedItem().toString());
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-
-            }
-        });
     }
 
 }

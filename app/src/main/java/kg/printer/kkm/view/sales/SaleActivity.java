@@ -1,4 +1,4 @@
-package kg.printer.kkm.view;
+package kg.printer.kkm.view.sales;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -169,17 +169,14 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
                     return;
                 }
 
+                String sum = tvSum.getText().toString();
                 list.add(tvProduct.getText().toString()
                         + "          кол-во: " + tvQuantity.getText().toString()
-                        + " сумма: " + tvSum.getText().toString() + " руб.");
-                result.add(tvSum.getText().toString());
+                        + " сумма: " + sum + " руб.");
+                result.add(sum);
 
-                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-                intent.putExtra("list", list);
-                intent.putExtra("result", result);
-                intent.putExtra("sum", tvSum.getText().toString());
-                intent.putExtra("user", user);
-                startActivity(intent);
+                turnToCartActivity(list, result, user);
+
                 finish();
                 break;
             case R.id.btn_dot:

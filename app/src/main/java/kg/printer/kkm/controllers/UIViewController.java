@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +40,10 @@ import java.util.regex.Pattern;
 import kg.printer.kkm.R;
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.domains.User;
+import kg.printer.kkm.view.sales.CartActivity;
+import kg.printer.kkm.view.sales.CashActivity;
+import kg.printer.kkm.view.sales.ProductSelectionActivity;
+import kg.printer.kkm.view.sales.SaleActivity;
 
 public class UIViewController {
 
@@ -79,6 +82,37 @@ public class UIViewController {
             intent.putExtra("secondName", user.getSecondName());
             intent.putExtra("user", user);
             startActivity(intent);
+        }
+
+        public void turnToSaleActivity(int position, ArrayList<String> list, ArrayList<String> result, User user) {
+            Intent intent = new Intent(getApplicationContext(), SaleActivity.class);
+            intent.putExtra("position", String.valueOf(position));
+            intent.putStringArrayListExtra("list", list);
+            intent.putStringArrayListExtra("result", result);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        }
+
+        public void turnToCartActivity(ArrayList<String> list, ArrayList<String> result, User user) {
+            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+            intent.putExtra("list", list);
+            intent.putExtra("result", result);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        }
+
+        public void turnToProductSelectionActivity(ArrayList<String> products, ArrayList<String> result, User user) {
+            Intent intentProductsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
+            intentProductsList.putStringArrayListExtra("list", products);
+            intentProductsList.putStringArrayListExtra("result", result);
+            intentProductsList.putExtra("user", user);
+            startActivity(intentProductsList);
+        }
+
+        public void turnToCashActivity(ArrayList<String> result) {
+            Intent intentCash = new Intent(getApplicationContext(), CashActivity.class);
+            intentCash.putStringArrayListExtra("result", result);
+            startActivity(intentCash);
         }
 
         public void showToast(String msg){

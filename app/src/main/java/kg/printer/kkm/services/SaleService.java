@@ -7,9 +7,9 @@ import java.util.Map;
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.repositories.DatabaseDAO;
 import kg.printer.kkm.repositories.SaleDAO;
-import kg.printer.kkm.view.CashActivity;
-import kg.printer.kkm.view.ProductSelectionActivity;
-import kg.printer.kkm.view.SaleActivity;
+import kg.printer.kkm.view.sales.CashActivity;
+import kg.printer.kkm.view.sales.ProductSelectionActivity;
+import kg.printer.kkm.view.sales.SaleActivity;
 
 public class SaleService {
 

@@ -11,9 +11,9 @@ import kg.printer.kkm.domains.Administrator;
 import kg.printer.kkm.domains.User;
 import kg.printer.kkm.repositories.AuthenticationDAO;
 import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.view.AdministratorActivity;
-import kg.printer.kkm.view.AuthenticationActivity;
-import kg.printer.kkm.view.SaleActivity;
+import kg.printer.kkm.view.authorization.AdministratorActivity;
+import kg.printer.kkm.view.authorization.AuthenticationActivity;
+import kg.printer.kkm.view.sales.SaleActivity;
 import kg.printer.kkm.view.UserActivity;
 import kg.printer.kkm.view.UsersActivity;
 

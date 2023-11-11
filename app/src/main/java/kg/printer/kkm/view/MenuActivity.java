@@ -13,6 +13,7 @@ import java.util.Objects;
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 import kg.printer.kkm.domains.User;
+import kg.printer.kkm.view.sales.CartActivity;
 
 public class MenuActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
@@ -102,7 +103,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
                 turnToActivityWithUser(CartActivity.class, user);
                 break;
             case R.id.btn_settings:
-                turnToActivity(SettingsActivity.class);
+                turnToActivity(MenuSettingsActivity.class);
                 break;
             default:
                 break;

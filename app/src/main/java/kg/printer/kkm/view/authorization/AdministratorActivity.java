@@ -1,4 +1,4 @@
-package kg.printer.kkm.view;
+package kg.printer.kkm.view.authorization;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

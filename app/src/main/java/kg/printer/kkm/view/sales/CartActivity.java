@@ -1,4 +1,4 @@
-package kg.printer.kkm.view;
+package kg.printer.kkm.view.sales;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,7 +21,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     private Button btnSelectProduct, btnCash;
 
     private ArrayList<String> products = new ArrayList<>();
-    private ArrayList<String> results = new ArrayList<>();
+    private ArrayList<String> result = new ArrayList<>();
 
     private User user;
 
@@ -45,14 +45,13 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void init() {
         Intent intent = getIntent();
-        user = Objects.requireNonNull(intent.getExtras()).getParcelable("user");
         products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
-        results = intent.getExtras().getStringArrayList("result");
-        String sum = intent.getStringExtra("sum");
+        result = intent.getExtras().getStringArrayList("result");
+        user = Objects.requireNonNull(intent.getExtras()).getParcelable("user");
 
-        if (products == null || results == null) {
+        if (products == null || result == null) {
             products = new ArrayList<>();
-            results = new ArrayList<>();
+            result = new ArrayList<>();
         }
     }
 
@@ -74,11 +73,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_select_product:
-                Intent intentProductsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
-                intentProductsList.putStringArrayListExtra("list", products);
-                intentProductsList.putStringArrayListExtra("result", results);
-                intentProductsList.putExtra("user", user);
-                startActivity(intentProductsList);
+                turnToProductSelectionActivity(products, result, user);
                 finish();
                 break;
             case R.id.btn_cash:
@@ -86,9 +81,8 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
                     return;
                 }
 
-                Intent intentCash = new Intent(getApplicationContext(), CashActivity.class);
-                intentCash.putStringArrayListExtra("result", results);
-                startActivity(intentCash);
+                turnToCashActivity(result);
+
                 finish();
                 break;
             default:

@@ -8,7 +8,7 @@ import android.widget.Button;
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
 
-public class SettingsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
+public class MenuSettingsActivity extends UIViewController.BaseAdapter implements View.OnClickListener {
 
     private Button btnSetOrg, btnAddUser, btnProducts, btnUnits;
 

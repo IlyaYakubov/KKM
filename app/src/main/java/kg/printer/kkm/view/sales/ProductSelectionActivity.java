@@ -1,8 +1,6 @@
-package kg.printer.kkm.view;
+package kg.printer.kkm.view.sales;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,10 +9,7 @@ import android.widget.ListView;
 
 import kg.printer.kkm.R;
 import kg.printer.kkm.controllers.UIViewController;
-import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.domains.User;
-import kg.printer.kkm.repositories.DatabaseDAO;
-import kg.printer.kkm.services.ProductService;
 import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
@@ -73,12 +68,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
         lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), SaleActivity.class);
-                intent.putExtra("position", String.valueOf(position));
-                intent.putStringArrayListExtra("list", list);
-                intent.putStringArrayListExtra("result", result);
-                intent.putExtra("user", user);
-                startActivity(intent);
+                turnToSaleActivity(position, list, result, user);
                 finish();
             }
         });
