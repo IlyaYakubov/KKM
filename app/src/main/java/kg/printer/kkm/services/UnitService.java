@@ -23,12 +23,10 @@ public class UnitService {
     /**
      * Метод создает единицу измерения
      *
-     * @param name - наименование
-     * @param fullName - полное наименование
-     * @param code - международный код единицы измерения
+     * @param unit - единица измерения
      */
-    public void createUnit(String name, String fullName, String code) {
-        unitDAO.createUnit(name, fullName, code);
+    public void createUnit(Unit unit) {
+        unitDAO.createUnit(unit);
     }
 
     /**
@@ -41,13 +39,11 @@ public class UnitService {
     /**
      * Метод изменяет запись единицы измерения
      *
-     * @param name - наименование
-     * @param fullName - полное наименование
-     * @param code - международный код
+     * @param unit - единица измерения
      * @param listIndex - индекс в списке
      */
-    public void updateUnit(String name, String fullName, String code, int listIndex) {
-        unitDAO.updateUnit(name, fullName, code, listIndex);
+    public void updateUnit(Unit unit, int listIndex) {
+        unitDAO.updateUnit(unit, listIndex);
     }
 
     /**

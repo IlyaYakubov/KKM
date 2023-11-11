@@ -10,9 +10,10 @@ import kg.printer.kkm.domains.Unit;
 
 public class UnitDAO {
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final ArrayList<Unit> units = new ArrayList<>();
 
-    private DatabaseDAO dbHelper;
+    private final DatabaseDAO dbHelper;
 
     public UnitDAO(DatabaseDAO databaseDAO) {
         dbHelper = databaseDAO;
@@ -21,17 +22,15 @@ public class UnitDAO {
     /**
      * Метод создает единицу измерения
      *
-     * @param name - наименование
-     * @param fullName - полное наименование
-     * @param code - международный код единицы измерения
+     * @param unit - единица измерения
      */
-    public void createUnit(String name, String fullName, String code) {
+    public void createUnit(Unit unit) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("name", name);
-        cv.put("full_name", fullName);
-        cv.put("code", code);
+        cv.put("name", unit.getName());
+        cv.put("full_name", unit.getFullName());
+        cv.put("code", unit.getCode());
 
         cv.put("position_on_list", lastIndex() + 1);
 
@@ -69,18 +68,16 @@ public class UnitDAO {
     /**
      * Метод изменяет запись единицы измерения
      *
-     * @param name - наименование
-     * @param fullName - полное наименование
-     * @param code - международный код
+     * @param unit - единица измерения
      * @param listIndex - индекс в списке
      */
-    public void updateUnit(String name, String fullName, String code, int listIndex) {
+    public void updateUnit(Unit unit, int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("name", name);
-        cv.put("full_name", fullName);
-        cv.put("code", code);
+        cv.put("name", unit.getName());
+        cv.put("full_name", unit.getFullName());
+        cv.put("code", unit.getCode());
 
         cv.put("position_on_list", listIndex);
 

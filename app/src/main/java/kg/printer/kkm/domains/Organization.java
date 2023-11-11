@@ -2,10 +2,10 @@ package kg.printer.kkm.domains;
 
 public class Organization {
 
-    private String typeOfOwnership, tax, name, magazine_name, inn, address_magazine, telephone_magazine;
+    private String typeOfOwnership, taxation, name, magazineName, inn, magazineAddress, magazineTelephone;
 
     private final String[] typesOfOwnership = {"Индивидуальный предприниматель", "Юридическое лицо"};
-    private final String[] taxation = {"Общая система", "Упрощенная система"};
+    private final String[] taxationList = {"Общая система", "Упрощенная система"};
 
     public String getTypeOfOwnership() {
         return typeOfOwnership;
@@ -15,12 +15,12 @@ public class Organization {
         this.typeOfOwnership = typeOfOwnership;
     }
 
-    public String getTax() {
-        return tax;
+    public String getTaxation() {
+        return taxation;
     }
 
-    public void setTax(String tax) {
-        this.tax = tax;
+    public void setTaxation(String taxation) {
+        this.taxation = taxation;
     }
 
     public String getName() {
@@ -31,12 +31,12 @@ public class Organization {
         this.name = name;
     }
 
-    public String getMagazine_name() {
-        return magazine_name;
+    public String getMagazineName() {
+        return magazineName;
     }
 
-    public void setMagazine_name(String magazine_name) {
-        this.magazine_name = magazine_name;
+    public void setMagazineName(String magazineName) {
+        this.magazineName = magazineName;
     }
 
     public String getInn() {
@@ -47,28 +47,28 @@ public class Organization {
         this.inn = inn;
     }
 
-    public String getAddress_magazine() {
-        return address_magazine;
+    public String getMagazineAddress() {
+        return magazineAddress;
     }
 
-    public void setAddress_magazine(String address_magazine) {
-        this.address_magazine = address_magazine;
+    public void setMagazineAddress(String magazineAddress) {
+        this.magazineAddress = magazineAddress;
     }
 
-    public String getTelephone_magazine() {
-        return telephone_magazine;
+    public String getMagazineTelephone() {
+        return magazineTelephone;
     }
 
-    public void setTelephone_magazine(String telephone_magazine) {
-        this.telephone_magazine = telephone_magazine;
+    public void setMagazineTelephone(String magazineTelephone) {
+        this.magazineTelephone = magazineTelephone;
     }
 
     public String[] getTypesOfOwnership() {
         return typesOfOwnership;
     }
 
-    public String[] getTaxation() {
-        return taxation;
+    public String[] getTaxationList() {
+        return taxationList;
     }
 
 }

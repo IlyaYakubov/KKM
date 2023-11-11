@@ -62,7 +62,7 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
             }
         });
 
-        ArrayAdapter<String> adapterSystemNalog = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, organization.getTaxation());
+        ArrayAdapter<String> adapterSystemNalog = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, organization.getTaxationList());
         adapterSystemNalog.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sprTaxation = findViewById(R.id.spr_taxation);
@@ -72,7 +72,7 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
         sprTaxation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                organization.setTax(sprTaxation.getSelectedItem().toString());
+                organization.setTaxation(sprTaxation.getSelectedItem().toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -104,15 +104,16 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
             } else if (etInn.getText().toString().isEmpty() || etInn.getText().toString().length() < 14) {
                 UIViewController.ToastAdapter.show(this, "ИНН должен быть 14 знаков");
             } else {
-                String typeOfOwnership = sprTypeOfOwnership.getSelectedItem().toString();
-                String tax = sprTaxation.getSelectedItem().toString();
-                String org_name = etOrgName.getText().toString();
-                String inn = etInn.getText().toString();
-                String magazine_name = etMagazineName.getText().toString();
-                String address_magazine = etAddressMagazine.getText().toString();
-                String telephone_magazine = etTelephoneMagazine.getText().toString();
+                Organization organization = new Organization();
+                organization.setTypeOfOwnership(sprTypeOfOwnership.getSelectedItem().toString());
+                organization.setTaxation(sprTaxation.getSelectedItem().toString());
+                organization.setName(etOrgName.getText().toString());
+                organization.setInn(etInn.getText().toString());
+                organization.setMagazineName(etMagazineName.getText().toString());
+                organization.setMagazineAddress(etAddressMagazine.getText().toString());
+                organization.setMagazineTelephone(etTelephoneMagazine.getText().toString());
 
-                organizationService.updateOrganization(typeOfOwnership, tax, org_name, inn, magazine_name, address_magazine, telephone_magazine);
+                organizationService.updateOrganization(organization);
                 hideKeyboard(view);
                 finish();
             }
@@ -126,17 +127,17 @@ public class OrganizationActivity extends UIViewController.BaseAdapter implement
             sprTypeOfOwnership.setSelection(1);
         }
 
-        if (organization.getTax().equals("Общая система")) {
+        if (organization.getTaxation().equals("Общая система")) {
             sprTaxation.setSelection(0);
-        } else if (organization.getTax().equals("Упрощенная система")) {
+        } else if (organization.getTaxation().equals("Упрощенная система")) {
             sprTaxation.setSelection(1);
         }
 
         etOrgName.setText(organization.getName());
-        etMagazineName.setText(organization.getMagazine_name());
+        etMagazineName.setText(organization.getMagazineName());
         etInn.setText(organization.getInn());
-        etAddressMagazine.setText(organization.getAddress_magazine());
-        etTelephoneMagazine.setText(organization.getTelephone_magazine());
+        etAddressMagazine.setText(organization.getMagazineAddress());
+        etTelephoneMagazine.setText(organization.getMagazineTelephone());
     }
 
     private void hideKeyboard(View view) {

@@ -38,24 +38,20 @@ public class ProductService {
     /**
      * Метод создает запись номенклатуры
      *
-     * @param name - наименоване
-     * @param unit - единица измерения
-     * @param price - цена
+     * @param product - номенклатура
      */
-    public void createProduct(String name, String unit, String price) {
-        productDAO.createProduct(name, unit, price);
+    public void createProduct(Product product) {
+        productDAO.createProduct(product);
     }
 
     /**
      * Метод изменяет запись номенклатуры
      *
-     * @param name - новое наименование
-     * @param unit - новая единица измерения
-     * @param price - новая цена
+     * @param product - номенклатура
      * @param listIndex - индекс номенклатуры в списке
      */
-    public void updateProduct(String name, String unit, String price, int listIndex) {
-        productDAO.updateProduct(name, unit, price, listIndex);
+    public void updateProduct(Product product, int listIndex) {
+        productDAO.updateProduct(product, listIndex);
     }
 
     /**

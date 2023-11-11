@@ -73,14 +73,12 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
             if (etName.getText().toString().isEmpty()) {
                 UIViewController.ToastAdapter.show(this, "Заполните наименование");
             } else {
-                String name = etName.getText().toString();
-                String fullName = etFullName.getText().toString();
-                String codeName = etCodeName.getText().toString();
+                Unit unit = new Unit(etName.getText().toString(), etFullName.getText().toString(), etCodeName.getText().toString());
 
                 if (newItem == 1) {
-                    unitService.createUnit(name, fullName, codeName);
+                    unitService.createUnit(unit);
                 } else {
-                    unitService.updateUnit(name, fullName, codeName, listIndex);
+                    unitService.updateUnit(unit, listIndex);
                 }
 
                 hideKeyboard(view);

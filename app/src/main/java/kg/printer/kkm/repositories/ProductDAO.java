@@ -72,17 +72,15 @@ public class ProductDAO {
     /**
      * Метод создает запись номенклатуры
      *
-     * @param name - наименоване
-     * @param unit - единица измерения
-     * @param price - цена
+     * @param product - номенклатура
      */
-    public void createProduct(String name, String unit, String price) {
+    public void createProduct(Product product) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("name", name);
-        cv.put("unit", unit);
-        cv.put("price", price);
+        cv.put("name", product.getName());
+        cv.put("unit", product.getUnit());
+        cv.put("price", product.getPrice());
 
         cv.put("position_on_list", lastIndex() + 1);
 
@@ -92,18 +90,16 @@ public class ProductDAO {
     /**
      * Метод изменяет запись номенклатуры
      *
-     * @param name - новое наименование
-     * @param unit - новая единица измерения
-     * @param price - новая цена
+     * @param product - номенклатура
      * @param listIndex - индекс номенклатуры в списке
      */
-    public void updateProduct(String name, String unit, String price, int listIndex) {
+    public void updateProduct(Product product, int listIndex) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("name", name);
-        cv.put("unit", unit);
-        cv.put("price", price);
+        cv.put("name", product.getName());
+        cv.put("unit", product.getUnit());
+        cv.put("price", product.getPrice());
 
         cv.put("position_on_list", listIndex);
 

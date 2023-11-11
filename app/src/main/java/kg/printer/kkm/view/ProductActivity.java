@@ -106,13 +106,12 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
             if (etName.getText().toString().isEmpty()) {
                 UIViewController.ToastAdapter.show(this, "Заполните наименование");
             } else {
-                String name = etName.getText().toString();
-                String price = etPrice.getText().toString();
+                Product product = new Product(etName.getText().toString(), unitName, etPrice.getText().toString());
 
                 if (newItem == 1) {
-                    productService.createProduct(name, unitName, price);
+                    productService.createProduct(product);
                 } else {
-                    productService.updateProduct(name, unitName, price, listIndex);
+                    productService.updateProduct(product, listIndex);
                 }
 
                 hideKeyboard(view);
