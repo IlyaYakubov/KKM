@@ -54,7 +54,7 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add) {
-            turnToActivityWithPosition(ProductActivity.class, -1, 1);
+            turnToListsActivity(ProductActivity.class, -1, true);
         }
     }
 
@@ -64,7 +64,7 @@ public class ProductsActivity extends UIViewController.BaseAdapter implements Vi
 
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                turnToActivityWithPosition(ProductActivity.class, position, 0);
+                turnToListsActivity(ProductActivity.class, position, false);
             }
         });
     }

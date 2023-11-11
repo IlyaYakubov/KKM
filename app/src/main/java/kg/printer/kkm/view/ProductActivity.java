@@ -25,7 +25,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     private EditText etName, etPrice;
     private Button btnOk;
 
-    private int newItem; // 1 true - 0 false
+    private boolean newItem;
     private int listIndex;
 
     private String unitName;
@@ -54,15 +54,15 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
         productService = new ProductService(this);
 
         Intent intent = getIntent();
-        listIndex = intent.getIntExtra("listIndex", -1);
-        newItem = intent.getIntExtra("newItem", 1);
+        listIndex = intent.getIntExtra("list_index", -1);
+        newItem = intent.getBooleanExtra("new_item", true);
 
         // редактирование существующей номенклатуры
-        if (newItem == 0) {
-            product = productService.findProductByListIndex(listIndex);
-        } else {
+        if (newItem) {
             product = new Product();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            product = productService.findProductByListIndex(listIndex);
         }
 
         listUnits = productService.findAllUnits();
@@ -108,7 +108,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
             } else {
                 Product product = new Product(etName.getText().toString(), unitName, etPrice.getText().toString());
 
-                if (newItem == 1) {
+                if (newItem) {
                     productService.createProduct(product);
                 } else {
                     productService.updateProduct(product, listIndex);

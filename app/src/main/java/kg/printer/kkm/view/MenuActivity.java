@@ -20,8 +20,6 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     private TextView tvMessage;
     private Button btnSale, btnXReport, btnZReport, btnSettings;
 
-    private String position, surname, name, secondName;
-
     private User user;
 
     @Override
@@ -39,7 +37,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     protected void onResume() {
         super.onResume();
-        if (Objects.equals(position, "Администратор")) {
+        if (Objects.equals(user.getPosition(), "Администратор")) {
             btnSale.setText("Продажа (не доступна)");
             btnSale.setBackgroundColor(Color.WHITE);
             btnSale.setTextColor(Color.GRAY);
@@ -60,11 +58,6 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     public void init() {
         Intent intent = getIntent();
         user = intent.getParcelableExtra("user");
-
-        position = intent.getStringExtra("position");
-        surname = intent.getStringExtra("surname");
-        name = intent.getStringExtra("name");
-        secondName = intent.getStringExtra("secondName");
     }
 
     @Override
@@ -100,7 +93,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_reg_sale:
-                turnToActivityWithUser(CartActivity.class, user);
+                turnToSalesActivity(CartActivity.class, -1, null, null, user);
                 break;
             case R.id.btn_settings:
                 turnToActivity(MenuSettingsActivity.class);
@@ -111,7 +104,7 @@ public class MenuActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void updateView() {
-        if (name != null && !name.isEmpty()) {
+        if (user != null && !user.getName().isEmpty()) {
             tvMessage.setText(user.getName().trim());
         }
     }

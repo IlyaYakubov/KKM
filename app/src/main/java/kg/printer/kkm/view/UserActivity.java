@@ -27,7 +27,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
     private Switch swBackings, swDiscounts, swChangePrice, swOrders;
     private Button btnSetPass, btnDelPass, btnDelUser, btnOk;
 
-    private int newItem; // 1 true - 0 false
+    private boolean newItem;
     private int listIndex;
 
     public BasicPassFragment settingPasswordDialog;
@@ -61,17 +61,17 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
         settingPasswordDialog = new BasicPassFragment();
 
         Intent intent = getIntent();
-        listIndex = intent.getIntExtra("listIndex", -1);
-        newItem = intent.getIntExtra("newItem", 1);
+        listIndex = intent.getIntExtra("list_index", -1);
+        newItem = intent.getBooleanExtra("new_item", true);
 
         // редактирование существующего пользователя
-        if (newItem == 0) {
-            user = authenticationService.findUserByListIndex(listIndex);
-            settingPasswordDialog.setPassword(user.getPassword());
-        } else {
+        if (newItem) {
             user = new User();
             settingPasswordDialog.setPassword("");
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            user = authenticationService.findUserByListIndex(listIndex);
+            settingPasswordDialog.setPassword(user.getPassword());
         }
     }
 
@@ -150,7 +150,7 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                     user.setChangePrice(swChangePrice.isChecked());
                     user.setOrders(swOrders.isChecked());
 
-                    if (newItem == 1) {
+                    if (newItem) {
                         authenticationService.createUser(user);
                     } else {
                         authenticationService.updateUser(user, listIndex);
@@ -167,7 +167,9 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
 
     private void updateView() {
         // редактирование существующего пользователя
-        if (newItem == 0) {
+        if (newItem) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
             if (user != null) {
                 etPosition.setText(user.getPosition());
                 etSurname.setText(user.getSurname());
@@ -181,8 +183,6 @@ public class UserActivity extends UIViewController.BaseAdapter implements View.O
                 if (user.isChangePrice()) swChangePrice.setChecked(true);
                 if (user.isOrders()) swOrders.setChecked(true);
             }
-        } else {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
 
         setVisibleValueOfPercent();

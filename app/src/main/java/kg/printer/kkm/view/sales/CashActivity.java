@@ -1,5 +1,6 @@
 package kg.printer.kkm.view.sales;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,9 +53,9 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
         saleService = new SaleService(this);
 
         Intent intent = getIntent();
-        ArrayList<String> result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
-        assert result != null;
-        for (String delta : result) {
+        ArrayList<String> amountList = Objects.requireNonNull(intent.getExtras()).getStringArrayList("amount_list");
+        assert amountList != null;
+        for (String delta : amountList) {
             delta = delta.replace(',','.');
             sum = sum + Double.parseDouble(delta);
         }
@@ -125,6 +126,7 @@ public class CashActivity extends UIViewController.BaseAdapter implements View.O
         tvChange.setText("0");
     }
 
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View view) {
         String text = etNumData.getText().toString();

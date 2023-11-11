@@ -59,7 +59,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add) {
-            turnToActivityWithPosition(UserActivity.class, -1, 1);
+            turnToListsActivity(UserActivity.class, -1, true);
         }
     }
 
@@ -77,7 +77,7 @@ public class UsersActivity extends UIViewController.BaseAdapter implements View.
                 if (position == 0) {
                     turnToActivity(AdministratorActivity.class);
                 } else {
-                    turnToActivityWithPosition(UserActivity.class, position, 0);
+                    turnToListsActivity(UserActivity.class, position, false);
                 }
             }
         });

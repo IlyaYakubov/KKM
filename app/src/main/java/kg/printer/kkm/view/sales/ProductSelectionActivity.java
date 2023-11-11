@@ -13,13 +13,14 @@ import kg.printer.kkm.domains.User;
 import kg.printer.kkm.services.SaleService;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
     private ListView lvProducts;
 
-    private ArrayList<String> list;
-    private ArrayList<String> result;
+    private ArrayList<String> productList;
+    private ArrayList<String> amountList;
 
     private SaleService saleService;
 
@@ -47,8 +48,8 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
         saleService = new SaleService(this);
 
         Intent intent = getIntent();
-        list = intent.getExtras().getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("result");
+        productList = Objects.requireNonNull(intent.getExtras()).getStringArrayList("product_list");
+        amountList = Objects.requireNonNull(intent.getExtras()).getStringArrayList("amount_list");
         user = intent.getExtras().getParcelable("user");
     }
 
@@ -68,7 +69,7 @@ public class ProductSelectionActivity extends UIViewController.BaseAdapter {
 
         lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                turnToSaleActivity(position, list, result, user);
+                turnToSalesActivity(SaleActivity.class, position, productList, amountList, user);
                 finish();
             }
         });

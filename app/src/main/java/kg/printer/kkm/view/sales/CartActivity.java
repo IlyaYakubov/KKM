@@ -20,8 +20,8 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     private ListView lvData;
     private Button btnSelectProduct, btnCash;
 
-    private ArrayList<String> products = new ArrayList<>();
-    private ArrayList<String> result = new ArrayList<>();
+    private ArrayList<String> productList = new ArrayList<>();
+    private ArrayList<String> amountList = new ArrayList<>();
 
     private User user;
 
@@ -45,13 +45,13 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     @Override
     public void init() {
         Intent intent = getIntent();
-        products = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
-        result = intent.getExtras().getStringArrayList("result");
+        productList = Objects.requireNonNull(intent.getExtras()).getStringArrayList("product_list");
+        amountList = intent.getExtras().getStringArrayList("amount_list");
         user = Objects.requireNonNull(intent.getExtras()).getParcelable("user");
 
-        if (products == null || result == null) {
-            products = new ArrayList<>();
-            result = new ArrayList<>();
+        if (productList == null || amountList == null) {
+            productList = new ArrayList<>();
+            amountList = new ArrayList<>();
         }
     }
 
@@ -73,15 +73,15 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_select_product:
-                turnToProductSelectionActivity(products, result, user);
+                turnToSalesActivity(ProductSelectionActivity.class, -1, productList, amountList, user);
                 finish();
                 break;
             case R.id.btn_cash:
-                if (products.isEmpty()) {
+                if (productList.isEmpty()) {
                     return;
                 }
 
-                turnToCashActivity(result);
+                turnToSalesActivity(CashActivity.class, -1, null, amountList, null);
 
                 finish();
                 break;
@@ -91,7 +91,7 @@ public class CartActivity extends UIViewController.BaseAdapter implements View.O
     }
 
     private void updateView() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, productList);
         lvData.setAdapter(adapter);
     }
 

@@ -31,8 +31,8 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
     private Button btnQuantity, btnPrice;
     private Button btnOk;
 
-    private ArrayList<String> list;
-    private ArrayList<String> result;
+    private ArrayList<String> productList;
+    private ArrayList<String> amountList;
 
     private SaleService saleService;
     private AuthenticationService authenticationService;
@@ -64,9 +64,9 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
         authenticationService = new AuthenticationService(this);
 
         Intent intent = getIntent();
-        listIndex = Integer.parseInt(intent.getStringExtra("position"));
-        list = Objects.requireNonNull(intent.getExtras()).getStringArrayList("list");
-        result = Objects.requireNonNull(intent.getExtras()).getStringArrayList("result");
+        listIndex = Integer.parseInt(intent.getStringExtra("list_index"));
+        productList = Objects.requireNonNull(intent.getExtras()).getStringArrayList("product_list");
+        amountList = Objects.requireNonNull(intent.getExtras()).getStringArrayList("amount_list");
         user = Objects.requireNonNull(intent.getExtras()).getParcelable("user");
     }
 
@@ -170,12 +170,12 @@ public class SaleActivity extends UIViewController.BaseAdapter implements View.O
                 }
 
                 String sum = tvSum.getText().toString();
-                list.add(tvProduct.getText().toString()
+                productList.add(tvProduct.getText().toString()
                         + "          кол-во: " + tvQuantity.getText().toString()
                         + " сумма: " + sum + " руб.");
-                result.add(sum);
+                amountList.add(sum);
 
-                turnToCartActivity(list, result, user);
+                turnToSalesActivity(CartActivity.class, -1, productList, amountList, user);
 
                 finish();
                 break;

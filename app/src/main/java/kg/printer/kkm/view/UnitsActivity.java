@@ -55,7 +55,7 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add) {
-            turnToActivityWithPosition(UnitActivity.class, -1, 1);
+            turnToListsActivity(UnitActivity.class, -1, true);
         }
     }
 
@@ -65,7 +65,7 @@ public class UnitsActivity extends UIViewController.BaseAdapter implements View.
 
         lvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                turnToActivityWithPosition(UnitActivity.class, position, 0);
+                turnToListsActivity(UnitActivity.class, position, false);
             }
         });
     }

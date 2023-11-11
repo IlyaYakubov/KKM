@@ -40,10 +40,6 @@ import java.util.regex.Pattern;
 import kg.printer.kkm.R;
 import kg.printer.kkm.domains.Product;
 import kg.printer.kkm.domains.User;
-import kg.printer.kkm.view.sales.CartActivity;
-import kg.printer.kkm.view.sales.CashActivity;
-import kg.printer.kkm.view.sales.ProductSelectionActivity;
-import kg.printer.kkm.view.sales.SaleActivity;
 
 public class UIViewController {
 
@@ -63,56 +59,24 @@ public class UIViewController {
         }
 
         public void turnToActivity(Class<?> cls) {
-            Intent i = new Intent(this, cls);
-            startActivity(i);
-        }
-
-        public void turnToActivityWithPosition(Class<?> cls, int indexList, int newItem) {
             Intent intent = new Intent(this, cls);
-            intent.putExtra("listIndex", indexList);
-            intent.putExtra("newItem", newItem);
             startActivity(intent);
         }
 
-        public void turnToActivityWithUser(Class<?> cls, User user) {
+        public void turnToListsActivity(Class<?> cls, int indexList, boolean newItem) {
             Intent intent = new Intent(this, cls);
-            intent.putExtra("position", user.getPosition());
-            intent.putExtra("surname", user.getSurname());
-            intent.putExtra("name", user.getName());
-            intent.putExtra("secondName", user.getSecondName());
-            intent.putExtra("user", user);
+            intent.putExtra("list_index", indexList);
+            intent.putExtra("new_item", newItem);
             startActivity(intent);
         }
 
-        public void turnToSaleActivity(int position, ArrayList<String> list, ArrayList<String> result, User user) {
-            Intent intent = new Intent(getApplicationContext(), SaleActivity.class);
-            intent.putExtra("position", String.valueOf(position));
-            intent.putStringArrayListExtra("list", list);
-            intent.putStringArrayListExtra("result", result);
+        public void turnToSalesActivity(Class<?> cls, int listIndex, ArrayList<String> productList, ArrayList<String> amountList, User user) {
+            Intent intent = new Intent(this, cls);
+            intent.putExtra("list_index", String.valueOf(listIndex));
+            intent.putExtra("product_list", productList);
+            intent.putExtra("amount_list", amountList);
             intent.putExtra("user", user);
             startActivity(intent);
-        }
-
-        public void turnToCartActivity(ArrayList<String> list, ArrayList<String> result, User user) {
-            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-            intent.putExtra("list", list);
-            intent.putExtra("result", result);
-            intent.putExtra("user", user);
-            startActivity(intent);
-        }
-
-        public void turnToProductSelectionActivity(ArrayList<String> products, ArrayList<String> result, User user) {
-            Intent intentProductsList = new Intent(getApplicationContext(), ProductSelectionActivity.class);
-            intentProductsList.putStringArrayListExtra("list", products);
-            intentProductsList.putStringArrayListExtra("result", result);
-            intentProductsList.putExtra("user", user);
-            startActivity(intentProductsList);
-        }
-
-        public void turnToCashActivity(ArrayList<String> result) {
-            Intent intentCash = new Intent(getApplicationContext(), CashActivity.class);
-            intentCash.putStringArrayListExtra("result", result);
-            startActivity(intentCash);
         }
 
         public void showToast(String msg){

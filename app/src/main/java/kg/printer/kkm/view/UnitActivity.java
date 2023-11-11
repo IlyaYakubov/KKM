@@ -18,7 +18,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
     private EditText etName, etFullName, etCodeName;
     private Button btnOk;
 
-    private int newItem; // 1 true - 0 false
+    private boolean newItem;
     private int listIndex;
 
     private UnitService unitService;
@@ -42,15 +42,15 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
         unitService = new UnitService(this);
 
         Intent intent = getIntent();
-        listIndex = intent.getIntExtra("listIndex", -1);
-        newItem = intent.getIntExtra("newItem", 1);
+        listIndex = intent.getIntExtra("list_index", -1);
+        newItem = intent.getBooleanExtra("new_item", true);
 
         // редактирование существующей единицы измерения
-        if (newItem == 0) {
-            unit = unitService.findUnitByListIndex(listIndex);
-        } else {
+        if (newItem) {
             unit = new Unit();
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            unit = unitService.findUnitByListIndex(listIndex);
         }
     }
 
@@ -75,7 +75,7 @@ public class UnitActivity extends UIViewController.BaseAdapter implements View.O
             } else {
                 Unit unit = new Unit(etName.getText().toString(), etFullName.getText().toString(), etCodeName.getText().toString());
 
-                if (newItem == 1) {
+                if (newItem) {
                     unitService.createUnit(unit);
                 } else {
                     unitService.updateUnit(unit, listIndex);

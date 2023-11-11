@@ -26,8 +26,6 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
     private ImageButton btnClearNum;
     private Button btnLogin, btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
 
-    private ArrayList<User> users;
-
     private AuthenticationService authenticationService;
 
     private User user = new User();
@@ -101,7 +99,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
 
                 if (authenticationService.findUser(user)) {
                     user = authenticationService.findUserByListIndex(user.getListIndex());
-                    turnToActivityWithUser(MenuActivity.class, user);
+                    turnToSalesActivity(MenuActivity.class, -1, null, null, user);
                     etNumData.setText("");
                 } else {
                     UIViewController.ToastAdapter.show(this, "Неправльный пароль");
@@ -147,7 +145,7 @@ public class AuthenticationActivity extends UIViewController.BaseAdapter impleme
     }
 
     private void updateView() {
-        users = authenticationService.readUsers();
+        ArrayList<User> users = authenticationService.readUsers();
 
         List<String> names = new ArrayList<>();
         for (User element : users) {
