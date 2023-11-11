@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -20,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize">
 
             <EditText
                 android:id="@+id/et_position"
@@ -29,7 +31,8 @@
                 android:layout_marginTop="15dp"
                 android:hint="@string/position"
                 android:inputType="textPersonName"
-                android:text="@string/cashier" />
+                android:text="@string/cashier"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_surname"
@@ -37,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/surname"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_name"
@@ -45,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_second_name"
@@ -53,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/second_name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_inn"
@@ -62,7 +68,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/inn"
                 android:inputType="number"
-                android:maxLength="14" />
+                android:maxLength="14"
+                tools:ignore="Autofill" />
 
             <Switch
                 android:id="@+id/sw_change_price"
@@ -95,7 +102,8 @@
                     android:inputType="number"
                     android:maxLength="2"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp" />
+                    android:layout_marginRight="5dp"
+                    tools:ignore="Autofill,RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tv_percent"
@@ -147,7 +155,8 @@
             android:layout_marginRight="4dp"
             android:layout_weight="25"
             android:text="@string/pass"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:ignore="ButtonStyle,NestedWeights,RtlHardcoded,SmallSp" />
 
         <Button
             android:id="@+id/btn_del_pass"
@@ -156,7 +165,8 @@
             android:layout_marginRight="4dp"
             android:layout_weight="25"
             android:text="@string/del_pass"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:ignore="ButtonStyle,RtlHardcoded,SmallSp" />
 
         <Button
             android:id="@+id/btn_del_user"
@@ -165,7 +175,8 @@
             android:layout_marginRight="4dp"
             android:layout_weight="25"
             android:text="@string/delete"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:ignore="ButtonStyle,RtlHardcoded,SmallSp" />
 
         <Button
             android:id="@+id/btn_ok"
@@ -173,7 +184,8 @@
             android:layout_height="match_parent"
             android:layout_weight="25"
             android:text="@string/dialog_ok"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:ignore="ButtonStyle,SmallSp" />
 
     </LinearLayout>
 

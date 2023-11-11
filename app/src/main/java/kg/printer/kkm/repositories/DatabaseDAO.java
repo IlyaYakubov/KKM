@@ -57,16 +57,16 @@ public class DatabaseDAO extends SQLiteOpenHelper {
                 + "list_index TEXT,"
                 + "name TEXT,"
                 + "full_name TEXT,"
-                + "code TEXT," // международный код
-                + "product_id INTEGER,"
-                + "foreign key (product_id) references products (id)"
+                + "code TEXT" // международный код
                 + ");");
         db.execSQL("create table products ("
                 + "id INTEGER primary key autoincrement,"
                 + "list_index TEXT,"
                 + "name TEXT,"
                 + "unit TEXT,"
-                + "price TEXT"
+                + "price TEXT,"
+                + "unit_id INTEGER,"
+                + "foreign key (unit_id) references units (id)"
                 + ");");
         db.execSQL("create table sales_receipts (" // чеки продажи
                 + "id INTEGER primary key autoincrement,"

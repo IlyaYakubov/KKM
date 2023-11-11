@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -20,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize">
 
             <EditText
                 android:id="@+id/et_name"
@@ -28,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/name_product"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="Autofill" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,7 +44,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|left"
-                    android:text="@string/unit" />
+                    android:text="@string/unit"
+                    tools:ignore="RtlHardcoded" />
 
                 <Spinner
                     android:id="@+id/spr_unit"
@@ -59,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/price"
-                android:inputType="number|numberDecimal" />
+                android:inputType="number|numberDecimal"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
 
@@ -71,7 +76,8 @@
         android:layout_alignParentBottom="true"
         android:layout_weight="2"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="ObsoleteLayoutParam">
 
         <Button
             android:id="@+id/btn_ok"

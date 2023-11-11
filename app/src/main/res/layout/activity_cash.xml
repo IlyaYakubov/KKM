@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
@@ -20,7 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/contributed"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    tools:ignore="Autofill" />
 
             </LinearLayout>
 
@@ -89,20 +92,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <EditText
                 android:id="@+id/et_num_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:enabled="false" />
+                android:enabled="false"
+                tools:ignore="Autofill,NestedWeights,TextFields" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,7 +122,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="7" />
+                    android:text="7"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_eight"
@@ -124,7 +131,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="8" />
+                    android:text="8"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_nine"
@@ -132,7 +140,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="9" />
+                    android:text="9"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
@@ -148,7 +157,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="4" />
+                    android:text="4"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_five"
@@ -156,7 +166,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="5" />
+                    android:text="5"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_six"
@@ -164,7 +175,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="6" />
+                    android:text="6"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
@@ -180,7 +192,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="1" />
+                    android:text="1"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_two"
@@ -188,7 +201,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="2" />
+                    android:text="2"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_three"
@@ -196,7 +210,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="3" />
+                    android:text="3"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
@@ -212,7 +227,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="0" />
+                    android:text="0"
+                    tools:ignore="InefficientWeight" />
 
             </LinearLayout>
 
@@ -223,7 +239,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_weight="3"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="RtlHardcoded">
 
             <ImageButton
                 android:id="@+id/btn_clear_num"
@@ -233,7 +250,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="4"
-                android:src="@drawable/back" />
+                android:src="@drawable/back"
+                tools:ignore="ContentDescription" />
 
             <Button
                 android:id="@+id/btn_enter"
@@ -255,7 +273,8 @@
         android:layout_alignParentBottom="true"
         android:layout_weight="2"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="ObsoleteLayoutParam">
 
         <Button
             android:id="@+id/btn_ok"

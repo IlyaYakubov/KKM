@@ -830,14 +830,15 @@ id default_activity_button
 id disableHome
 id edit_query
 id end
-id et_address_magazine
 id et_barcode_content
 id et_code_name
 id et_confirm_password
 id et_contributed
 id et_full_name
 id et_inn
+id et_magazine_address
 id et_magazine_name
+id et_magazine_telephone
 id et_name
 id et_num_data
 id et_org_name
@@ -852,7 +853,6 @@ id et_set_net_gateway
 id et_set_net_ip
 id et_set_net_mask
 id et_surname
-id et_telephone_magazine
 id et_text
 id et_wifi_pd
 id expand_activities_button

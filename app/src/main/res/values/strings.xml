@@ -6,7 +6,7 @@
     <string name="UPC_E">UPC-E</string>
     <string name="EAN13">EAN13</string>
     <string name="EAN14">EAN14</string>
-    <string name="GS1">GS1</string>
+    <string name="GS1" tools:ignore="Typos">GS1</string>
     <string name="EAN8">EAN8</string>
     <string name="CODE39">CODE39</string>
     <string name="ITF">ITF</string>
@@ -44,7 +44,7 @@
     <string name="tip_have_no_found_bluetooth_device">Нет устройств</string>
     <string name="search_device">Поиск</string>
     <string name="dialog_cancel">Отмена</string>
-    <string name="dialog_ok">Ok</string>
+    <string name="dialog_ok">OK</string>
     <string name="dialog_tip">Сообщение:</string>
     <string name="main_pls_choose_device">Выберите устройство</string>
     <string name="dialog_back">Назад</string>
@@ -61,11 +61,11 @@
     <string name="tip_barcode_text_UPC_E">Character Number: 6,Range:0~9, Automatic Check</string>
     <string name="tip_barcode_text_EAN13">Character Number: 12,Range:0~9, Automatic Check</string>
     <string name="tip_barcode_text_EAN8">Character Number: 7, Range: 0~9, Automatic Check</string>
-    <string name="tip_barcode_text_CODE39">Character number: 1~30, range: 0-9, A~Z, space,\"$\",\"%\",\"+\",\"-\",\".\",\"/\"</string>
-    <string name="tip_barcode_text_ITF">The Number Of Characters: Less Than 30 (Even), range: 0-9</string>
-    <string name="tip_barcode_text_CODABAR">The number of characters: 1-30, range: 0-9, A-D, "$\", "\ + \", \ "-\", \ ". \", \ "/ \", \ ": \", A-D only start to coincide and terminator</string>
-    <string name="tip_barcode_text_CODE93">The number of characters：1-30，range：0-9、A-D、\"$\"、\"+\"、\"-\"、\".\"、\"/\"、\":\"</string>
-    <string name="tip_barcode_text_CODE128">The number of characters：1-42，range：Arbitrary character</string>
+    <string name="tip_barcode_text_CODE39" tools:ignore="TypographyDashes">Character number: 1~30, range: 0-9, A~Z, space,\"$\",\"%\",\"+\",\"-\",\".\",\"/\"</string>
+    <string name="tip_barcode_text_ITF" tools:ignore="TypographyDashes">The Number Of Characters: Less Than 30 (Even), range: 0-9</string>
+    <string name="tip_barcode_text_CODABAR" tools:ignore="TypographyDashes">The number of characters: 1-30, range: 0-9, A-D, "$\", "\ + \", \ "-\", \ ". \", \ "/ \", \ ": \", A-D only start to coincide and terminator</string>
+    <string name="tip_barcode_text_CODE93" tools:ignore="TypographyDashes">The number of characters：1-30，range：0-9、A-D、\"$\"、\"+\"、\"-\"、\".\"、\"/\"、\":\"</string>
+    <string name="tip_barcode_text_CODE128" tools:ignore="TypographyDashes">The number of characters：1-42，range：Arbitrary character</string>
     <string name="tip_barcode_text_QR_CODE">range：Arbitrary character</string>
     <string name="tip_barcode_text_ITF14">The Number Of Characters: 14</string>
 
@@ -185,6 +185,10 @@
     <string name="contributed">Внесено</string>
     <string name="change">Сдача</string>
     <string name="receipt">Пробить чек</string>
+
+    <!-- others -->
+    <string name="pass_text">Пароль</string>
+    <string name="delete_pass_text">Удалить пароль</string>
 
 </resources>
 
