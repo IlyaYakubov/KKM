@@ -29,6 +29,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
     private boolean newItem;
 
     private String unitName;
+    private int unitId;
 
     private ArrayAdapter<String> adapterUnit;
     private ArrayList<String> listUnits = new ArrayList<>();
@@ -81,6 +82,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 unitName = sprUnit.getSelectedItem().toString();
+                unitId = position;
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -106,7 +108,7 @@ public class ProductActivity extends UIViewController.BaseAdapter implements Vie
             if (etName.getText().toString().isEmpty()) {
                 showToast(getString(R.string.fill_in_the_name));
             } else {
-                Product product = new Product(etName.getText().toString(), unitName, etPrice.getText().toString());
+                Product product = new Product(etName.getText().toString(), unitName, unitId, etPrice.getText().toString());
 
                 if (newItem) {
                     productService.createProduct(product);

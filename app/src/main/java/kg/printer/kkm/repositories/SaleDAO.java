@@ -60,9 +60,13 @@ public class SaleDAO {
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
             int unitColIndex = cursor.getColumnIndex("unit");
+            int unitIdColIndex = cursor.getColumnIndex("unit_id");
             int priceColIndex = cursor.getColumnIndex("price");
 
-            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(unitColIndex), cursor.getString(priceColIndex)));
+            products.add(new Product(cursor.getString(positionColIndex)
+                    , cursor.getString(unitColIndex)
+                    , cursor.getInt(unitIdColIndex)
+                    , cursor.getString(priceColIndex)));
         }
 
         cursor.close();

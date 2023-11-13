@@ -33,9 +33,13 @@ public class ProductDAO {
         while (cursor.moveToNext()) {
             int positionColIndex = cursor.getColumnIndex("name");
             int unitColIndex = cursor.getColumnIndex("unit");
+            int unitIdColIndex = cursor.getColumnIndex("unit_id");
             int priceColIndex = cursor.getColumnIndex("price");
 
-            products.add(new Product(cursor.getString(positionColIndex), cursor.getString(unitColIndex), cursor.getString(priceColIndex)));
+            products.add(new Product(cursor.getString(positionColIndex)
+                    , cursor.getString(unitColIndex)
+                    , cursor.getInt(unitIdColIndex)
+                    , cursor.getString(priceColIndex)));
         }
 
         cursor.close();
@@ -59,9 +63,13 @@ public class ProductDAO {
         if (cursor.moveToNext()) {
             int nameColIndex = cursor.getColumnIndex("name");
             int unitColIndex = cursor.getColumnIndex("unit");
+            int unitIdColIndex = cursor.getColumnIndex("unit_id");
             int priceColIndex = cursor.getColumnIndex("price");
 
-            product = new Product(cursor.getString(nameColIndex), cursor.getString(unitColIndex), cursor.getString(priceColIndex));
+            product = new Product(cursor.getString(nameColIndex)
+                    , cursor.getString(unitColIndex)
+                    , cursor.getInt(unitIdColIndex)
+                    , cursor.getString(priceColIndex));
         }
 
         cursor.close();
@@ -80,6 +88,7 @@ public class ProductDAO {
 
         cv.put("name", product.getName());
         cv.put("unit", product.getUnit());
+        cv.put("unit_id", product.getUnitId());
         cv.put("price", product.getPrice());
 
         cv.put("list_index", lastIndex() + 1);
@@ -99,6 +108,7 @@ public class ProductDAO {
 
         cv.put("name", product.getName());
         cv.put("unit", product.getUnit());
+        cv.put("unit_id", product.getUnitId());
         cv.put("price", product.getPrice());
 
         cv.put("list_index", listIndex);

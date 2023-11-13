@@ -1154,6 +1154,7 @@ string check_products
 string choose_bluetooth_device
 string choose_picture_position
 string choose_usb_device
+string click_on_connect
 string cmdtype_cpcl
 string cmdtype_esc
 string cmdtype_pin
@@ -1169,6 +1170,7 @@ string cto
 string cto_mode
 string del_pass
 string delete
+string delete_pass_text
 string dialog_back
 string dialog_cancel
 string dialog_ok
@@ -1178,13 +1180,23 @@ string disconnect
 string discounts
 string edit_product
 string enter
+string enter_correct_data
 string erase
+string error_text
+string fill_in_the_name
+string fill_in_the_name_of_the_organization
+string fill_in_the_name_of_the_outlet
+string fill_the_name
+string fill_the_position
 string forwards
 string full_name_unit
+string general_system
 string head_bar_back
 string image_print
+string individual_entrepreneur
 string info
 string inn
+string inn_must_be_fourteen_characters
 string insert_sdcard_tip
 string magazine_address
 string magazine_name
@@ -1201,6 +1213,8 @@ string org_name
 string org_setting
 string paired_devices
 string pass
+string pass_text
+string password_removed
 string percent
 string phone
 string picture
@@ -1230,6 +1244,7 @@ string set_unit
 string set_user
 string settings
 string show_connected_devices
+string simplified_system
 string ssid
 string status_bar_notification_info_overflow
 string sum
@@ -1259,6 +1274,7 @@ string tip_upload_image
 string title_activity_barcode_print
 string title_barcode
 string unit
+string unit_label
 string units
 string upload_image
 string users
@@ -1274,6 +1290,7 @@ string wifi_mode
 string wifi_net_settings_ip_dhcp
 string wifi_save_change
 string wifi_settings
+string wrong_password
 string x_report
 string z_report
 string zero
